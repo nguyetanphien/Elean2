@@ -12,6 +12,7 @@ abstract class BaseViewModel extends ChangeNotifier {
   bool _showLoading = false;
   late VoidCallback onShowLoading, onHideLoading;
   late void Function(String) onShowError;
+  late void Function(String) onShowSusse;
 
   BaseViewModel() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,6 +41,9 @@ abstract class BaseViewModel extends ChangeNotifier {
     hideLoading();
     onShowError.call(message);
   }
+  void showSucces(String message) {
+    onShowSusse.call(message);
+  }
 
   void showErrorConnection() {
     hideLoading();
@@ -53,6 +57,7 @@ abstract class BaseViewModel extends ChangeNotifier {
       // showError(S.of(MedicalApp.context!).message_error_process_failed);
     });
   }
+
 
   void appear() {
     if (_isFirst) {

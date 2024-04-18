@@ -18,21 +18,359 @@ class _ApiService implements ApiService {
 
   String? baseUrl;
 
+@override
+  Future<BaseResponse<DeatilCouseRespone>> getCourse(
+    String? id,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<DeatilCouseRespone>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/get-one-course/learn/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<DeatilCouseRespone>.fromJson(
+      _result.data!,
+      (json) => DeatilCouseRespone.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
   @override
-  Future<MusicResponse> getMusic() async {
-    const _extra = <String, dynamic>{};
+  Future<BaseListResponse<CourseTypeModel>> getCourseType() async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<MusicResponse>(Options(
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CourseTypeModel>>(Options(
       method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/get-all-course-type',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseListResponse<CourseTypeModel>.fromJson(
+      _result.data!,
+      (json) => CourseTypeModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseListResponse<CourseIntroModel>> getAllCourseToType(
+    String? id,
+    int? limit,
+    int? page,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CourseIntroModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/get-course-by-type/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseListResponse<CourseIntroModel>.fromJson(
+      _result.data!,
+      (json) => CourseIntroModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseListResponse<CourseIntroModel>> getSearch(
+    String? search,
+    String? type,
+    int? limit,
+    int? page,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'keySearch': search,
+      r'type': type,
+      r'limit': limit,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CourseIntroModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/search',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseListResponse<CourseIntroModel>.fromJson(
+      _result.data!,
+      (json) => CourseIntroModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<CourseShemaModel>> postCart(
+    String? id,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    // _data.addAll(body?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<CourseShemaModel>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/cart/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<CourseShemaModel>.fromJson(
+      _result.data!,
+      (json) => CourseShemaModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseListResponse<CartResponse>> getCart(
+    String? id,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CartResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/cart/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseListResponse<CartResponse>.fromJson(
+      _result.data!,
+      (json) => CartResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseListResponse<CartResponse>> deleteCart(
+    String? id,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CartResponse>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/cart/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseListResponse<CartResponse>.fromJson(
+      _result.data!,
+      (json) => CartResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<VnpayRespone> payCourse(
+    String? idUser,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<VnpayRespone>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/create-order/payment/create_payment_url/${idUser}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = VnpayRespone.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> createReview(
+    String? id,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    ReviewBody? body,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/feedback/review/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> createReplyComent(
+    String? idComment,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    ReplyCommentBody? body,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'uamp/catalog.json',
+              '/feedback/reply-review/${idComment}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -41,7 +379,171 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = MusicResponse.fromJson(_result.data!);
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseListResponse<ReviewResponse>> getReview(
+    String? id,
+    int? limit,
+    int? page,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseListResponse<ReviewResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/feedback/get-review/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseListResponse<ReviewResponse>.fromJson(
+      _result.data!,
+      (json) => ReviewResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> createQuestion(
+    String? idVideo,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    QuestionBody? body,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/feedback/add-question/${idVideo}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> createAnwser(
+    String? idComment,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    AnwserBody? body,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/feedback/add-anwser/${idComment}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseListResponse<AnswerAndQuestionRespone>> getQuestionAndAnwser(
+    String? idVideo,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    int? limit,
+    int? page,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseListResponse<AnswerAndQuestionRespone>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/feedback/get-question/${idVideo}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseListResponse<AnswerAndQuestionRespone>.fromJson(
+      _result.data!,
+      (json) => AnswerAndQuestionRespone.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 

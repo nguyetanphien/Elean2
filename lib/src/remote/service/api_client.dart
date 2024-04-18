@@ -4,10 +4,10 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
+import 'package:kltn/src/remote/service/auth_service.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:path/path.dart' as p;
-
 import '../../constants/constants.dart';
 import 'api_service.dart';
 
@@ -16,6 +16,7 @@ import 'api_service.dart';
 class ApiClient {
   final dio = Dio();
   late ApiService apiServices;
+  late AuthService authService;
   var logger = Logger(
     printer: PrettyPrinter(
         methodCount: 2,
@@ -65,12 +66,12 @@ class ApiClient {
           }
 
           try {
-            final message = error.response?.data['data']['message']?.toString();
+            // final message = error.response?.data['data']['message']?.toString();
             //error.error = message ?? "Processing failed. please try again.";
             handler.reject(error);
           } catch (_) {
-            final msg = error.response?.data[0]['msg']?.toString();
-            //error.error = msg ?? "Processing failed. please try again.";
+            // final msg = error.response?.data['message']?.toString();
+            // ErrorPopup.show(MedicalApp.context!,msg??'');
             handler.reject(error);
           }
         },
@@ -78,5 +79,6 @@ class ApiClient {
     );
 
     apiServices = ApiService(dio, baseUrl: Constants.baseURL);
+    authService = AuthService(dio, baseUrl: Constants.baseURL);
   }
 }

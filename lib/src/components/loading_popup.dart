@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:kltn/src/utils/app_colors.dart';
 
 class LoadingPopup extends StatelessWidget {
   static const router = 'loading_popup';
@@ -25,8 +26,8 @@ class LoadingPopup extends StatelessWidget {
             height: 100,
             width: 100,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: const SpinKitCircle(size: 40, color: Colors.purpleAccent)),
+                color: Colors.transparent, borderRadius: BorderRadius.circular(16)),
+            child: const SpinKitCircle(size: 40, color: AppColors.blue_246BFD)),
       ),
     );
   }

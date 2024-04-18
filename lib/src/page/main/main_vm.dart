@@ -1,11 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'package:dio/dio.dart';
+import 'dart:developer';
 
 import '../../base/base_vm.dart';
-import '../ui.dart';
-
+import '../book_mark/book_mark_page.dart';
+import '../home/home.dart';
+import '../my_course/my_course.dart';
+import '../profile/profile_page.dart';
 
 class MainBoardVM extends BaseViewModel {
   //final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -13,17 +12,19 @@ class MainBoardVM extends BaseViewModel {
   bool select = true;
 
   final home = const HomePage();
-  // final news = const PaymentPage();
-  // final notification = const NotificationPage();
-  // final supportSOS = const SupportPage();
+  final myCourse = const MyCoursePage();
+  final bookMark = const BookMarkPage();
+  final profile = const ProfilePage();
   // final setting = SettingsPage();
   MainBoardVM() {
-    print("MainBoardVM");
+    log("MainBoardVM");
   }
 
   @override
   void onInit() {
-   // getSetting();
+    // getSetting();
+    log("token: ${prefs.token.toString()}");
+    log("userid: ${prefs.userID.toString()}");
   }
 
   void changePage(int index) {

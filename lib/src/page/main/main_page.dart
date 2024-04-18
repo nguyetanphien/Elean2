@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kltn/src/utils/app_colors.dart';
 
 import '../../base/base_page.dart';
 import 'main_vm.dart';
@@ -14,20 +15,20 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
     return builder(
       () => Builder(builder: (context) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: false,
           body: IndexedStack(
             index: provider.currentIndex,
             children: [
               provider.home,
-              // provider.news,
-              // provider.supportSOS,
-              // provider.notification,
-              // provider.setting,
+              provider.myCourse,
+              provider.bookMark,
+              provider.profile,
             ],
           ),
           bottomNavigationBar: BottomAppBar(
             shape: const CircularNotchedRectangle(),
             clipBehavior: Clip.antiAlias,
+
             color: Colors.amber,
             // padding: EdgeInsets.zero,
             notchMargin: 6,
@@ -36,36 +37,36 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
               currentIndex: provider.currentIndex,
               backgroundColor: Colors.white,
               showSelectedLabels: false,
+              useLegacyColorScheme: false,
               showUnselectedLabels: false,
               elevation: 0,
               onTap: (index) {
-                print(index);
                 provider.changePage(index);
               },
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: Colors.black,
+                    color: AppColors.grayA2,
                     size: 20,
                   ),
                   label: '',
                   activeIcon: Icon(
                     Icons.home,
                     size: 20,
-                    color: Colors.amber,
+                    color: AppColors.blue_246BFD,
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.payment,
-                    color: Colors.black,
+                    Icons.menu_book_outlined,
+                    color: AppColors.grayA2,
                     size: 20,
                   ),
                   label: '',
                   activeIcon: Icon(
-                    Icons.payment,
-                    color: Colors.amber,
+                    Icons.menu_book_outlined,
+                    color: AppColors.blue_246BFD,
                     size: 20,
                   ),
                 ),
@@ -79,28 +80,28 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
                 // ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.history,
-                    color: Colors.black,
+                    Icons.book_rounded,
+                    color: AppColors.grayA2,
                     size: 20,
                   ),
                   label: '',
                   activeIcon: Icon(
-                    Icons.history,
-                    color: Colors.amber,
+                    Icons.book_rounded,
+                    color: AppColors.blue_246BFD,
                     size: 20,
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.settings,
-                    color: Colors.black,
-                    size: 20,
+                    Icons.person,
+                    color: AppColors.grayA2,
+                    size: 23,
                   ),
                   label: '',
                   activeIcon: Icon(
-                    Icons.settings,
-                    color: Colors.amber,
-                    size: 20,
+                    Icons.person,
+                    color: AppColors.blue_246BFD,
+                    size: 23,
                   ),
                 ),
               ],

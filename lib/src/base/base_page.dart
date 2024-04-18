@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:kltn/src/components/succes_popup.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -31,6 +32,10 @@ mixin MixinBasePage<T extends BaseViewModel> {
 
         _provider.onShowError = (message) {
           ErrorPopup.show(context, message);
+        };
+
+        _provider.onShowSusse = (message) {
+          SuccesPopup.show(context, message);
         };
 
         initialise(context);

@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.2 <4.0.0'
+  sdk: '>=3.1.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -29,6 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
 
@@ -54,6 +56,22 @@ dependencies:
   visibility_detector: ^0.3.3
 
   flutter_spinkit: ^5.1.0
+  flutter_rating_bar: ^4.0.1
+  video_player: ^2.8.2
+  chewie: ^1.7.5
+  flutter_svg: ^2.0.9
+  intl: ^0.18.0
+  image_picker: ^1.0.7
+  internet_connection_checker: ^1.0.0+1
+  fluttertoast: ^8.2.4
+  pull_to_refresh: ^2.0.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.1.0
+  toastification: ^1.2.1
+  flutter_webview_plugin: ^0.4.0
+  url_launcher: ^6.2.4
+  flutter_inappwebview: ^5.8.0
+  # flutter_localization: ^0.2.0
 
 dev_dependencies:
   flutter_test:
