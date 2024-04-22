@@ -37,42 +37,38 @@ Object? _$nullableGenericToJson<T>(
 ) =>
     input == null ? null : toJson(input);
 
-DeatilCouseRespone _$DeatilCouseResponeFromJson(Map<String, dynamic> json) =>
-    DeatilCouseRespone()
-      ..id = json['_id'] as String?
-      ..courseName = json['course_name'] as String?
-      ..courseType = json['course_type'] as String?
-      ..courseDescription = json['course_description'] as String?
-      ..courseThumnail = json['course_thumnail'] as String?
-      ..courseDemoVideo = json['course_demoVideo'] as String?
-      ..coursePrice = json['course_price'] as int?
-      ..coursePurchased = json['course_purchased'] as int?
-      ..totalLength = json['totalLength'] as int?
-      ..courseRatingsAverage =
-          (json['course_ratingsAverage'] as num?)?.toDouble()
-      ..courseBenefits = (json['course_benefits'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList()
-      ..courseLessonContent = (json['course_lessonContent'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList()
-      ..getCourseData = (json['courseData'] as List<dynamic>?)
-          ?.map((e) => CourseModel.fromJson(e as Map<String, dynamic>))
-          .toList();
+DeatilCouseRespone _$DeatilCouseResponeFromJson(Map<String, dynamic> json) => DeatilCouseRespone()
+  ..id = json['_id'] as String?
+  ..courseName = json['course_name'] as String?
+  ..courseType = json['course_type'] as String?
+  ..courseDescription = json['course_description'] as String?
+  ..courseThumnail = json['course_thumnail'] as String?
+  ..courseDemoVideo = json['course_demoVideo'] as String?
+  ..userTeacher = json['user_teacher'] as String?
+  ..coursePrice = json['course_price'] as int?
+  ..coursePurchased = json['course_purchased'] as int?
+  ..totalLength = json['total_length_video'] as int?
+  ..courseRatingsAverage = (json['course_ratingsAverage'] as num?)?.toDouble()
+  ..courseBenefits = (json['course_benefits'] as List<dynamic>?)?.map((e) => e as String).toList()
+  ..isUserReview = json['is_user_review'] as bool?
+  ..courseLessonContent = (json['course_lessonContent'] as List<dynamic>?)?.map((e) => e as String).toList()
+  ..getCourseData =
+      (json['course_data'] as List<dynamic>?)?.map((e) => CourseModel.fromJson(e as Map<String, dynamic>)).toList();
 
-Map<String, dynamic> _$DeatilCouseResponeToJson(DeatilCouseRespone instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$DeatilCouseResponeToJson(DeatilCouseRespone instance) => <String, dynamic>{
       '_id': instance.id,
       'course_name': instance.courseName,
       'course_type': instance.courseType,
       'course_description': instance.courseDescription,
       'course_thumnail': instance.courseThumnail,
       'course_demoVideo': instance.courseDemoVideo,
+      'user_teacher': instance.userTeacher,
       'course_price': instance.coursePrice,
       'course_purchased': instance.coursePurchased,
-      'totalLength': instance.totalLength,
+      'total_length_video': instance.totalLength,
       'course_ratingsAverage': instance.courseRatingsAverage,
       'course_benefits': instance.courseBenefits,
+      'is_user_review': instance.isUserReview,
       'course_lessonContent': instance.courseLessonContent,
       'courseData': instance.getCourseData,
     };

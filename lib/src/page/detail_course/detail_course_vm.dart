@@ -6,6 +6,7 @@ import 'package:kltn/src/model/course_type_model.dart';
 import 'package:kltn/src/remote/service/body/reply_body.dart';
 import 'package:kltn/src/remote/service/body/review_body.dart';
 import 'package:kltn/src/remote/service/respone/base_response.dart';
+import 'package:kltn/src/remote/service/respone/mentor/mentor_response.dart';
 import 'package:kltn/src/remote/service/respone/review/review_response.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -25,6 +26,7 @@ class DetailCourseVM extends BaseViewModel {
   RefreshController reviewRefreshControllrer = RefreshController();
   List<CourseTypeModel> listTypeModel = [];
   List<ReviewResponse> listComment = [];
+  MentorResponse mentorModel = MentorResponse();
   String nameType = '';
   bool isLoading = true;
   bool checkPay = false;
@@ -40,6 +42,7 @@ class DetailCourseVM extends BaseViewModel {
       await fetchNewsAll();
       fetchTypeAll();
       fetchAllReview(isRefresh: true);
+      fetchMentor();
     }
   }
 
@@ -53,12 +56,12 @@ class DetailCourseVM extends BaseViewModel {
         {'x-atoken-id': prefs.token},
         {'x-client-id': prefs.userID},
       );
-      if (response.status == 200) {
+      if (response.status! >= 200 || response.status! < 400) {
         listData.clear();
         listData.addAll(response.data?.getCourseData ?? []);
         model = response.data!;
         try {
-          checkPay = response.data?.getCourseData?[0].getCourseDataVideo?[0].videoUrl?.isNotEmpty ?? false;
+          checkPay = response.data?.getCourseData![0].courseDataVideo?.courseVideo?[0].videoUrl?.isNotEmpty ?? false;
         } catch (e) {
           log(e.toString());
         }
@@ -89,7 +92,7 @@ class DetailCourseVM extends BaseViewModel {
     notifyListeners();
     try {
       final response = await api.apiServices.getCourseType();
-      if (response.status == 200) {
+      if (response.status! >= 200 || response.status! < 400) {
         listTypeModel.clear();
         listTypeModel.addAll(response.data ?? []);
         for (var element in listTypeModel) {
@@ -99,6 +102,28 @@ class DetailCourseVM extends BaseViewModel {
           }
         }
         isLoading = false;
+        notifyListeners();
+        // hideLoading();
+      } else {
+        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+    }
+  }
+
+  ///
+  /// lấy thông tin giản viên
+  ///
+  Future fetchMentor() async {
+    // showLoading();
+    notifyListeners();
+    try {
+      final response = await api.apiServices.getInforMentor(model.userTeacher);
+      if (response.status! >= 200 || response.status! < 400) {
+        mentorModel = response.data ?? MentorResponse();
         notifyListeners();
         // hideLoading();
       } else {
@@ -124,7 +149,7 @@ class DetailCourseVM extends BaseViewModel {
     notifyListeners();
     try {
       final response = await api.apiServices.getReview(id, 10, pageReview);
-      if (response.status == 200) {
+      if (response.status! >= 200 || response.status! < 400) {
         listCheckReply = {};
         listCheckViewReply = {};
         if (isRefresh) {
@@ -267,6 +292,15 @@ class DetailCourseVM extends BaseViewModel {
     } else {
       showSucces(errorVnpay(codeError));
     }
+  }
+
+  bool checkVisibleReview() {
+    if ((model.getCourseData ?? []).isNotEmpty) {
+      if (model.getCourseData?.first.courseDataVideo?.courseVideo?.first.videoUrl != null) {
+        return !(model.isUserReview ?? false);
+      }
+    }
+    return false;
   }
 
   String errorVnpay(int code) {

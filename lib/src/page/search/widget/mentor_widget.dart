@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kltn/src/page/detail_mentor/detail_mentor_page.dart';
+import 'package:kltn/src/page/search/search_vm.dart';
 
 import '../../../utils/app_colors.dart';
 
 class MentorWidget extends StatefulWidget {
-  const MentorWidget({super.key});
+  const MentorWidget({super.key, required this.provider});
+  final SearchVM provider;
 
   @override
   State<MentorWidget> createState() => _MentorWidgetState();
@@ -17,81 +20,78 @@ class _MentorWidgetState extends State<MentorWidget> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: ListView.builder(
-          itemCount: 20,
+          itemCount: widget.provider.listSearchUser.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Row(
-                children: [
-                  Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(70),
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://th.bing.com/th/id/OIP._wQ5Yn7Oy_1MzUVTUTa-hgHaEK?rs=1&pid=ImgDetMain'),
-                          fit: BoxFit.cover),
-                    ),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailMentorPage(idMentor: widget.provider.listSearchUser[index].id ?? ''),
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Nguyễn Tấn Phiên',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.h333333,
-                            fontWeight: FontWeight.w600),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(70),
+                        border: Border.all(color: Colors.black),
                       ),
-                      SizedBox(
-                        height: 4,
+                      child: CircleAvatar(
+                          maxRadius: 45,
+                          // minRadius: 40,
+                          backgroundColor: Colors.white,
+                          backgroundImage: (widget.provider.listSearchUser[index].userAvatar ?? '').isNotEmpty
+                              ? NetworkImage(widget.provider.listSearchUser[index].userAvatar ?? '')
+                              : const AssetImage('assets/image/logo.png') as ImageProvider<Object>),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      widget.provider.listSearchUser[index].userName ?? '',
+                      style: const TextStyle(fontSize: 16, color: AppColors.h333333, fontWeight: FontWeight.w600),
+                    ),
+                    const Spacer(),
+                    Container(
+                      height: 40,
+                      width: 40,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: AppColors.h9497AD.withOpacity(0.2),
                       ),
-                      Text(
-                        'CNTT',
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: AppColors.h9497AD,
-                            fontWeight: FontWeight.w400),
+                      child: const Icon(
+                        Icons.phone,
+                        color: AppColors.blue_246BFD,
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: AppColors.h9497AD.withOpacity(0.2),
                     ),
-                    child: const Icon(
-                      Icons.phone,
-                      color: AppColors.blue_246BFD,
+                    const SizedBox(
+                      width: 8,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: AppColors.h9497AD.withOpacity(0.2),
+                    Container(
+                      height: 40,
+                      width: 40,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: AppColors.h9497AD.withOpacity(0.2),
+                      ),
+                      child: const Icon(
+                        Icons.chat,
+                        color: AppColors.blue_246BFD,
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.chat,
-                      color: AppColors.blue_246BFD,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

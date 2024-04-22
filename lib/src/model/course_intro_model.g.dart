@@ -13,7 +13,10 @@ CourseIntroModel _$CourseIntroModelFromJson(Map<String, dynamic> json) =>
       ..courseThumnail = json['course_thumnail'] as String?
       ..coursePrice = json['course_price'] as int?
       ..courseRatingsAverage =
-          (json['course_ratingsAverage'] as num?)?.toDouble();
+          (json['course_ratingsAverage'] as num?)?.toDouble()
+      ..userTeacher = json['user_teacher'] == null
+          ? null
+          : UserModel.fromJson(json['user_teacher'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$CourseIntroModelToJson(CourseIntroModel instance) =>
     <String, dynamic>{
@@ -22,4 +25,5 @@ Map<String, dynamic> _$CourseIntroModelToJson(CourseIntroModel instance) =>
       'course_thumnail': instance.courseThumnail,
       'course_price': instance.coursePrice,
       'course_ratingsAverage': instance.courseRatingsAverage,
+      'user_teacher': instance.userTeacher,
     };

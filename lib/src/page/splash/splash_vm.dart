@@ -11,7 +11,6 @@ import '../../remote/local/shared_prefs.dart';
 import '../../utils/app_colors.dart';
 import '../auth/sign_in/sign_in_page.dart';
 import '../intro/intro1.dart';
-import '../video/video_page.dart';
 
 class SplashVM extends BaseViewModel {
   @override
@@ -28,11 +27,7 @@ class SplashVM extends BaseViewModel {
                     ? const Intro1()
                     : (locator<SharedPrefs>().token ?? '').isNotEmpty
                         ? MainPage()
-                        : const VideoPage(
-                            url: '',
-                            idCourse: '',
-                            idVideo: '',
-                          ),
+                        : const SignInPage(),
               ),
               (route) => false,
             );

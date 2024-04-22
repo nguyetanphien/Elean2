@@ -26,15 +26,15 @@ class _ResultSearchWidgetState extends State<ResultSearchWidget> {
             onTap: (value) {
               setState(() {
                 widget.provider.index = value;
-                if (value == 0) {
-                  widget.provider.course = 'course';
+                if (value == 1) {
+                  widget.provider.fetchSearchUser(refresh: true);
                 } else {
-                  widget.provider.course = 'mentor';
+                  widget.provider.fetchSearchByType(refresh: true);
                 }
               });
             },
             // indicatorColor: AppColors.blue_246BFD,
-      
+
             indicatorPadding: const EdgeInsets.only(top: 43),
             indicatorWeight: 0.1,
             indicator: const BoxDecoration(
@@ -76,22 +76,29 @@ class _ResultSearchWidgetState extends State<ResultSearchWidget> {
           Expanded(
             child: Paginate(
               onRefresh: () {
-                 widget.provider.checkloadingsearch = false;
-                widget.provider.fetchSearchByType(refresh: true);
-               
+                widget.provider.checkloadingsearch = false;
+                if (widget.provider.index == 1) {
+                  widget.provider.fetchSearchUser(refresh: true);
+                } else {
+                  widget.provider.fetchSearchByType(refresh: true);
+                }
               },
               refreshController: widget.provider.refreshController,
               enablePullDown: true,
               enablePullUp: widget.provider.enablePullUp,
               onLoading: () {
                 widget.provider.checkloadingsearch = false;
-                widget.provider.fetchSearchByType(refresh: false);
+                if (widget.provider.index == 1) {
+                  widget.provider.fetchSearchUser(refresh: false);
+                } else {
+                  widget.provider.fetchSearchByType(refresh: false);
+                }
               },
               child: widget.provider.index == 0
                   ? CourseWidget(
                       provider: widget.provider,
                     )
-                  : const MentorWidget(),
+                  : MentorWidget(provider: widget.provider),
             ),
           ),
         ],

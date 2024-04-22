@@ -41,9 +41,23 @@ class $AssetsImageGen {
   /// File path: assets/image/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/image/logo.png');
 
+  /// File path: assets/image/quiz_background.png
+  AssetGenImage get quizBackground =>
+      const AssetGenImage('assets/image/quiz_background.png');
+
+  /// File path: assets/image/quiz_number.svg
+  String get quizNumber => 'assets/image/quiz_number.svg';
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [backgroundSignin, intro1, intro2, intro3, logo];
+  List<dynamic> get values => [
+        backgroundSignin,
+        intro1,
+        intro2,
+        intro3,
+        logo,
+        quizBackground,
+        quizNumber
+      ];
 }
 
 class Assets {

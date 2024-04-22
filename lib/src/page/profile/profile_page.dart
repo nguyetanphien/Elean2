@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
+import 'package:kltn/src/model/user_model.dart';
 import 'package:kltn/src/page/auth/sign_in/sign_in_page.dart';
 import 'package:kltn/src/page/change_password.dart/change_password_page.dart';
 import 'package:kltn/src/page/profile/profile_vm.dart';
@@ -65,22 +66,26 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                               Container(
                                 width: 100,
                                 height: 100,
+                                padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
                                   border: Border.all(color: Colors.amber, width: 2),
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://th.bing.com/th/id/OIP._wQ5Yn7Oy_1MzUVTUTa-hgHaEK?rs=1&pid=ImgDetMain',
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(), // Hiệu ứng loading
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error), // Widget hiển thị khi có lỗi xảy ra
-                                  ),
+                                  child: provider.avatar.isEmpty
+                                      ? Image.asset(
+                                          'assets/image/logo.png',
+                                          fit: BoxFit.contain,
+                                        )
+                                      : CachedNetworkImage(
+                                          imageUrl: provider.avatar,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) => const Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                        ),
                                 ),
                               ),
 
@@ -93,7 +98,14 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => const YourProfilePage(),
-                                        ));
+                                        )).then((value) {
+                                      if (value is UserModel) {
+                                        setState(() {
+                                          provider.name = value.userName ?? '';
+                                          provider.avatar = value.userAvatar ?? '';
+                                        });
+                                      }
+                                    });
                                   },
                                   child: Container(
                                       height: 30,
@@ -118,9 +130,9 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    'Nguyen Tan Phien',
-                    style: TextStyle(
+                  Text(
+                    provider.name,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -143,7 +155,15 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                     MaterialPageRoute(
                       builder: (context) => const YourProfilePage(),
                     ),
-                  );
+                  ).then((value) {
+                    if (value is UserModel) {
+                      setState(() {
+                        provider.name = value.userName ?? '';
+                        provider.avatar = value.userAvatar ?? '';
+                      });
+                    }
+                  });
+                  ;
                 },
               ),
               const SizedBox(

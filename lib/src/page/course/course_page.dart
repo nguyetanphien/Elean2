@@ -103,7 +103,7 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                       height: 10,
                     ),
                     ListView.builder(
-                        itemCount: listTitle?.getCourseDataVideo?.length,
+                        itemCount: listTitle?.courseDataVideo?.courseVideo?.length,
                         shrinkWrap: true,
                         controller: provider.scrollController,
                         physics: const NeverScrollableScrollPhysics(),
@@ -144,7 +144,7 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      listTitle?.getCourseDataVideo?[index].videoTitle ?? '',
+                                      listTitle?.courseDataVideo?.courseVideo?[index].videoTitle ?? '',
                                       style: const TextStyle(
                                           color: AppColors.h434343, fontSize: 13, fontWeight: FontWeight.w600),
                                       overflow: TextOverflow.ellipsis,
@@ -154,7 +154,7 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                                     ),
                                     Text(
                                       provider.convertMillisecondsToSeconds(
-                                          listTitle?.getCourseDataVideo?[index].videoLength ?? 0),
+                                          listTitle?.courseDataVideo?.courseVideo?[index].videoLength ?? 0),
                                       style: const TextStyle(
                                           color: AppColors.h9497AD, fontSize: 13, fontWeight: FontWeight.w400),
                                     )
@@ -167,9 +167,10 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                                       builder: (context) {
                                         return VideoPage(
                                           // provider: provider,
-                                          url: listTitle?.getCourseDataVideo?[index].videoUrl ?? '',
+                                          url: listTitle?.courseDataVideo?.courseVideo?[index].videoUrl ?? '',
                                           idCourse: widget.idCourse,
-                                          idVideo: listTitle?.getCourseDataVideo?[index].id ?? '',
+                                          idVideo: listTitle?.courseDataVideo?.courseVideo?[index].id ?? '',
+                                          idVideoSession: widget.getCourseData?[index].courseDataQuiz??[],
                                         );
                                       },
                                     ));

@@ -4,6 +4,7 @@ import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_vm.dart';
+import 'package:kltn/src/model/quiz_title_model.dart';
 import 'package:kltn/src/remote/service/body/answer_body.dart';
 import 'package:kltn/src/remote/service/body/question_body.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -25,6 +26,7 @@ class VideoVM extends BaseViewModel {
   int index = 0;
   bool isLoading = true;
   int pageReview = 1;
+  List<QuizTitleModel> quizTitleModel = [];
   @override
   void onInit() {
     fetchAllQuestionAndAnwser(isRefresh: true);
@@ -120,7 +122,6 @@ class VideoVM extends BaseViewModel {
   /// lấy câu hỏi và trả lời
   ///
   Future fetchAllQuestionAndAnwser({required bool isRefresh}) async {
-    showLoading();
     if (isRefresh) {
       pageReview = 1;
     } else {
@@ -129,7 +130,7 @@ class VideoVM extends BaseViewModel {
     notifyListeners();
     try {
       final response = await api.apiServices
-          .getQuestionAndAnwser(idVideo, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID}, 3, pageReview);
+          .getQuestionAndAnwser(idVideo, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID}, 10, pageReview);
       if (response.status == 200) {
         listCheckReply = {};
         if (isRefresh) {
@@ -148,7 +149,6 @@ class VideoVM extends BaseViewModel {
         }
         isLoading = false;
         notifyListeners();
-        hideLoading();
       } else {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }

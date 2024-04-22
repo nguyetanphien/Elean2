@@ -29,10 +29,7 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
             children: [
               const Text(
                 'Đang học',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const Spacer(),
               !widget.provider.isLoadingContinue
@@ -46,10 +43,7 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                       },
                       child: const Text(
                         'Xem tất cả',
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.amber,
-                            fontWeight: FontWeight.w400),
+                        style: TextStyle(fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400),
                       ))
                   : Shimmer.fromColors(
                       baseColor: Colors.grey.shade300,
@@ -82,18 +76,18 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const CoursePage(getCourseData: [], idCourse: '',),
+                          builder: (context) => const CoursePage(
+                            getCourseData: [],
+                            idCourse: '',
+                          ),
                         )),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 7),
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                       child: Container(
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              color: AppColors.h8C8C8C.withOpacity(0.4),
-                              width: 0.5),
+                          border: Border.all(color: AppColors.h8C8C8C.withOpacity(0.4), width: 0.5),
                         ),
                         child: Row(
                           children: [
@@ -117,13 +111,9 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                   // width: 50,
                                   padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.amber.withOpacity(0.2)),
+                                      borderRadius: BorderRadius.circular(20), color: Colors.amber.withOpacity(0.2)),
                                   child: const Text('Code',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.amber,
-                                          fontWeight: FontWeight.w400)),
+                                      style: TextStyle(fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -132,9 +122,7 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                   'Khóa học Flutter',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black.withOpacity(0.7),
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 14, color: Colors.black.withOpacity(0.7), fontWeight: FontWeight.w500),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -152,9 +140,7 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                     Text(
                                       'Nguyễn Tấn Phiên',
                                       style: TextStyle(
-                                          color: AppColors.h8C8C8C,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
+                                          color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
                                     )
                                   ],
                                 ),
@@ -165,15 +151,13 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width -
-                                          200,
+                                      width: MediaQuery.of(context).size.width - 200,
                                       child: LinearProgressIndicator(
                                           minHeight: 10,
                                           value: 0.5,
                                           backgroundColor: AppColors.hECECEC,
                                           color: AppColors.blue_246BFD,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
+                                          borderRadius: BorderRadius.circular(5)),
                                     ),
                                     const SizedBox(
                                       width: 10,
@@ -181,9 +165,7 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                     const Text(
                                       '10/20',
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.h8C8C8C),
+                                          fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.h8C8C8C),
                                     )
                                   ],
                                 ),
@@ -203,15 +185,12 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                     child: Container(
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                            color: AppColors.h8C8C8C.withOpacity(0.4),
-                            width: 0.5),
+                        border: Border.all(color: AppColors.h8C8C8C.withOpacity(0.4), width: 0.5),
                       ),
                       child: Row(
                         children: [
@@ -221,9 +200,7 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                             child: Container(
                               width: 100,
                               height: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
                             ),
                           ),
                           const SizedBox(
@@ -239,9 +216,8 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                   width: 30,
                                   height: 10,
                                   padding: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.white),
+                                  decoration:
+                                      BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
                                 ),
                               ),
                               const SizedBox(

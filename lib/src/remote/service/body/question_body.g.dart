@@ -11,8 +11,9 @@ QuestionBody _$QuestionBodyFromJson(Map<String, dynamic> json) => QuestionBody()
   ..questionComment = json['question_comment'] as String?
   ..videoTime = json['video_time'] as int?;
 
-Map<String, dynamic> _$QuestionBodyToJson(QuestionBody instance) => <String, dynamic>{
+Map<String, dynamic> _$QuestionBodyToJson(QuestionBody instance) =>
+    <String, dynamic>{
       'courseId': instance.courseId,
       'question_comment': instance.questionComment,
-      'video_time': instance.videoTime
+      'video_time': instance.videoTime,
     };

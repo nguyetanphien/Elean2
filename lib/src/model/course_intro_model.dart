@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'user_model.dart';
+
 part 'course_intro_model.g.dart';
 
 @JsonSerializable()
@@ -18,6 +20,10 @@ class CourseIntroModel {
 
   @JsonKey(name: 'course_ratingsAverage')
   double? courseRatingsAverage;
+
+  @JsonKey(name: 'user_teacher')
+  UserModel? userTeacher;
+
 
   CourseIntroModel();
 

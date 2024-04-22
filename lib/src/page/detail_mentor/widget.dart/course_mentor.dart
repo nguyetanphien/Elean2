@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:kltn/src/components/paginate.dart';
 import 'package:kltn/src/page/detail_mentor/detail_mentor_vm.dart';
 
 import '../../../utils/app_colors.dart';
@@ -21,21 +23,15 @@ class _CourseMentorWidgetState extends State<CourseMentorWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: RichText(
-            text: const TextSpan(
+            text: TextSpan(
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Khóa học',
-                  style: TextStyle(
-                      color: AppColors.h434343,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                  style: TextStyle(color: AppColors.h434343, fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 TextSpan(
-                  text: ' (10)',
-                  style: TextStyle(
-                      color: AppColors.blue_246BFD,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                  text: ' ${widget.provider.mentorModel.numberCourse ?? 0}',
+                  style: const TextStyle(color: AppColors.blue_246BFD, fontSize: 16, fontWeight: FontWeight.w500),
                 )
               ],
             ),
@@ -44,126 +40,122 @@ class _CourseMentorWidgetState extends State<CourseMentorWidget> {
         const SizedBox(
           height: 10,
         ),
-        ListView.builder(
-          itemCount: 10,
-          shrinkWrap: true,
-          controller: widget.provider.scrollController,
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DetailCoursePage(id: '65d1b1c66cc4e66e32a6e369',),
-                  )),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                        color: AppColors.h8C8C8C.withOpacity(0.4), width: 0.5),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            image: const DecorationImage(
-                                image: NetworkImage(
-                                    'https://th.bing.com/th/id/OIP._wQ5Yn7Oy_1MzUVTUTa-hgHaEK?rs=1&pid=ImgDetMain'),
-                                fit: BoxFit.cover)),
+        SizedBox(
+          height: 700,
+          child: Paginate(
+            onRefresh: () {
+              widget.provider.fetchCourseMentor(isRefresh: true);
+            },
+            refreshController: widget.provider.reviewRefreshControllrer,
+            enablePullDown: true,
+            enablePullUp: true,
+            onLoading: () {
+              widget.provider.fetchCourseMentor(isRefresh: false);
+            },
+            child: ListView.builder(
+              itemCount: widget.provider.listCourse.length,
+              shrinkWrap: true,
+              controller: widget.provider.scrollController,
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailCoursePage(
+                            id: widget.provider.listCourse[index].id ?? '',
+                          ),
+                        ));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: AppColors.h8C8C8C.withOpacity(0.4), width: 0.5),
                       ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
                           Container(
-                            // width: 50,
-                            padding: const EdgeInsets.all(4),
+                            width: 100,
+                            height: 100,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.amber.withOpacity(0.2)),
-                            child: const Text('Code',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.amber,
-                                    fontWeight: FontWeight.w400)),
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                    image: NetworkImage(widget.provider.listCourse[index].courseThumnail ?? ''),
+                                    fit: BoxFit.cover)),
                           ),
                           const SizedBox(
-                            height: 5,
+                            width: 7,
                           ),
-                          Text(
-                            'Khóa học Flutter',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black.withOpacity(0.7),
-                                fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
-                                Icons.person,
-                                color: AppColors.h8C8C8C,
-                                size: 18,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
                               Text(
-                                'Nguyễn Tấn Phiên',
+                                widget.provider.listCourse[index].courseName ?? '',
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: AppColors.h8C8C8C,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width - 200,
-                                child: LinearProgressIndicator(
-                                    minHeight: 10,
-                                    value: 0.5,
-                                    backgroundColor: AppColors.hECECEC,
-                                    color: AppColors.blue_246BFD,
-                                    borderRadius: BorderRadius.circular(5)),
+                                    fontSize: 14, color: Colors.black.withOpacity(0.7), fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(
-                                width: 10,
+                                height: 5,
                               ),
-                              const Text(
-                                '10/20',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.h8C8C8C),
-                              )
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.person,
+                                    color: AppColors.h8C8C8C,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    widget.provider.listCourse[index].userTeacher?.userName ?? '',
+                                    style: const TextStyle(
+                                        color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${NumberFormat.decimalPattern().format(widget.provider.listCourse[index].coursePrice)} VND',
+                                    style: const TextStyle(
+                                        color: AppColors.blue_246BFD, fontSize: 16, fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    // width: 50,
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20), color: Colors.amber.withOpacity(0.2)),
+                                    child: const Text('Bán chạy',
+                                        style:
+                                            TextStyle(fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
+                                  ),
+                                ],
+                              ),
                             ],
-                          ),
+                          )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
+            ),
+          ),
         ),
       ],
     );

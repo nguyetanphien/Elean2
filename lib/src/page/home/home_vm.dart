@@ -46,7 +46,6 @@ class HomeVM extends BaseViewModel {
   void checkUser() {
     if ((prefs.userName ?? '').isNotEmpty) {
       userName = prefs.userName ?? '';
-      
     } else {
       userName = 'E-Learn';
     }

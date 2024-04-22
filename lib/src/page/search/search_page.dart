@@ -103,7 +103,11 @@ class _SearchPageState extends State<SearchPage> with MixinBasePage<SearchVM> {
                                 if (provider.controller.text.isNotEmpty) {
                                   provider.checkViewSearch = true;
                                   provider.checkloadingsearch = true;
-                                  provider.fetchSearchByType(refresh: true);
+                                  if (provider.index == 1) {
+                                    provider.fetchSearchUser(refresh: true);
+                                  } else {
+                                    provider.fetchSearchByType(refresh: true);
+                                  }
                                 }
                               });
                             });

@@ -2,7 +2,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
-
 class SuccesPopup extends StatelessWidget {
   static const router = 'error_popup';
 
@@ -53,9 +52,12 @@ class SuccesPopup extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Thành công', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
+              const Text('Thành công',
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
               const SizedBox(height: 8),
-              Text(message, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
+              Text(message,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
               const SizedBox(height: 16),
             ],
           ),

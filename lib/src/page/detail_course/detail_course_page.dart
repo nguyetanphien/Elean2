@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kltn/src/base/base_page.dart';
@@ -134,6 +135,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                     url: provider.model.courseDemoVideo ?? '',
                                     idCourse: '',
                                     idVideo: '',
+                                    idVideoSession: const [],
                                   ),
                                 ));
                           },
@@ -211,7 +213,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                             height: 2,
                                           ),
                                           Text(
-                                            provider.model.courseName ?? '',
+                                            provider.mentorModel.findTeacher?.userName ?? '',
                                             style: const TextStyle(
                                                 color: AppColors.h9497AD,
                                                 fontSize: 12,
@@ -291,6 +293,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                           provider.index = value;
                                         });
                                       },
+                                      dragStartBehavior: DragStartBehavior.down,
                                       indicatorPadding: const EdgeInsets.only(top: 43),
                                       indicatorWeight: 0.1,
                                       indicator: const BoxDecoration(
@@ -524,7 +527,6 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
       ).then((value) {
         setState(() {
           if (value == true) {
-            provider.index = 0;
             provider.isLoading = true;
           }
         });

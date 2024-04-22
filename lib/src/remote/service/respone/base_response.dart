@@ -44,13 +44,16 @@ class DeatilCouseRespone {
   @JsonKey(name: 'course_demoVideo')
   String? courseDemoVideo;
 
+  @JsonKey(name: 'user_teacher')
+  String? userTeacher;
+
   @JsonKey(name: 'course_price')
   int? coursePrice;
 
   @JsonKey(name: 'course_purchased')
   int? coursePurchased;
 
-  @JsonKey(name: 'totalLength')
+  @JsonKey(name: 'total_length_video')
   int? totalLength;
 
   @JsonKey(name: 'course_ratingsAverage')
@@ -59,10 +62,13 @@ class DeatilCouseRespone {
   @JsonKey(name: 'course_benefits')
   List<String>? courseBenefits;
 
+  @JsonKey(name: 'is_user_review')
+  bool? isUserReview;
+
   @JsonKey(name: 'course_lessonContent')
   List<String>? courseLessonContent;
 
-  @JsonKey(name: 'courseData')
+  @JsonKey(name: 'course_data')
   List<CourseModel>? getCourseData;
   
 

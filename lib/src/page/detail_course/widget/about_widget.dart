@@ -3,6 +3,8 @@ import 'package:kltn/src/page/detail_course/detail_course_vm.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../detail_mentor/detail_mentor_page.dart';
+
 class AboutWidget extends StatefulWidget {
   const AboutWidget({super.key, required this.provider});
   final DetailCourseVM provider;
@@ -75,60 +77,74 @@ class _AboutWidgetState extends State<AboutWidget> {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(70),
-                        image: const DecorationImage(
-                            image: NetworkImage(
-                                'https://th.bing.com/th/id/OIP._wQ5Yn7Oy_1MzUVTUTa-hgHaEK?rs=1&pid=ImgDetMain'),
-                            fit: BoxFit.cover),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailMentorPage(
+                          idMentor: widget.provider.model.userTeacher ?? '',
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 250,
-                          child: Text(
-                            widget.provider.model.courseName ?? '',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                color: AppColors.h333333,
-                                overflow: TextOverflow.ellipsis,
-                                fontWeight: FontWeight.w600),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(70),
+                          image: DecorationImage(
+                              image: (widget.provider.mentorModel.findTeacher?.userAvatar ?? '').isNotEmpty
+                                  ? NetworkImage(widget.provider.mentorModel.findTeacher?.userAvatar ?? '')
+                                  : const AssetImage('assets/image/logo.png') as ImageProvider<Object>,
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 250,
+                            child: Text(
+                              widget.provider.mentorModel.findTeacher?.userName ?? '',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: AppColors.h333333,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Text(
-                          widget.provider.nameType,
-                          style: const TextStyle(fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: AppColors.h9497AD.withOpacity(0.2),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            widget.provider.nameType,
+                            style: const TextStyle(fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
+                          ),
+                        ],
                       ),
-                      child: const Icon(
-                        Icons.chat,
-                        color: AppColors.blue_246BFD,
-                      ),
-                    )
-                  ],
+                      // const Spacer(),
+                      // Container(
+                      //   height: 40,
+                      //   width: 40,
+                      //   padding: const EdgeInsets.all(5),
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(40),
+                      //     color: AppColors.h9497AD.withOpacity(0.2),
+                      //   ),
+                      //   child: const Icon(
+                      //     Icons.chat,
+                      //     color: AppColors.blue_246BFD,
+                      //   ),
+                      // )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -142,7 +158,7 @@ class _AboutWidgetState extends State<AboutWidget> {
                 ),
                 Row(
                   children: [
-                    infor('Số học sinh', (widget.provider.model.coursePurchased ?? 0).toString()),
+                    infor('Số học sinh', (widget.provider.mentorModel.totalStudent).toString()),
                     SizedBox(
                       width: (MediaQuery.of(context).size.width) / 4,
                     ),

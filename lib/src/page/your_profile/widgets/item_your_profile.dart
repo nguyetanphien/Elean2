@@ -10,48 +10,51 @@ class ItemYourProfileWidget extends StatelessWidget {
       required this.hintText,
       required this.controller,
       this.textInputType = TextInputType.text,
+      this.maxLine = 1,
       this.validate})
       : super(key: key);
   final String lable;
   final String hintText;
-  final  Function(String?)? validate;
+  final Function(String?)? validate;
   final TextEditingController controller;
   final TextInputType textInputType;
+  final int maxLine;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          lable,
-          style: TextStyle(
-              color: AppColors.black.withOpacity(0.8),
-              fontSize: 14,
-              fontWeight: FontWeight.w400),
+        Row(
+          children: [
+            Text(
+              lable,
+              style: TextStyle(color: AppColors.black.withOpacity(0.8), fontSize: 14, fontWeight: FontWeight.w400),
+            ),
+            const Text(
+              '*',
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
         ),
         const SizedBox(
           height: 7,
         ),
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadiusDirectional.circular(8),
-              color: AppColors.grayE0.withOpacity(0.3)),
+              borderRadius: BorderRadiusDirectional.circular(8), color: AppColors.grayE0.withOpacity(0.3)),
           child: TextFormField(
             // key: ,
             controller: controller,
             // validator: validate,
             onChanged: validate,
+            maxLines: maxLine,
             keyboardType: textInputType,
-            style: TextStyle(
-                color: AppColors.black.withOpacity(0.7),
-                fontSize: 14,
-                fontWeight: FontWeight.w400),
+            style: const TextStyle(color: AppColors.black, fontSize: 14, fontWeight: FontWeight.w400),
             decoration: InputDecoration(
               hintText: hintText,
               // errorText: validate != null ?  validate!(controller.text):null,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+              contentPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
               border: const OutlineInputBorder(borderSide: BorderSide.none),
             ),
           ),

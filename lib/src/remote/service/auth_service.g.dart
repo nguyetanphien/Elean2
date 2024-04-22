@@ -20,7 +20,7 @@ class _AuthService implements AuthService {
 
   @override
   Future<BaseAuthResponse<SignupRespone>> postSignup(SignupBody body) async {
-    final _extra = <String, dynamic>{};
+    const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -51,7 +51,7 @@ class _AuthService implements AuthService {
 
   @override
   Future<BaseAuthResponse<OtpRespone>> postActivateUser(OtpBody body) async {
-    final _extra = <String, dynamic>{};
+    const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -82,7 +82,7 @@ class _AuthService implements AuthService {
 
   @override
   Future<BaseAuthResponse<SigninRespone>> postSignin(SigninBody body) async {
-    final _extra = <String, dynamic>{};
+    const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

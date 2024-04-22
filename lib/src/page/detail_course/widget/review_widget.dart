@@ -69,31 +69,34 @@ class _ReviewWidgetState extends State<ReviewWidget> {
         const SizedBox(
           height: 10,
         ),
-        GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                shape: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none),
-                builder: (context) {
-                  return SingleChildScrollView(
-                      padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom,
-                      ),
-                      child: BottomReview(provider: widget.provider));
-                });
-          },
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: AppColors.gray99.withOpacity(0.5),
-                )),
-            child: Text(
-              'Đánh giá ngay....',
-              style: TextStyle(fontSize: 12, color: AppColors.gray99.withOpacity(0.5)),
+        Visibility(
+          visible: widget.provider.checkVisibleReview(),
+          child: GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none),
+                  builder: (context) {
+                    return SingleChildScrollView(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: BottomReview(provider: widget.provider));
+                  });
+            },
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: AppColors.gray99.withOpacity(0.5),
+                  )),
+              child: Text(
+                'Đánh giá ngay....',
+                style: TextStyle(fontSize: 12, color: AppColors.gray99.withOpacity(0.5)),
+              ),
             ),
           ),
         ),

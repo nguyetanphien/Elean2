@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
+import 'package:kltn/src/model/quiz_title_model.dart';
 import 'package:kltn/src/page/video/video_vm.dart';
 import 'package:kltn/src/page/video/widget/answer_and_question_widget.dart';
 import 'package:kltn/src/page/video/widget/quiz_widget.dart';
@@ -12,12 +13,14 @@ class VideoPage extends StatefulWidget {
   final String url;
   final String idCourse;
   final String idVideo;
+  final List<QuizTitleModel> idVideoSession;
 
   const VideoPage({
     Key? key,
     required this.url,
     required this.idCourse,
     required this.idVideo,
+    required this.idVideoSession,
   }) : super(key: key);
 
   @override
@@ -31,7 +34,6 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
     provider.chewieController.dispose();
     provider.chewieController.videoPlayerController.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +108,11 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
                 SliverToBoxAdapter(
                   child: Padding(
                       padding: const EdgeInsets.all(15),
-                      child: provider.index == 0 ? AnswerAndQuestionWidget(provider: provider) : QuizWidget()),
+                      child: provider.index == 0
+                          ? AnswerAndQuestionWidget(provider: provider)
+                          : QuizWidget(
+                              provider: provider,
+                            ),),
                 ),
               ],
             ),
@@ -125,6 +131,7 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
   void initialise(BuildContext context) {
     provider.idCourse = widget.idCourse;
     provider.idVideo = widget.idVideo;
+    provider.quizTitleModel = widget.idVideoSession;
     // ignore: deprecated_member_use
     provider.videoPlayerController = VideoPlayerController.network(widget.url);
     provider.chewieController = ChewieController(

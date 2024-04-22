@@ -124,7 +124,9 @@ class _DetailCourseTypePageState extends State<DetailCourseTypePage> with MixinB
                                                       context: context,
                                                       backgroundColor: Colors.transparent,
                                                       builder: (context) {
-                                                        return  RemoveWidget(model: CartResponse(),);
+                                                        return RemoveWidget(
+                                                          model: CartResponse(),
+                                                        );
                                                       },
                                                     );
                                                   },
@@ -164,19 +166,19 @@ class _DetailCourseTypePageState extends State<DetailCourseTypePage> with MixinB
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
-                                                  const Row(
+                                                  Row(
                                                     children: [
-                                                      Icon(
+                                                      const Icon(
                                                         Icons.person,
                                                         color: AppColors.h8C8C8C,
                                                         size: 18,
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         width: 5,
                                                       ),
                                                       Text(
-                                                        'Nguyễn Tấn Phiên',
-                                                        style: TextStyle(
+                                                        provider.listCourseType[index].userTeacher?.userName ?? '',
+                                                        style: const TextStyle(
                                                             color: AppColors.h8C8C8C,
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w400),
@@ -238,7 +240,7 @@ class _DetailCourseTypePageState extends State<DetailCourseTypePage> with MixinB
                     padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric( vertical: 7),
+                        padding: const EdgeInsets.symmetric(vertical: 7),
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(

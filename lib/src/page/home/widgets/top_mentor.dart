@@ -26,10 +26,7 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
             children: [
               const Text(
                 'Top giảng viên',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const Spacer(),
               !widget.provider.isLoadingTopMentor
@@ -43,10 +40,7 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
                       },
                       child: const Text(
                         'Xem tất cả',
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.amber,
-                            fontWeight: FontWeight.w400),
+                        style: TextStyle(fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400),
                       ))
                   : Shimmer.fromColors(
                       baseColor: Colors.grey.shade300,
@@ -71,8 +65,7 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
               ? SizedBox(
                   height: (MediaQuery.of(context).size.width / 4) + 20,
                   child: ScrollConfiguration(
-                    behavior:
-                        const ScrollBehavior().copyWith(overscroll: false),
+                    behavior: const ScrollBehavior().copyWith(overscroll: false),
                     child: ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -86,18 +79,15 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DetailMentorPage(),
+                                  builder: (context) => const DetailMentorPage(
+                                    idMentor: '',
+                                  ),
                                 )),
                             child: Column(
                               children: [
                                 Container(
-                                  height:
-                                      (MediaQuery.of(context).size.width - 90) /
-                                          4,
-                                  width:
-                                      (MediaQuery.of(context).size.width - 90) /
-                                          4,
+                                  height: (MediaQuery.of(context).size.width - 90) / 4,
+                                  width: (MediaQuery.of(context).size.width - 90) / 4,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(60),
                                       image: const DecorationImage(
@@ -110,10 +100,7 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
                                 ),
                                 const Text(
                                   'Kinh doanh',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
+                                  style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w400),
                                 )
                               ],
                             ),
@@ -131,20 +118,15 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.only(
-                            right: (10 - index == 1) ? 0 : 20, top: 20),
+                        padding: EdgeInsets.only(right: (10 - index == 1) ? 0 : 20, top: 20),
                         child: Column(
                           children: [
                             Shimmer.fromColors(
                               baseColor: Colors.grey.shade300,
                               highlightColor: Colors.grey.shade100,
                               child: Container(
-                                height:
-                                    (MediaQuery.of(context).size.width - 90) /
-                                        4,
-                                width:
-                                    (MediaQuery.of(context).size.width - 90) /
-                                        4,
+                                height: (MediaQuery.of(context).size.width - 90) / 4,
+                                width: (MediaQuery.of(context).size.width - 90) / 4,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(60),
                                   color: Colors.white,

@@ -49,14 +49,20 @@ class ErrorPopup extends StatelessWidget {
           const SizedBox(
             width: 15,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Lỗi', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
-              const SizedBox(height: 8),
-              Text(message, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
-              const SizedBox(height: 16),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Lỗi',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
+                const SizedBox(height: 8),
+                Text(message,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ],
       ),
