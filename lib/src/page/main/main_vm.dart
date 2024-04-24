@@ -21,19 +21,22 @@ class MainBoardVM extends BaseViewModel {
   MainBoardVM() {
     log("MainBoardVM");
   }
+  bool isLogin = true;
 
   @override
   void onInit() {
     // getSetting();
     log("token: ${prefs.token.toString()}");
     log("userid: ${prefs.userID.toString()}");
+    if (prefs.token == null) {
+      isLogin = false;
+      notifyListeners();
+    }
   }
 
   void changePage(int index) {
     currentIndex = index;
-    if (index == 0) {
-      HomeVM();
-    }
+
     notifyListeners();
   }
 

@@ -9,7 +9,8 @@ import 'package:kltn/src/page/main/main_page.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  const SignInPage({super.key, this.checkLogin});
+  final Map<String, dynamic>? checkLogin;
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -303,14 +304,35 @@ class _SignInPageState extends State<SignInPage> with MixinBasePage<SignInVM> {
 
   @override
   void initialise(BuildContext context) {
+    provider.login = widget.checkLogin ?? {};
+    print(widget.checkLogin ?? {});
+    print(widget.checkLogin.runtimeType);
     provider.callback = (p0) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MainPage(),
-        ),
-        (route) => false,
-      );
+      if (widget.checkLogin?['profile'] != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(initPage: widget.checkLogin?['profile']),
+          ),
+          (route) => false,
+        );
+      } else if (widget.checkLogin?['id_course'] != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(login: widget.checkLogin),
+          ),
+          (route) => false,
+        );
+      } else {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(),
+          ),
+          (route) => false,
+        );
+      }
     };
   }
 }

@@ -11,8 +11,7 @@ class ChangePasswordPage extends StatefulWidget {
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
-class _ChangePasswordPageState extends State<ChangePasswordPage>
-    with MixinBasePage<ChangePasswordVM> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> with MixinBasePage<ChangePasswordVM> {
   @override
   Widget build(BuildContext context) {
     return builder(
@@ -31,8 +30,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(color: AppColors.gray99, width: 0.5)),
+                      borderRadius: BorderRadius.circular(40), border: Border.all(color: AppColors.gray99, width: 0.5)),
                   child: IconButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -48,8 +46,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
           ),
           title: Container(
             width: MediaQuery.of(context).size.width,
-            padding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width / 5),
+            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5),
             child: const Text(
               'Đổi mật khẩu',
               style: TextStyle(
@@ -62,8 +59,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             ItemTextFieldWidget(
               lable: 'Mật khẩu hiện tại',
               hintText: 'Nhập mật khẩu hiện tại',
@@ -76,8 +72,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
                   });
                 } else if (p0.length < 6) {
                   setState(() {
-                    provider.checkCurentpassword =
-                        'Vui lòng nhập mật khẩu lớn hơn 6 ký tự';
+                    provider.checkCurentpassword = 'Vui lòng nhập mật khẩu lớn hơn 6 ký tự';
                     provider.checkCurenPassword = false;
                   });
                 } else {
@@ -93,8 +88,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
             ),
             Text(
               provider.checkCurentpassword,
-              style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
             ),
             const SizedBox(
               height: 5,
@@ -112,8 +106,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
                 } else if (p0.length < 6) {
                   setState(() {
                     provider.checkNewPassword = false;
-                    provider.checknewpassword =
-                        'Vui lòng nhập mật khẩu lớn hơn 6 ký tự';
+                    provider.checknewpassword = 'Vui lòng nhập mật khẩu lớn hơn 6 ký tự';
                   });
                 } else {
                   setState(() {
@@ -128,8 +121,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
             ),
             Text(
               provider.checknewpassword,
-              style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
             ),
             const SizedBox(
               height: 5,
@@ -157,8 +149,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
             ),
             Text(
               provider.checkconfirmpassword,
-              style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
             ),
             const SizedBox(
               height: 5,
@@ -169,31 +160,24 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             // height: 100,
             // color: Colors.amber,
-            
+
             child: GestureDetector(
-              onTap: provider.checkCurenPassword &&
-                      provider.checkNewPassword &&
-                      provider.checkConfirmPassword
+              onTap: provider.checkCurenPassword && provider.checkNewPassword && provider.checkConfirmPassword
                   ? () {
-                      Navigator.pop(context);
+                      provider.changePassword();
                     }
                   : () {},
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: provider.checkNewPassword &&
-                          provider.checkCurenPassword &&
-                          provider.checkConfirmPassword
+                  color: provider.checkNewPassword && provider.checkCurenPassword && provider.checkConfirmPassword
                       ? AppColors.blue_246BFD
                       : AppColors.grayA2,
                 ),
                 child: const Center(
                   child: Text('Đổi mật khẩu',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500)),
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500)),
                 ),
               ),
             )),
@@ -207,5 +191,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
   }
 
   @override
-  void initialise(BuildContext context) {}
+  void initialise(BuildContext context) {
+    provider.callback = (e) {
+      if (e == true) {
+        Navigator.pop(context);
+      }
+    };
+  }
 }

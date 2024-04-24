@@ -12,11 +12,14 @@ import 'package:kltn/src/page/video/video_page.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../utils/app_colors.dart';
+import '../main/widget/dialog_login.dart';
 import 'widget/persisten_header.dart';
 
 class DetailCoursePage extends StatefulWidget {
-  const DetailCoursePage({super.key, required this.id});
+  const DetailCoursePage({super.key, required this.id, this.checkPay = false, this.login});
   final String id;
+  final bool checkPay;
+  final Map<String, dynamic>? login;
 
   @override
   State<DetailCoursePage> createState() => _DetailCoursePageState();
@@ -85,7 +88,16 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                           ),
                           GestureDetector(
                             onTap: () {
-                              provider.addCart(provider.model.id);
+                              if (provider.isLogin) {
+                                provider.addCart(provider.model.id);
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => DialogLogin(
+                                    login: {'id_course': widget.id.toString(), 'cart': true},
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               height: 40,
@@ -156,9 +168,6 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                           ? Container(
                               color: Colors.white,
                               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                              // decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.circular(20),
-                              //     color: Colors.amber),
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                 Row(
                                   children: [
@@ -407,7 +416,16 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                provider.payCourse(widget.id);
+                                if (provider.isLogin) {
+                                  provider.payCourse(widget.id);
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => DialogLogin(
+                                      login: {'id_course': widget.id.toString()},
+                                    ),
+                                  );
+                                }
                               },
                               child: Container(
                                 height: MediaQuery.of(context).size.height,
@@ -507,6 +525,22 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
   @override
   void initialise(BuildContext context) {
     provider.id = widget.id;
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (widget.checkPay == true) {
+          if (provider.checkPay) {
+            provider.showCompleted('Khóa học này đã được mua');
+          } else {
+            provider.payCourse(widget.id);
+          }
+        }
+        if (widget.login?['cart'] != null) {
+          provider.addCart(provider.model.id);
+        }
+      },
+    );
+
     provider.callback = (p0) async {
       await Navigator.push(
         context,
@@ -515,7 +549,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
           builder: (context) => WebviewScreen(
             paymentUrl: p0,
             onPaymentSuccess: (p0) async {
-              await provider.fetchNewsAll();
+              await provider.fetchCourse();
               provider.show(true);
             },
             onPaymentError: (p0) {

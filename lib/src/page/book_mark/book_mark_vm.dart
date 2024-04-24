@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_vm.dart';
 import 'package:kltn/src/model/course_type_model.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../remote/service/respone/cart/cart_response.dart';
 
 class BookMarkVM extends BaseViewModel {
@@ -15,6 +16,7 @@ class BookMarkVM extends BaseViewModel {
   bool isLoadingCatelory = true;
   bool isLoadingCourse = true;
   ScrollController scrollController = ScrollController();
+  RefreshController refreshController = RefreshController();
   List<CartResponse> listCart = [];
   @override
   void onInit() {
@@ -51,6 +53,8 @@ class BookMarkVM extends BaseViewModel {
 
   Future getCart({String? id}) async {
     // showLoading();
+    isLoadingCourse = true;
+    notifyListeners();
     try {
       final response =
           await api.apiServices.getCart(filtter(id ?? ''), {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
@@ -58,6 +62,8 @@ class BookMarkVM extends BaseViewModel {
         listCart.clear();
         listCart.addAll(response.data ?? []);
         isLoadingCourse = false;
+        refreshController.resetNoData();
+        refreshController.refreshCompleted();
         notifyListeners();
         // hideLoading();
       } else {

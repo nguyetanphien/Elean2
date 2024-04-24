@@ -56,6 +56,38 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<BaseResponse<DeatilCouseRespone>> getCourseNoLogin(
+    String? id,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<DeatilCouseRespone>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/get-one-course/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<DeatilCouseRespone>.fromJson(
+      _result.data!,
+      (json) => DeatilCouseRespone.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseListResponse<CourseTypeModel>> getCourseType() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -160,7 +192,8 @@ class _ApiService implements ApiService {
     );
     return value;
   }
-   @override
+
+  @override
   Future<BaseListResponse<UserModel>> getSearchUser(
     String? search,
     String? type,
@@ -851,6 +884,43 @@ class _ApiService implements ApiService {
         .compose(
           _dio.options,
           '/user/update-profile',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<UserModel>> updatePassword(
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    UpdatePasswordBody body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<UserModel>>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/user/update-password',
           queryParameters: queryParameters,
           data: _data,
         )

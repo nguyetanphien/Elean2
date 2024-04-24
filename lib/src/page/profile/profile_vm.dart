@@ -35,7 +35,6 @@ class ProfileVM extends BaseViewModel {
       notifyListeners();
     } on DioException catch (e) {
       log(e.message ?? "");
-      showError(e.message ?? "");
     }
   }
 }

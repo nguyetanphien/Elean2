@@ -15,6 +15,7 @@ class SignInVM extends BaseViewModel {
   String? password = locator<SharedPrefs>().savePassword;
   bool checkSaveAccount = false;
   Function(String)? callback;
+  Map<String, dynamic> login = {};
 
   @override
   void dispose() {
@@ -72,8 +73,8 @@ class SignInVM extends BaseViewModel {
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
-      if (e.response?.statusCode == 401) {
-        showError('Mật khẩu không chính xác.');
+      if (e.response?.statusCode == 400) {
+        showError('Email hoặc mật khẩu không chính xác.');
       } else {
         showError('Tài khoản không tồn tại');
       }

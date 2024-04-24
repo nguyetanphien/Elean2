@@ -36,10 +36,19 @@ class DetailCourseVM extends BaseViewModel {
   Map<int, bool> listCheckReply = {};
   Map<int, bool> listCheckViewReply = {};
   int pageReview = 1;
+  bool isLogin = true;
+
   @override
   Future<void> onInit() async {
+    if (prefs.token == null) {
+      isLogin = false;
+    }
     if (id.isNotEmpty) {
-      await fetchNewsAll();
+      if (prefs.token == null) {
+        await fetchCourseNoLogin();
+      } else {
+        await fetchCourse();
+      }
       fetchTypeAll();
       fetchAllReview(isRefresh: true);
       fetchMentor();
@@ -49,12 +58,42 @@ class DetailCourseVM extends BaseViewModel {
   ///
   /// lấy thông tin khóa học
   ///
-  Future fetchNewsAll() async {
+  Future fetchCourse() async {
     try {
       final response = await api.apiServices.getCourse(
         id,
         {'x-atoken-id': prefs.token},
         {'x-client-id': prefs.userID},
+      );
+      if (response.status! >= 200 || response.status! < 400) {
+        listData.clear();
+        listData.addAll(response.data?.getCourseData ?? []);
+        model = response.data!;
+        try {
+          checkPay = response.data?.getCourseData![0].courseDataVideo?.courseVideo?[0].videoUrl?.isNotEmpty ?? false;
+        } catch (e) {
+          log(e.toString());
+        }
+        isLoading = false;
+        notifyListeners();
+        hideLoading();
+      } else {
+        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+    }
+  }
+
+  ///
+  /// lấy thông tin khóa học
+  ///
+  Future fetchCourseNoLogin() async {
+    try {
+      final response = await api.apiServices.getCourseNoLogin(
+        id,
       );
       if (response.status! >= 200 || response.status! < 400) {
         listData.clear();
@@ -287,11 +326,15 @@ class DetailCourseVM extends BaseViewModel {
   }
 
   void show(bool error, {int codeError = 1}) {
-    if (error == false) {
-      showError('Thanh toán thành công');
+    if (error == true) {
+      showSucces('Thanh toán thành công');
     } else {
-      showSucces(errorVnpay(codeError));
+      showError(errorVnpay(codeError));
     }
+  }
+
+  void showCompleted(String content) {
+    showSucces(content);
   }
 
   bool checkVisibleReview() {

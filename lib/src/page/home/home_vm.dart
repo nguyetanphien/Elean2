@@ -15,10 +15,15 @@ class HomeVM extends BaseViewModel {
   bool isLoadingContinue = true;
   bool isLoadingUser = true;
   String userName = '';
+  bool isLogIn = true;
   @override
   Future<void> onInit() async {
     await fetchTypeAll();
     checkUser();
+    if (prefs.token == null) {
+      isLogIn = false;
+      notifyListeners();
+    }
   }
 
   @override

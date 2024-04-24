@@ -18,6 +18,7 @@ import '../../model/course_intro_model.dart';
 import '../../model/course_shema_model.dart';
 import '../../model/user_model.dart';
 import 'body/quiz_body.dart';
+import 'body/update_password_body.dart';
 import 'respone/base_list_response.dart';
 import 'respone/cart/cart_response.dart';
 import 'respone/photo_response.dart';
@@ -29,8 +30,14 @@ part 'api_service.g.dart';
 @RestApi()
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
-  // lấy khóa học chi tiết
-  @GET('/course/get-one-course/learn/{id}') //dường dẫn sever
+
+  // lấy khóa học chi tiết chưa đăng nhập
+  @GET('/course/get-one-course/{id}')
+  Future<BaseResponse<DeatilCouseRespone>> getCourseNoLogin(
+    @Path('id') String? id,
+  );
+  // lấy khóa học chi tiết đã đăng nhập
+  @GET('/course/get-one-course/learn/{id}')
   Future<BaseResponse<DeatilCouseRespone>> getCourse(
       @Path('id') String? id,
       @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
@@ -41,7 +48,7 @@ abstract class ApiService {
   Future<BaseListResponse<CourseTypeModel>> getCourseType();
 
   //lấy khóa học theo loại
-  @GET('/course/get-course-by-type/{id}') 
+  @GET('/course/get-course-by-type/{id}')
   Future<BaseListResponse<CourseIntroModel>> getAllCourseToType(
     @Path('id') String? id,
     @Query('limit') int? limit,
@@ -49,12 +56,12 @@ abstract class ApiService {
   );
 
   //search course
-  @GET('/course/search') 
+  @GET('/course/search')
   Future<BaseListResponse<CourseIntroModel>> getSearch(@Query('keySearch') String? search, @Query('type') String? type,
       @Query('limit') int? limit, @Query('page') int? page);
 
   //user
-  @GET('/course/search') 
+  @GET('/course/search')
   Future<BaseListResponse<UserModel>> getSearchUser(@Query('keySearch') String? search, @Query('type') String? type,
       @Query('limit') int? limit, @Query('page') int? page);
 
@@ -180,17 +187,15 @@ abstract class ApiService {
 
   // upload images
   @POST('/upload-images')
-  Future<PhotoResponse> uploadImage(
-    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
-    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
-   @Body() FormData body
-  );
+  Future<PhotoResponse> uploadImage(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() FormData body);
 
   // update profile
   @PATCH('/user/update-profile')
-  Future<BaseResponse<UserModel>> updateProfile(
-    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
-    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
-   @Body() ProfileBody body
-  );
+  Future<BaseResponse<UserModel>> updateProfile(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() ProfileBody body);
+  // update profile
+  @PATCH('/user/update-password')
+  Future<BaseResponse<UserModel>> updatePassword(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() UpdatePasswordBody body);
 }

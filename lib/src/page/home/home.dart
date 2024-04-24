@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
+import 'package:kltn/src/page/auth/sign_in/sign_in_page.dart';
 import 'package:kltn/src/page/detail_course_type.dart/detail_course_type_page.dart';
 import 'package:kltn/src/page/home/widgets/continue_learning.dart';
 import 'package:kltn/src/page/home/widgets/popular_course.dart';
@@ -39,23 +40,39 @@ class _HomePageState extends State<HomePage> with MixinBasePage<HomeVM> {
                         Row(
                           children: [
                             !provider.isLoadingUser
-                                ? Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Hi, ${provider.userName}',
-                                        style: const TextStyle(
-                                            fontSize: 18, fontWeight: FontWeight.w700, color: AppColors.white),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      const Text(
-                                        'Bắt đầu học ngay thôi nào!',
-                                        style: TextStyle(color: Colors.white60, fontSize: 14),
+                                ? provider.isLogIn
+                                    ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Hi, ${provider.userName}',
+                                            style: const TextStyle(
+                                                fontSize: 18, fontWeight: FontWeight.w700, color: AppColors.white),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                            'Bắt đầu học ngay thôi nào!',
+                                            style: TextStyle(color: Colors.white60, fontSize: 14),
+                                          ),
+                                        ],
                                       )
-                                    ],
-                                  )
+                                    : GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => const SignInPage(),
+                                            ),
+                                          );
+                                        },
+                                        child: const Text(
+                                          'Đăng nhập ngay',
+                                          style: TextStyle(
+                                              fontSize: 18, fontWeight: FontWeight.w700, color: AppColors.white),
+                                        ),
+                                      )
                                 : Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [

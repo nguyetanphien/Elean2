@@ -9,7 +9,6 @@ import 'package:kltn/src/page/main/main_page.dart';
 import '../../base/di/locator.dart';
 import '../../remote/local/shared_prefs.dart';
 import '../../utils/app_colors.dart';
-import '../auth/sign_in/sign_in_page.dart';
 import '../intro/intro1.dart';
 
 class SplashVM extends BaseViewModel {
@@ -25,9 +24,8 @@ class SplashVM extends BaseViewModel {
               MaterialPageRoute(
                 builder: (context) => (locator<SharedPrefs>().intro == false || locator<SharedPrefs>().intro == null)
                     ? const Intro1()
-                    : (locator<SharedPrefs>().token ?? '').isNotEmpty
-                        ? MainPage()
-                        : const SignInPage(),
+                    :MainPage(),
+
               ),
               (route) => false,
             );

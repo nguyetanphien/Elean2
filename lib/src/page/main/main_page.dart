@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kltn/src/page/detail_course/detail_course_page.dart';
+import 'package:kltn/src/page/main/widget/dialog_login.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
 import '../../base/base_page.dart';
@@ -6,9 +8,9 @@ import 'main_vm.dart';
 
 // ignore: must_be_immutable
 class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
-  MainPage({super.key, this.initPage = 0});
-
+  MainPage({super.key, this.initPage = 0, this.login});
   final int initPage;
+  final Map<String, dynamic>? login;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,15 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
               showUnselectedLabels: false,
               elevation: 0,
               onTap: (index) {
+                if (index == 3 && !provider.isLogin) {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => const DialogLogin(
+                      login: {'profile': 3},
+                    ),
+                  );
+                  return;
+                }
                 provider.changePage(index);
               },
               items: const [
@@ -118,5 +129,32 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
   @override
   void initialise(BuildContext context) {
     provider.changePage(initPage);
+    if (login?['cart'] != null) {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailCoursePage(id: login?['id_course'], login: login),
+            ),
+          );
+        },
+      );
+    } else {
+      if (login?['id_course'] != null) {
+        Future.delayed(
+          const Duration(seconds: 1),
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailCoursePage(id: login?['id_course'], checkPay: true),
+              ),
+            );
+          },
+        );
+      }
+    }
   }
 }
