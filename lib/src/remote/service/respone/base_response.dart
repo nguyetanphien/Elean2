@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kltn/src/model/course_model.dart';
 
+import '../../../model/course_type_model.dart';
+
 part 'base_response.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
@@ -33,7 +35,7 @@ class DeatilCouseRespone {
   String? courseName;
 
   @JsonKey(name: 'course_type')
-  String? courseType;
+  CourseTypeModel? courseType;
 
   @JsonKey(name: 'course_description')
   String? courseDescription;

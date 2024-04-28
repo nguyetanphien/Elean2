@@ -26,6 +26,7 @@ class VideoVM extends BaseViewModel {
   int index = 0;
   bool isLoading = true;
   int pageReview = 1;
+  bool checkProcess = false;
   List<QuizTitleModel> quizTitleModel = [];
   @override
   void onInit() {
@@ -51,6 +52,22 @@ class VideoVM extends BaseViewModel {
   void playFromSeconds(int seconds) {
     videoPlayerController.seekTo(Duration(seconds: seconds));
     videoPlayerController.play();
+  }
+
+  ///
+  /// gửi tiến trình
+  ///
+  Future createProcess() async {
+    try {
+      final respone = await api.apiServices.postVideoView(
+          idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID}, {'video_shema': idVideo});
+      if (respone.status! >= 200) {
+        notifyListeners();
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+    }
   }
 
   ///

@@ -15,7 +15,10 @@ CourseShemaModel _$CourseShemaModelFromJson(Map<String, dynamic> json) =>
       ..coursePrice = json['course_price'] as int?
       ..courseRatingsAverage =
           (json['course_ratingsAverage'] as num?)?.toDouble()
-      ..coursePurchased = json['course_purchased'] as int?;
+      ..coursePurchased = json['course_purchased'] as int?
+      ..userTeacher = json['user_teacher'] == null
+          ? null
+          : UserModel.fromJson(json['user_teacher'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$CourseShemaModelToJson(CourseShemaModel instance) =>
     <String, dynamic>{
@@ -26,4 +29,5 @@ Map<String, dynamic> _$CourseShemaModelToJson(CourseShemaModel instance) =>
       'course_price': instance.coursePrice,
       'course_ratingsAverage': instance.courseRatingsAverage,
       'course_purchased': instance.coursePurchased,
+      'user_teacher': instance.userTeacher,
     };

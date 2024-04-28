@@ -15,6 +15,18 @@ class SplashVM extends BaseViewModel {
   @override
   void onInit() {}
   void checkIntol(BuildContext context) {
+    // Timer(const Duration(seconds: 2), () {
+    //         Navigator.pushAndRemoveUntil(
+    //           context,
+    //           MaterialPageRoute(
+    //             builder: (context) => (locator<SharedPrefs>().intro == false || locator<SharedPrefs>().intro == null)
+    //                 ? const Intro1()
+    //                 :MainPage(),
+
+    //           ),
+    //           (route) => false,
+    //         );
+    //       });
     InternetConnectionChecker().onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:

@@ -43,7 +43,23 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
               showUnselectedLabels: false,
               elevation: 0,
               onTap: (index) {
-                if (index == 3 && !provider.isLogin) {
+                if (index == 1 && !provider.isLogin) {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => const DialogLogin(
+                      login: {'profile': 1},
+                    ),
+                  );
+                  return;
+                } else if (index == 2 && !provider.isLogin) {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => const DialogLogin(
+                      login: {'profile': 2},
+                    ),
+                  );
+                  return;
+                } else if (index == 3 && !provider.isLogin) {
                   showDialog(
                     context: context,
                     builder: (ctx) => const DialogLogin(

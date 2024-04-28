@@ -49,7 +49,42 @@ class _QuizPageState extends State<QuizPage> with MixinBasePage<QuizVM> {
                           ]),
                           child: Column(children: [
                             const SizedBox(
-                              height: 46,
+                              height: 10,
+                            ),
+                            Visibility(
+                              visible: provider.listQuizQuestion.first.isCorrect != null,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    provider.isRight.toString(),
+                                    style:
+                                        const TextStyle(color: Colors.green, fontSize: 14, fontWeight: FontWeight.w600),
+                                  ),
+                                  Container(
+                                    width: 50,
+                                    margin: const EdgeInsets.only(left: 5),
+                                    height: 8,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.green, borderRadius: BorderRadius.all(Radius.circular(10))),
+                                  ),
+                                  const Spacer(),
+                                  Container(
+                                    width: 50,
+                                    margin: const EdgeInsets.only(right: 5),
+                                    height: 8,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.red, borderRadius: BorderRadius.all(Radius.circular(10))),
+                                  ),
+                                  Text(
+                                    provider.isWrong.toString(),
+                                    style:
+                                        const TextStyle(color: Colors.red, fontSize: 14, fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 35,
                             ),
                             Text(
                               'Câu hỏi ${provider.currentPage + 1}/${provider.listQuizQuestion.length}',
@@ -143,9 +178,9 @@ class _QuizPageState extends State<QuizPage> with MixinBasePage<QuizVM> {
                       Positioned(
                         left: 0,
                         right: 0,
-                        bottom: 0,
+                        bottom: MediaQuery.of(context).size.height > 750 ? 100 : 0,
                         child: SizedBox(
-                          height: 470,
+                          height: 320,
                           child: ScrollConfiguration(
                             behavior: const ScrollBehavior().copyWith(overscroll: false),
                             child: provider.listQuizQuestion.isNotEmpty

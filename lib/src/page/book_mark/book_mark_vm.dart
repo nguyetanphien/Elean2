@@ -71,6 +71,8 @@ class BookMarkVM extends BaseViewModel {
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
+      isLoadingCourse = false;
+      notifyListeners();
       log(e.message.toString());
       // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
     }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kltn/src/page/auth/sign_in/sign_in_page.dart';
+import 'package:kltn/src/page/main/main_page.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
 import '../../base/di/locator.dart';
@@ -12,17 +12,13 @@ class Intro3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:
-          AppBar(backgroundColor: Colors.white, elevation: 0, actions: const [
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: const [
         Center(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               '',
-              style: TextStyle(
-                  color: AppColors.blue_246BFD,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400),
+              style: TextStyle(color: AppColors.blue_246BFD, fontSize: 12, fontWeight: FontWeight.w400),
             ),
           ),
         )
@@ -62,10 +58,7 @@ class Intro3 extends StatelessWidget {
               const Text(
                 'Các khóa học đa dạng lĩnh vực hướng đến tất cả mọi người',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: AppColors.grayA2,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
+                style: TextStyle(color: AppColors.grayA2, fontSize: 14, fontWeight: FontWeight.w400),
               ),
               const SizedBox(
                 height: 70,
@@ -124,7 +117,7 @@ class Intro3 extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SignInPage(),
+                            builder: (context) => MainPage(),
                           ),
                           (route) => false);
                     },

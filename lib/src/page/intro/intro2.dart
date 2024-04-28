@@ -4,7 +4,7 @@ import 'package:kltn/src/utils/app_colors.dart';
 
 import '../../base/di/locator.dart';
 import '../../remote/local/shared_prefs.dart';
-import '../auth/sign_in/sign_in_page.dart';
+import '../main/main_page.dart';
 
 class Intro2 extends StatelessWidget {
   const Intro2({super.key});
@@ -23,7 +23,7 @@ class Intro2 extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SignInPage(),
+                      builder: (context) => MainPage(),
                     ),
                     (route) => false);
               },

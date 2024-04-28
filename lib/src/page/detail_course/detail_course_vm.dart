@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/model/course_model.dart';
-import 'package:kltn/src/model/course_type_model.dart';
 import 'package:kltn/src/remote/service/body/reply_body.dart';
 import 'package:kltn/src/remote/service/body/review_body.dart';
 import 'package:kltn/src/remote/service/respone/base_response.dart';
@@ -24,10 +23,8 @@ class DetailCourseVM extends BaseViewModel {
   TextEditingController reivewController = TextEditingController();
   TextEditingController replyCommentController = TextEditingController();
   RefreshController reviewRefreshControllrer = RefreshController();
-  List<CourseTypeModel> listTypeModel = [];
   List<ReviewResponse> listComment = [];
   MentorResponse mentorModel = MentorResponse();
-  String nameType = '';
   bool isLoading = true;
   bool checkPay = false;
   bool checkBotomShow = true;
@@ -49,7 +46,7 @@ class DetailCourseVM extends BaseViewModel {
       } else {
         await fetchCourse();
       }
-      fetchTypeAll();
+      // fetchTypeAll();
       fetchAllReview(isRefresh: true);
       fetchMentor();
     }
@@ -59,6 +56,7 @@ class DetailCourseVM extends BaseViewModel {
   /// lấy thông tin khóa học
   ///
   Future fetchCourse() async {
+    isLoading = true;
     try {
       final response = await api.apiServices.getCourse(
         id,
@@ -123,37 +121,6 @@ class DetailCourseVM extends BaseViewModel {
   }
 
   ///
-  /// lấy loại khóa học
-  ///
-  Future fetchTypeAll() async {
-    // showLoading();
-    isLoading = true;
-    notifyListeners();
-    try {
-      final response = await api.apiServices.getCourseType();
-      if (response.status! >= 200 || response.status! < 400) {
-        listTypeModel.clear();
-        listTypeModel.addAll(response.data ?? []);
-        for (var element in listTypeModel) {
-          if (element.id == model.courseType) {
-            nameType = element.typeName ?? '';
-            break;
-          }
-        }
-        isLoading = false;
-        notifyListeners();
-        // hideLoading();
-      } else {
-        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
-      }
-      // ignore: deprecated_member_use
-    } on DioError catch (e) {
-      log(e.message.toString());
-      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
-    }
-  }
-
-  ///
   /// lấy thông tin giản viên
   ///
   Future fetchMentor() async {
@@ -173,6 +140,14 @@ class DetailCourseVM extends BaseViewModel {
       log(e.message.toString());
       showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
     }
+  }
+
+  ///
+  /// thêm chữ "đã xem"
+  /// 
+  void setIsView(int index1, int index2) {
+    listData[index1].courseDataVideo?.courseVideo?[index2].isSeen = true;
+    notifyListeners();
   }
 
   ///
@@ -374,8 +349,6 @@ class DetailCourseVM extends BaseViewModel {
         return 'Thanh toán không thành công';
     }
   }
-
-  void addCheckRellyComment(int index) {}
 
   String convertMillisecondsToSeconds(double value) {
     int seconds = value.floor();

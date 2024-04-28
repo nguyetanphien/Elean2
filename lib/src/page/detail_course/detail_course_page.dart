@@ -147,7 +147,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                     url: provider.model.courseDemoVideo ?? '',
                                     idCourse: '',
                                     idVideo: '',
-                                    idVideoSession: const [],
+                                    idVideoSession: const [], isView: false,
                                   ),
                                 ));
                           },
@@ -448,7 +448,7 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CoursePage(
-                                    getCourseData: provider.model.getCourseData ?? [],
+                                    // getCourseData: provider.model.getCourseData ?? [],
                                     idCourse: provider.model.id ?? '',
                                   ),
                                 ));

@@ -29,7 +29,7 @@ class _AboutWidgetState extends State<AboutWidget> {
                   height: 10,
                 ),
                 Text(
-                  widget.provider.model.courseDescription ?? '',
+                  widget.provider.model.courseDescription ?? 'Không có giới thiệu',
                   style: const TextStyle(fontSize: 12, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
                   maxLines: widget.provider.checkReadMore ? null : 3,
                   // overflow: TextOverflow.ellipsis,
@@ -124,7 +124,7 @@ class _AboutWidgetState extends State<AboutWidget> {
                             height: 2,
                           ),
                           Text(
-                            widget.provider.nameType,
+                            widget.provider.model.courseType?.typeName ?? '',
                             style: const TextStyle(fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
                           ),
                         ],

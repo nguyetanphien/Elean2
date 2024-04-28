@@ -21,6 +21,7 @@ import 'body/quiz_body.dart';
 import 'body/update_password_body.dart';
 import 'respone/base_list_response.dart';
 import 'respone/cart/cart_response.dart';
+import 'respone/course_process/course_process_response.dart';
 import 'respone/photo_response.dart';
 import 'respone/quiz/quiz_answer/quiz_answer_response.dart';
 import 'respone/quiz/quiz_response.dart';
@@ -173,6 +174,10 @@ abstract class ApiService {
     @Path('id') String? idMentor,
   );
 
+  // Get khóa học bán chạy
+  @GET('/course')
+  Future<BaseListResponse<CourseShemaModel>> getpopularCourse( @Query('limit') int? limit, @Query('page') int? page);
+
   // get qua hoc giang vien
   @GET('/user/all-course-teacher/{id}')
   Future<BaseListResponse<CourseIntroModel>> getCourseMentor(
@@ -198,4 +203,18 @@ abstract class ApiService {
   @PATCH('/user/update-password')
   Future<BaseResponse<UserModel>> updatePassword(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
       @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() UpdatePasswordBody body);
+
+  // gửi video da xem
+  @POST('/course/update-process-learn/{id}')
+  Future<BaseResponse> postVideoView(
+      @Path('id') String? idCourse,
+      @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+      @Body() Map<String, String> body);
+
+        // get tiến trình
+  @GET('/user/get-purchased-course')
+  Future<BaseListResponse<CourseProcessResponse>> getCourseProcess(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+      );
 }

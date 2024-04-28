@@ -365,7 +365,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                   )
                 : const Padding(
                     padding: EdgeInsets.only(top: 70),
-                    child: Center(child: Text('Không có comment nào')),
+                    child: Center(child: Text('Chưa có đánh giá!!!')),
                   ),
           ),
         ),

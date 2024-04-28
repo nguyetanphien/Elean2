@@ -16,6 +16,9 @@ class CourseDetailModel {
   @JsonKey(name: 'video_length')
   double? videoLength;
 
+  @JsonKey(name: 'isSeen')
+  bool? isSeen;
+
   CourseDetailModel();
 
   factory CourseDetailModel.fromJson(Map<String, dynamic> json) =>

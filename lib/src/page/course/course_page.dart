@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
-import 'package:kltn/src/model/course_model.dart';
 import 'package:kltn/src/page/course/course_vm.dart';
 
 import '../../utils/app_colors.dart';
 import '../video/video_page.dart';
 
 class CoursePage extends StatefulWidget {
-  const CoursePage({super.key, required this.getCourseData, required this.idCourse});
-  final List<CourseModel>? getCourseData;
+  const CoursePage({super.key, required this.idCourse});
+  // final List<CourseModel>? getCourseData;
   final String idCourse;
 
   @override
@@ -65,11 +64,11 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
         body: ScrollConfiguration(
           behavior: const ScrollBehavior().copyWith(overscroll: false),
           child: ListView.builder(
-            itemCount: widget.getCourseData?.length,
+            itemCount: provider.getCourseData?.length,
             controller: provider.scrollController,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              final listTitle = widget.getCourseData?[index];
+              final listTitle = provider.getCourseData?[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Column(
@@ -89,13 +88,17 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                           ),
                         ),
                         const Spacer(),
-                        const Text(
-                          '35 phút',
-                          style: TextStyle(
+                        Text(
+                          provider.convertMillisecondsToSeconds(
+                              double.parse((listTitle?.courseDataVideo?.totalVideoSection ?? 0).toString())),
+                          style: const TextStyle(
                             color: AppColors.blue_246BFD,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
+                        ),
+                        const SizedBox(
+                          width: 10,
                         ),
                       ],
                     ),
@@ -108,88 +111,117 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                         controller: provider.scrollController,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width - 50,
-                            margin: const EdgeInsets.all(8),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.h9497AD, width: 1),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
+                          return Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return VideoPage(
+                                        // provider: provider,
+                                        url: listTitle?.courseDataVideo?.courseVideo?[index].videoUrl ?? '',
+                                        idCourse: widget.idCourse,
+                                        idVideo: listTitle?.courseDataVideo?.courseVideo?[index].id ?? '',
+                                        idVideoSession: listTitle?.courseDataQuiz ?? [],
+                                        isView: listTitle?.courseDataVideo?.courseVideo?[index].isSeen ?? false,
+                                      );
+                                    },
+                                  )).then((value) {
+                                    if (value == true) {
+                                      setState(() {
+                                        listTitle?.courseDataVideo?.courseVideo?[index].isSeen = true;
+                                      });
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width - 50,
+                                  margin: const EdgeInsets.all(8),
                                   padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: AppColors.blue_246BFD.withOpacity(0.2),
+                                    border: Border.all(color: AppColors.h9497AD, width: 1),
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      (index + 1).toString(),
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: AppColors.blue_246BFD,
-                                        fontWeight: FontWeight.w600,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 50,
+                                        height: 50,
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.blue_246BFD.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            (index + 1).toString(),
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              color: AppColors.blue_246BFD,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            listTitle?.courseDataVideo?.courseVideo?[index].videoTitle ?? '',
+                                            style: const TextStyle(
+                                                color: AppColors.h434343, fontSize: 13, fontWeight: FontWeight.w600),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            provider.convertMillisecondsToSeconds(
+                                                listTitle?.courseDataVideo?.courseVideo?[index].videoLength ?? 0),
+                                            style: const TextStyle(
+                                                color: AppColors.h9497AD, fontSize: 13, fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: AppColors.blue_246BFD,
+                                        ),
+                                        child: const Icon(Icons.play_arrow_rounded, color: Colors.white),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      )
+                                    ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      listTitle?.courseDataVideo?.courseVideo?[index].videoTitle ?? '',
-                                      style: const TextStyle(
-                                          color: AppColors.h434343, fontSize: 13, fontWeight: FontWeight.w600),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      provider.convertMillisecondsToSeconds(
-                                          listTitle?.courseDataVideo?.courseVideo?[index].videoLength ?? 0),
-                                      style: const TextStyle(
-                                          color: AppColors.h9497AD, fontSize: 13, fontWeight: FontWeight.w400),
-                                    )
-                                  ],
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) {
-                                        return VideoPage(
-                                          // provider: provider,
-                                          url: listTitle?.courseDataVideo?.courseVideo?[index].videoUrl ?? '',
-                                          idCourse: widget.idCourse,
-                                          idVideo: listTitle?.courseDataVideo?.courseVideo?[index].id ?? '',
-                                          idVideoSession: widget.getCourseData?[index].courseDataQuiz??[],
-                                        );
-                                      },
-                                    ));
-                                  },
+                              ),
+                              Visibility(
+                                visible: listTitle?.courseDataVideo?.courseVideo?[index].isSeen ?? false,
+                                child: Positioned(
+                                  right: 70,
                                   child: Container(
-                                    width: 30,
-                                    height: 30,
+                                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.blue_246BFD,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(2),
+                                        ),
+                                        color: AppColors.blue_246BFD.withOpacity(0.9)),
+                                    child: const Text(
+                                      'Đã xem',
+                                      style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
                                     ),
-                                    child: const Icon(Icons.play_arrow_rounded, color: Colors.white),
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 5,
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           );
                         }),
                   ],
@@ -208,5 +240,7 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
   }
 
   @override
-  void initialise(BuildContext context) {}
+  void initialise(BuildContext context) {
+    provider.idCourse = widget.idCourse;
+  }
 }

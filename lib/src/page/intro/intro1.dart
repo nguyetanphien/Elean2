@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/di/locator.dart';
 import 'package:kltn/src/page/intro/intro2.dart';
+import 'package:kltn/src/page/main/main_page.dart';
 import 'package:kltn/src/remote/local/shared_prefs.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
-import '../auth/sign_in/sign_in_page.dart';
 
 class Intro1 extends StatelessWidget {
   const Intro1({super.key});
@@ -23,7 +23,7 @@ class Intro1 extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SignInPage(),
+                            builder: (context) =>  MainPage(),
                           ),
                           (route) => false);
                     },

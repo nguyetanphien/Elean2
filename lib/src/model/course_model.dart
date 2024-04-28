@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kltn/src/model/course_detail_model.dart';
 
 import 'course_data_video_model.dart';
 import 'quiz_title_model.dart';

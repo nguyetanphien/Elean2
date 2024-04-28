@@ -18,6 +18,8 @@ class QuizVM extends BaseViewModel {
   double score = 0;
   String idSesstion = '';
   bool isLoading = true;
+  int isRight = 0;
+  int isWrong = 0;
   @override
   void onInit() {
     Fluttertoast.showToast(msg: 'Cuộn sang phải để qua câu tiếp theo', timeInSecForIosWeb: 3);
@@ -41,6 +43,13 @@ class QuizVM extends BaseViewModel {
       if (response.status! >= 200 || response.status! < 400) {
         score = response.data?.quizScores ?? 0;
         listQuizQuestion = response.data?.printResults ?? [];
+        for (var element in response.data!.printResults ?? []) {
+          if (element.isCorrect ?? false) {
+            isRight++;
+          } else {
+            isWrong++;
+          }
+        }
         isLoading = false;
         notifyListeners();
       } else {

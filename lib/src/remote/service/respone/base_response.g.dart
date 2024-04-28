@@ -41,7 +41,10 @@ DeatilCouseRespone _$DeatilCouseResponeFromJson(Map<String, dynamic> json) =>
     DeatilCouseRespone()
       ..id = json['_id'] as String?
       ..courseName = json['course_name'] as String?
-      ..courseType = json['course_type'] as String?
+      ..courseType = json['course_type'] == null
+          ? null
+          : CourseTypeModel.fromJson(
+              json['course_type'] as Map<String, dynamic>)
       ..courseDescription = json['course_description'] as String?
       ..courseThumnail = json['course_thumnail'] as String?
       ..courseDemoVideo = json['course_demoVideo'] as String?

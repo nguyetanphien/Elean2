@@ -7,13 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kltn/src/base/base_vm.dart';
 import 'package:kltn/src/model/experience_model.dart';
 import 'package:kltn/src/model/user_model.dart';
-import 'package:kltn/src/page/home/home_vm.dart';
 import 'package:kltn/src/remote/service/body/profile_body.dart';
 import 'package:path/path.dart';
 
 enum TypeExperience {
   // ignore: constant_identifier_names
   EDIT,
+  // ignore: constant_identifier_names
   CREATE
 }
 
@@ -181,4 +181,5 @@ class YourProfileVM extends BaseViewModel {
     userModel.userExperience?[index] = dataExperience;
     notifyListeners();
   }
+
 }

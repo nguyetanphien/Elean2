@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
+import 'package:kltn/src/components/paginate.dart';
 import 'package:kltn/src/page/auth/sign_in/sign_in_page.dart';
 import 'package:kltn/src/page/detail_course_type.dart/detail_course_type_page.dart';
 import 'package:kltn/src/page/home/widgets/continue_learning.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> with MixinBasePage<HomeVM> {
                 children: [
                   Container(
                     height: 200,
-                    padding: const EdgeInsets.only(right: 15, left: 15, top: 50),
+                    padding: const EdgeInsets.only(right: 15, left: 15, top: 60),
                     decoration: const BoxDecoration(
                         color: AppColors.blue_246BFD,
                         borderRadius:
@@ -171,171 +172,189 @@ class _HomePageState extends State<HomePage> with MixinBasePage<HomeVM> {
                   Expanded(
                     child: ScrollConfiguration(
                       behavior: const ScrollBehavior().copyWith(overscroll: false),
-                      child: CustomScrollView(
-                        controller: provider.scrollController,
-                        slivers: [
-                          SliverToBoxAdapter(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                  child: Row(
-                                    children: [
-                                      const Text(
-                                        'Danh mục',
-                                        style:
-                                            TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
-                                      ),
-                                      const Spacer(),
-                                      !provider.isLoadingCatelory
-                                          ? GestureDetector(
-                                              onTap: () => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => const ViewAllCourseTypePage(),
-                                                  )),
-                                              child: const Text(
-                                                'Xem tất cả',
-                                                style: TextStyle(
-                                                    fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400),
-                                              ))
-                                          : Shimmer.fromColors(
-                                              baseColor: Colors.grey.shade300,
-                                              highlightColor: Colors.grey.shade100,
-                                              child: Container(
-                                                height: 10,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(
-                                                    10,
+                      child: Paginate(
+                        onRefresh: () {
+                          setState(() {
+                            provider.refeshAll();
+                          });
+                        },
+                        refreshController: provider.refreshALlController,
+                        enablePullDown: true,
+                        onLoading: () {},
+                        child: CustomScrollView(
+                          controller: provider.scrollController,
+                          slivers: [
+                            SliverToBoxAdapter(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Row(
+                                      children: [
+                                        const Text(
+                                          'Danh mục',
+                                          style:
+                                              TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                                        ),
+                                        const Spacer(),
+                                        !provider.isLoadingCatelory
+                                            ? GestureDetector(
+                                                onTap: () => Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => const ViewAllCourseTypePage(),
+                                                    )),
+                                                child: const Text(
+                                                  'Xem tất cả',
+                                                  style: TextStyle(
+                                                      fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400),
+                                                ))
+                                            : Shimmer.fromColors(
+                                                baseColor: Colors.grey.shade300,
+                                                highlightColor: Colors.grey.shade100,
+                                                child: Container(
+                                                  height: 10,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(
+                                                      10,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                !provider.isLoadingCatelory
-                                    ? Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                                        child: SizedBox(
-                                          height: (MediaQuery.of(context).size.width / 4) + 20,
-                                          child: ListView.builder(
-                                            physics: const AlwaysScrollableScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: provider.listTypeModel.length,
-                                            itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailCourseTypePage(nameType: provider.listTypeModel[index]),
+                                  !provider.isLoadingCatelory
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                                          child: SizedBox(
+                                            height: (MediaQuery.of(context).size.width / 4) + 20,
+                                            child: provider.listTypeModel.isNotEmpty
+                                                ? ListView.builder(
+                                                    physics: const AlwaysScrollableScrollPhysics(),
+                                                    scrollDirection: Axis.horizontal,
+                                                    itemCount: provider.listTypeModel.length,
+                                                    itemBuilder: (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () => Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) => DetailCourseTypePage(
+                                                                nameType: provider.listTypeModel[index]),
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(
+                                                              right:
+                                                                  provider.listTypeModel.length - index == 1 ? 0 : 20,
+                                                              top: 20),
+                                                          child: Column(
+                                                            children: [
+                                                              Container(
+                                                                height: (MediaQuery.of(context).size.width - 90) / 4,
+                                                                width: (MediaQuery.of(context).size.width - 90) / 4,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(60),
+                                                                    color: AppColors.h595959.withOpacity(0.08)),
+                                                                child: const Icon(
+                                                                  Icons.question_mark,
+                                                                  color: AppColors.blue_246BFD,
+                                                                  size: 40,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 7,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 70,
+                                                                child: Text(
+                                                                  provider.listTypeModel[index].typeName ?? '',
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  textAlign: TextAlign.center,
+                                                                  style: const TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontSize: 12,
+                                                                      fontWeight: FontWeight.w400),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  )
+                                                : const Center(
+                                                    child: Text(
+                                                      'Không có dữ liệu',
+                                                      style: TextStyle(color: Colors.black, fontSize: 14),
+                                                    ),
                                                   ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: provider.listTypeModel.length - index == 1 ? 0 : 20,
-                                                      top: 20),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                                          child: SizedBox(
+                                            height: (MediaQuery.of(context).size.width / 4) + 20,
+                                            child: ListView.builder(
+                                              physics: const AlwaysScrollableScrollPhysics(),
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: 10,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: EdgeInsets.only(right: (10 - index == 1) ? 0 : 20, top: 20),
                                                   child: Column(
                                                     children: [
-                                                      Container(
-                                                        height: (MediaQuery.of(context).size.width - 90) / 4,
-                                                        width: (MediaQuery.of(context).size.width - 90) / 4,
-                                                        decoration: BoxDecoration(
+                                                      Shimmer.fromColors(
+                                                        baseColor: Colors.grey.shade300,
+                                                        highlightColor: Colors.grey.shade100,
+                                                        child: Container(
+                                                          height: (MediaQuery.of(context).size.width - 90) / 4,
+                                                          width: (MediaQuery.of(context).size.width - 90) / 4,
+                                                          decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(60),
-                                                            color: AppColors.h595959.withOpacity(0.08)),
-                                                        child: const Icon(
-                                                          Icons.question_mark,
-                                                          color: AppColors.blue_246BFD,
-                                                          size: 40,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 7,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 70,
-                                                        child: Text(
-                                                          provider.listTypeModel[index].typeName ?? '',
-                                                          overflow: TextOverflow.ellipsis,
-                                                          textAlign: TextAlign.center,
-                                                          style: const TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w400),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      )
-                                    : Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                                        child: SizedBox(
-                                          height: (MediaQuery.of(context).size.width / 4) + 20,
-                                          child: ListView.builder(
-                                            physics: const AlwaysScrollableScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: 10,
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding: EdgeInsets.only(right: (10 - index == 1) ? 0 : 20, top: 20),
-                                                child: Column(
-                                                  children: [
-                                                    Shimmer.fromColors(
-                                                      baseColor: Colors.grey.shade300,
-                                                      highlightColor: Colors.grey.shade100,
-                                                      child: Container(
-                                                        height: (MediaQuery.of(context).size.width - 90) / 4,
-                                                        width: (MediaQuery.of(context).size.width - 90) / 4,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(60),
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 7),
-                                                    Shimmer.fromColors(
-                                                      baseColor: Colors.grey.shade300,
-                                                      highlightColor: Colors.grey.shade100,
-                                                      child: Container(
-                                                        height: 10,
-                                                        width: 50,
-                                                        decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius: BorderRadius.circular(
-                                                            10,
+                                                            color: Colors.white,
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                                      const SizedBox(height: 7),
+                                                      Shimmer.fromColors(
+                                                        baseColor: Colors.grey.shade300,
+                                                        highlightColor: Colors.grey.shade100,
+                                                        child: Container(
+                                                          height: 10,
+                                                          width: 50,
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius: BorderRadius.circular(
+                                                              10,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                PopularCourseWidget(
-                                  provider: provider,
-                                ),
-                                TopMentorWidget(
-                                  provider: provider,
-                                ),
-                                ContinueLearningWidget(provider: provider),
-                              ],
-                            ),
-                          )
-                        ],
+                                  PopularCourseWidget(
+                                    provider: provider,
+                                  ),
+                                  TopMentorWidget(
+                                    provider: provider,
+                                  ),
+                                  ContinueLearningWidget(provider: provider),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

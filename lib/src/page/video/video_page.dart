@@ -7,21 +7,22 @@ import 'package:kltn/src/page/video/widget/answer_and_question_widget.dart';
 import 'package:kltn/src/page/video/widget/quiz_widget.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 import 'package:video_player/video_player.dart';
-import '../detail_course/widget/persisten_header.dart';
 
 class VideoPage extends StatefulWidget {
   final String url;
   final String idCourse;
   final String idVideo;
+  final bool isView;
   final List<QuizTitleModel> idVideoSession;
 
-  const VideoPage({
-    Key? key,
-    required this.url,
-    required this.idCourse,
-    required this.idVideo,
-    required this.idVideoSession,
-  }) : super(key: key);
+  const VideoPage(
+      {Key? key,
+      required this.url,
+      required this.idCourse,
+      required this.idVideo,
+      required this.idVideoSession,
+      required this.isView})
+      : super(key: key);
 
   @override
   State<VideoPage> createState() => _VideoWidgetState();
@@ -38,86 +39,139 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
   @override
   Widget build(BuildContext context) {
     return builder(
-      () => DefaultTabController(
-        length: 2,
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: CustomScrollView(
-              shrinkWrap: true,
-              slivers: [
-                SliverPersistentHeader(
-                  delegate: PersistentHeader(
-                    height: 221,
-                    widget: AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Chewie(
-                        controller: provider.chewieController,
-                      ),
-                    ),
-                  ),
-                  pinned: true,
-                ),
-                SliverPersistentHeader(
-                  delegate: PersistentHeader(
-                    height: 47,
-                    widget: Container(
-                      color: Colors.white,
-                      child: TabBar(
-                        onTap: (value) {
-                          setState(() {
-                            provider.index = value;
-                          });
-                        },
-                        indicatorPadding: const EdgeInsets.only(top: 43),
-                        indicatorWeight: 0.1,
-                        indicator: const BoxDecoration(
-                          color: AppColors.blue_246BFD,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5),
+      () => WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: widget.idCourse.isNotEmpty
+            ? DefaultTabController(
+                length: 2,
+                child: SafeArea(
+                  child: Scaffold(
+                    backgroundColor: Colors.white,
+                    body: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            Center(
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: Chewie(
+                                  controller: provider.chewieController,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15, top: 10),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, provider.checkProcess);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          color: Colors.white,
+                          child: TabBar(
+                            onTap: (value) {
+                              setState(() {
+                                provider.index = value;
+                              });
+                            },
+                            indicatorPadding: const EdgeInsets.only(top: 43),
+                            indicatorWeight: 0.1,
+                            indicator: const BoxDecoration(
+                              color: AppColors.blue_246BFD,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                              ),
+                            ),
+                            tabs: [
+                              Tab(
+                                child: Text(
+                                  'Hỏi & đáp',
+                                  style: TextStyle(
+                                    color: provider.index == 0 ? AppColors.blue_246BFD : AppColors.h434343,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Bài tập',
+                                  style: TextStyle(
+                                    color: provider.index == 1 ? AppColors.blue_246BFD : AppColors.h434343,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        tabs: [
-                          Tab(
-                            child: Text(
-                              'Hỏi & đáp',
-                              style: TextStyle(
-                                color: provider.index == 0 ? AppColors.blue_246BFD : AppColors.h434343,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              'Bài tập',
-                              style: TextStyle(
-                                color: provider.index == 1 ? AppColors.blue_246BFD : AppColors.h434343,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        Container(
+                          padding: const EdgeInsets.all(15),
+                          child: provider.index == 0
+                              ? AnswerAndQuestionWidget(provider: provider)
+                              : QuizWidget(
+                                  provider: provider,
+                                ),
+                        ),
+                      ],
                     ),
                   ),
-                  pinned: true,
                 ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: provider.index == 0
-                          ? AnswerAndQuestionWidget(provider: provider)
-                          : QuizWidget(
-                              provider: provider,
-                            ),),
+              )
+            : Scaffold(
+                backgroundColor: Colors.black,
+                body: Stack(
+                  children: [
+                    Center(
+                      child: AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Chewie(
+                          controller: provider.chewieController,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 50),
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context, provider.checkProcess);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
@@ -128,12 +182,31 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
   }
 
   @override
-  void initialise(BuildContext context) {
+  Future<void> initialise(BuildContext context) async {
     provider.idCourse = widget.idCourse;
     provider.idVideo = widget.idVideo;
     provider.quizTitleModel = widget.idVideoSession;
+    int timeParse = 0;
+    bool checkDuration = false;
     // ignore: deprecated_member_use
     provider.videoPlayerController = VideoPlayerController.network(widget.url);
+    provider.videoPlayerController.addListener(() {
+      if (provider.videoPlayerController.value.isInitialized && !checkDuration) {
+        Duration totalDuration = provider.videoPlayerController.value.duration;
+        int totalSeconds = totalDuration.inSeconds;
+        double time = totalSeconds * 0.8;
+        timeParse = time.toInt();
+        checkDuration = true;
+      }
+      if (!provider.checkProcess &&
+          !widget.isView &&
+          provider.videoPlayerController.value.position >= Duration(seconds: timeParse) &&
+          checkDuration) {
+        provider.checkProcess = true;
+        provider.createProcess();
+      }
+    });
+
     provider.chewieController = ChewieController(
       videoPlayerController: provider.videoPlayerController,
       autoPlay: true,
@@ -162,7 +235,7 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
         playbackSpeedButtonText: 'Tốc độ phát',
         cancelButtonText: 'Hủy',
       ),
-      looping: true,
+      looping: false,
     );
   }
 }

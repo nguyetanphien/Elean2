@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kltn/src/base/base_vm.dart';
-import 'package:kltn/src/remote/service/body/profile_body.dart';
 import 'package:kltn/src/remote/service/body/update_password_body.dart';
 
 class ChangePasswordVM extends BaseViewModel {
@@ -45,6 +44,7 @@ class ChangePasswordVM extends BaseViewModel {
       }
       hideLoading();
       notifyListeners();
+    // ignore: deprecated_member_use
     } on DioError catch (e) {
       if (e.response?.statusCode == 400) {
         showError('Mật khẩu không chính xác');

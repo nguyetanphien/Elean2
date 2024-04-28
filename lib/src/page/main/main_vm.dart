@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:kltn/src/page/home/home_vm.dart';
-
 import '../../base/base_vm.dart';
 import '../book_mark/book_mark_page.dart';
 import '../home/home.dart';

@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'user_model.dart';
+
 part 'course_shema_model.g.dart';
 
 @JsonSerializable()
@@ -24,6 +26,9 @@ class CourseShemaModel {
 
   @JsonKey(name: 'course_purchased')
   int? coursePurchased;
+
+  @JsonKey(name: 'user_teacher')
+  UserModel? userTeacher;
 
   CourseShemaModel();
 

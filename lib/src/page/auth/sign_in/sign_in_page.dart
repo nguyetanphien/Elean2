@@ -305,8 +305,6 @@ class _SignInPageState extends State<SignInPage> with MixinBasePage<SignInVM> {
   @override
   void initialise(BuildContext context) {
     provider.login = widget.checkLogin ?? {};
-    print(widget.checkLogin ?? {});
-    print(widget.checkLogin.runtimeType);
     provider.callback = (p0) {
       if (widget.checkLogin?['profile'] != null) {
         Navigator.pushAndRemoveUntil(
