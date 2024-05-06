@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
+import 'package:kltn/src/components/paginate.dart';
 import 'package:kltn/src/page/detail_top_mentor/detail_top_mentor_vm.dart';
+import 'package:kltn/src/page/detail_top_mentor/widget/loading_widget.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
 class DetailTopMentorPage extends StatefulWidget {
@@ -10,8 +13,7 @@ class DetailTopMentorPage extends StatefulWidget {
   State<DetailTopMentorPage> createState() => _DetailTopMentorPageState();
 }
 
-class _DetailTopMentorPageState extends State<DetailTopMentorPage>
-    with MixinBasePage<DetailTopMentorVM> {
+class _DetailTopMentorPageState extends State<DetailTopMentorPage> with MixinBasePage<DetailTopMentorVM> {
   @override
   Widget build(BuildContext context) {
     return builder(
@@ -47,8 +49,7 @@ class _DetailTopMentorPageState extends State<DetailTopMentorPage>
           ),
           title: Container(
             width: MediaQuery.of(context).size.width,
-            padding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
+            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
             child: const Text(
               'Top giảng viên',
               style: TextStyle(
@@ -61,84 +62,88 @@ class _DetailTopMentorPageState extends State<DetailTopMentorPage>
         ),
         body: ScrollConfiguration(
           behavior: const ScrollBehavior().copyWith(overscroll: false),
-          child: ListView.builder(
-            itemCount: 20,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(70),
-                        image: const DecorationImage(
-                            image: NetworkImage(
-                                'https://th.bing.com/th/id/OIP._wQ5Yn7Oy_1MzUVTUTa-hgHaEK?rs=1&pid=ImgDetMain'),
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Nguyễn Tấn Phiên',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.h333333,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          'CNTT',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.h9497AD,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: AppColors.h9497AD.withOpacity(0.2),
-                      ),
-                      child: const Icon(
-                        Icons.phone,
-                        color: AppColors.blue_246BFD,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: AppColors.h9497AD.withOpacity(0.2),
-                      ),
-                      child: const Icon(
-                        Icons.chat,
-                        color: AppColors.blue_246BFD,
-                      ),
-                    ),
-                  ],
-                ),
-              );
+          child: Paginate(
+            onRefresh: () {
+              provider.fetchAllMentor(isRefresh: true);
             },
+            refreshController: provider.refreshMentorController,
+            enablePullDown: true,
+            enablePullUp: true,
+            onLoading: () {
+              provider.fetchAllMentor(isRefresh: false);
+            },
+            child: provider.isLoading
+                ? const LoadingWidget()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: provider.listMentor.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: provider.listMentor.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      height: 60,
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        border: Border.all(color: AppColors.blue_246BFD, width: 2),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: (provider.listMentor[index].userAvatar ?? '').isEmpty
+                                            ? Image.asset(
+                                                'assets/image/logo.png',
+                                                fit: BoxFit.contain,
+                                              )
+                                            : CachedNetworkImage(
+                                                imageUrl: provider.listMentor[index].userAvatar ?? '',
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) => const Center(
+                                                  child: CircularProgressIndicator(),
+                                                ),
+                                                errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          provider.listMentor[index].userName ?? "",
+                                          style: const TextStyle(
+                                              fontSize: 16, color: AppColors.h333333, fontWeight: FontWeight.w600),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        const Text(
+                                          'CNTT',
+                                          style: TextStyle(
+                                              fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          )
+                        : const Center(
+                            child: Text(
+                              'Không có dữ liệu',
+                              style: TextStyle(color: Colors.black, fontSize: 14),
+                            ),
+                          ),
+                  ),
           ),
         ),
       ),

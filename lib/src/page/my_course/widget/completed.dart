@@ -43,7 +43,7 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => CoursePage(
-                                  idCourse: widget.provider.modelProcessCompleted[index].courseInfo?.first.id ?? '',
+                                  idCourse: widget.provider.modelProcessCompleted[index].courseInfo?.id ?? '',
                                 ),
                               ),
                             );
@@ -64,8 +64,8 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
                                         image: DecorationImage(
-                                            image: NetworkImage(widget.provider.modelProcessCompleted[index].courseInfo
-                                                    ?.first.courseThumnail ??
+                                            image: NetworkImage(widget
+                                                    .provider.modelProcessCompleted[index].courseInfo?.courseThumnail ??
                                                 ''),
                                             fit: BoxFit.cover)),
                                   ),
@@ -82,16 +82,18 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(20),
                                               color: Colors.amber.withOpacity(0.2)),
-                                          child: const Text('Code',
-                                              style: TextStyle(
+                                          child: Text(
+                                              widget.provider.modelProcessCompleted[index].courseInfo?.courseType
+                                                      ?.typeName ??
+                                                  '',
+                                              style: const TextStyle(
                                                   fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
                                         ),
                                         const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
-                                          widget.provider.modelProcessCompleted[index].courseInfo?.first.courseName ??
-                                              '',
+                                          widget.provider.modelProcessCompleted[index].courseInfo?.courseName ?? '',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               fontSize: 14,
@@ -101,19 +103,21 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        const Row(
+                                        Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.person,
                                               color: AppColors.h8C8C8C,
                                               size: 18,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text(
-                                              'Nguyễn Tấn Phiên',
-                                              style: TextStyle(
+                                              widget.provider.modelProcessCompleted[index].courseInfo?.userTeacher
+                                                      ?.userName ??
+                                                  '',
+                                              style: const TextStyle(
                                                   color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
                                             )
                                           ],

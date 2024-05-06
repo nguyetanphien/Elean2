@@ -35,7 +35,7 @@ class DetailCourseTypeVM extends BaseViewModel {
       page = page + 1;
     }
     try {
-      final response = await api.apiServices.getAllCourseToType(id, 10, page);
+      final response = await api.apiServices.getAllCourseToType(id, 10, page, {'userId': prefs.userID ?? ''});
       if (response.status == 200) {
         if (refresh) {
           isLoaading = false;
@@ -64,6 +64,31 @@ class DetailCourseTypeVM extends BaseViewModel {
     } on DioError catch (e) {
       debugger(when: true, message: e.message);
       showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+    }
+  }
+
+  ///
+  /// theem gior hang
+  ///
+  Future addCart(String? idCourse) async {
+    showLoading();
+    try {
+      final response =
+          await api.apiServices.postCart(idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
+      if (response.status! >= 200 || response.status! < 400) {
+        showSucces('Thêm vào giỏ hàng thành công');
+        hideLoading();
+      } else {
+        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      }
+      notifyListeners();
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+      if (e.response?.statusCode == 400) {
+        showError('Khóa học đã tồn tại.');
+      }
+      hideLoading();
     }
   }
 }

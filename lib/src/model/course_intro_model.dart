@@ -21,6 +21,9 @@ class CourseIntroModel {
   @JsonKey(name: 'course_ratingsAverage')
   double? courseRatingsAverage;
 
+  @JsonKey(name: 'is_in_cart')
+  bool? isInCart;
+
   @JsonKey(name: 'user_teacher')
   UserModel? userTeacher;
 

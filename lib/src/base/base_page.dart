@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:kltn/src/components/imformation_popup.dart';
 import 'package:kltn/src/components/succes_popup.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -36,6 +37,9 @@ mixin MixinBasePage<T extends BaseViewModel> {
 
         _provider.onShowSusse = (message) {
           SuccesPopup.show(context, message);
+        };
+        _provider.onShowImfomation = (message) {
+          ImformationPopup.show(context, message);
         };
 
         initialise(context);

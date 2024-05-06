@@ -12,7 +12,7 @@ class DetailMentorVM extends BaseViewModel {
   int index = 0;
   ScrollController scrollController = ScrollController();
   bool checkReadMore = false;
-  bool checkLoading = false;
+  bool checkLoading = true;
   MentorResponse mentorModel = MentorResponse();
   List<CourseIntroModel> listCourse = [];
   String idMentor = '';
@@ -39,6 +39,7 @@ class DetailMentorVM extends BaseViewModel {
       } else {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }
+      checkLoading = false;
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());

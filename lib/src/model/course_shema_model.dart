@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'course_type_model.dart';
 import 'user_model.dart';
 
 part 'course_shema_model.g.dart';
@@ -13,7 +14,7 @@ class CourseShemaModel {
   String? courseName;
 
   @JsonKey(name: 'course_type')
-  String? courseType;
+  dynamic courseType;
 
   @JsonKey(name: 'course_thumnail')
   String? courseThumnail;
@@ -29,6 +30,10 @@ class CourseShemaModel {
 
   @JsonKey(name: 'user_teacher')
   UserModel? userTeacher;
+
+  @JsonKey(name: 'is_in_cart')
+  bool? isInCart;
+
 
   CourseShemaModel();
 

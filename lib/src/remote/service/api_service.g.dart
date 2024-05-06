@@ -121,6 +121,7 @@ class _ApiService implements ApiService {
     String? id,
     int? limit,
     int? page,
+    Map<String,dynamic> body
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -129,7 +130,7 @@ class _ApiService implements ApiService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = body;
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CourseIntroModel>>(Options(
       method: 'GET',
       headers: _headers,
@@ -756,11 +757,45 @@ class _ApiService implements ApiService {
     );
     return value;
   }
+    @override
+  Future<BaseListResponse<UserModel>> getAllTearcher( int? limit,
+    int? page,) async {
+    const _extra = <String, dynamic>{};
+     final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'page': page,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<UserModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/get-all-teacher',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseListResponse<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
 
   @override
   Future<BaseListResponse<CourseShemaModel>> getpopularCourse(
     int? limit,
     int? page,
+    Map<String,dynamic> body,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -769,7 +804,7 @@ class _ApiService implements ApiService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = body;
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CourseShemaModel>>(Options(
       method: 'GET',
       headers: _headers,
@@ -777,7 +812,7 @@ class _ApiService implements ApiService {
     )
         .compose(
           _dio.options,
-          '/course',
+          '/course/get-all-course',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -1024,7 +1059,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<BaseListResponse<CourseProcessResponse>> getCourseProcess(
+  Future<BaseResponse<CourseProcessResponse>> getCourseProcess(
     Map<String, dynamic> headers,
     Map<String, dynamic> headersIdUser,
   ) async {
@@ -1036,7 +1071,7 @@ class _ApiService implements ApiService {
     };
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseListResponse<CourseProcessResponse>>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<CourseProcessResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1052,7 +1087,7 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BaseListResponse<CourseProcessResponse>.fromJson(
+    final value = BaseResponse<CourseProcessResponse>.fromJson(
       _result.data!,
       (json) => CourseProcessResponse.fromJson(json as Map<String, dynamic>),
     );

@@ -76,15 +76,22 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                     Center(
                       child: Stack(
                         children: [
-                          CircleAvatar(
-                            maxRadius: 45,
-                            // minRadius: 40,
-                            backgroundColor: Colors.white,
-                            backgroundImage: provider.image == null
+                          Container(
+                            width: 100,
+                            height: 100,
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(color: AppColors.blue_246BFD, width: 2),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: provider.image == null
                                 ? provider.avatar.isNotEmpty
-                                    ? NetworkImage(provider.avatar)
-                                    : const AssetImage('assets/image/logo.png') as ImageProvider<Object>
-                                : FileImage(provider.image!) as ImageProvider<Object>?,
+                                    ? Image.network(provider.avatar)
+                                    : Image.asset('assets/image/logo.png') 
+                                : Image.file(provider.image!) ,
+                            ),
                           ),
                           Positioned(
                             right: 0,
@@ -181,6 +188,7 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                       lable: 'Email',
                       hintText: 'course@gmail.com',
                       textInputType: TextInputType.emailAddress,
+                      readOnly: true,
                       validate: (p0) {
                         // setState(() {
                         //   print('pppppppppp');

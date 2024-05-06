@@ -11,6 +11,7 @@ class ItemYourProfileWidget extends StatelessWidget {
       required this.controller,
       this.textInputType = TextInputType.text,
       this.maxLine = 1,
+      this.readOnly=false,
       this.validate})
       : super(key: key);
   final String lable;
@@ -19,6 +20,7 @@ class ItemYourProfileWidget extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final int maxLine;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class ItemYourProfileWidget extends StatelessWidget {
             onChanged: validate,
             maxLines: maxLine,
             keyboardType: textInputType,
+            readOnly: readOnly,
             style: const TextStyle(color: AppColors.black, fontSize: 14, fontWeight: FontWeight.w400),
             decoration: InputDecoration(
               hintText: hintText,

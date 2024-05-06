@@ -105,6 +105,6 @@ class SharedPrefs {
     _prefs.setString("userID", values ?? '');
   }
   void removeUserID() {
-    _prefs.remove('userName');
+    _prefs.remove('userID');
   }
 }

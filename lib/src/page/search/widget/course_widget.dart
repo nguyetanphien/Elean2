@@ -59,7 +59,9 @@ class _CourseWidgetState extends State<CourseWidget> {
                                         context: context,
                                         backgroundColor: Colors.transparent,
                                         builder: (context) {
-                                          return  RemoveWidget(model: CartResponse(),);
+                                          return RemoveWidget(
+                                            model: CartResponse(),
+                                          );
                                         },
                                       );
                                     },
@@ -98,19 +100,19 @@ class _CourseWidgetState extends State<CourseWidget> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    const Row(
+                                    Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.person,
                                           color: AppColors.h8C8C8C,
                                           size: 18,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         Text(
-                                          'Nguyễn Tấn Phiên',
-                                          style: TextStyle(
+                                          widget.provider.listSearch[index].userTeacher?.userName ?? '',
+                                          style: const TextStyle(
                                               color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
                                         )
                                       ],
@@ -124,9 +126,7 @@ class _CourseWidgetState extends State<CourseWidget> {
                                         Text(
                                           '${NumberFormat.decimalPattern().format(widget.provider.listSearch[index].coursePrice ?? 0)} VND',
                                           style: const TextStyle(
-                                              color: AppColors.blue_246BFD,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500),
+                                              color: AppColors.blue_246BFD, fontSize: 16, fontWeight: FontWeight.w500),
                                         ),
                                         const SizedBox(
                                           width: 10,

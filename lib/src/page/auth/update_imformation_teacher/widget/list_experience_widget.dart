@@ -127,6 +127,15 @@ class _ListExperienceWidgetState extends State<ListExperienceWidget> {
         ),
         GestureDetector(
           onTap: () {
+            if ((widget.provider.list).isEmpty) {
+              setState(() {
+                widget.provider.checkvalidateExperience = 'Vui lòng thêm kinh nghiệm';
+              });
+            } else {
+              setState(() {
+                widget.provider.checkvalidateExperience = '';
+              });
+            }
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -153,6 +162,10 @@ class _ListExperienceWidgetState extends State<ListExperienceWidget> {
               ],
             ),
           ),
+        ),
+        Text(
+          widget.provider.checkvalidateExperience,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
         ),
       ],
     );

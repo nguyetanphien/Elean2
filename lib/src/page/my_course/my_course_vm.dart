@@ -35,7 +35,7 @@ class MyCourseVM extends BaseViewModel {
         {'x-client-id': prefs.userID},
       );
       if (response.status! >= 200 || response.status! < 400) {
-        modelProcess = response.data?.first ?? CourseProcessResponse();
+        modelProcess = response.data ?? CourseProcessResponse();
         modelProcessOngoing.clear();
         modelProcessCompleted.clear();
         for (var element in modelProcess.userCourse ?? []) {

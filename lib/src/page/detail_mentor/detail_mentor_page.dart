@@ -134,36 +134,36 @@ class _DetailMentorPageState extends State<DetailMentorPage> with MixinBasePage<
                                         // )
                                       ],
                                     ),
-                                    const Spacer(),
-                                    Container(
-                                      height: 40,
-                                      width: 40,
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(40),
-                                        color: AppColors.h9497AD.withOpacity(0.2),
-                                      ),
-                                      child: const Icon(
-                                        Icons.phone,
-                                        color: AppColors.blue_246BFD,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Container(
-                                      height: 40,
-                                      width: 40,
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(40),
-                                        color: AppColors.h9497AD.withOpacity(0.2),
-                                      ),
-                                      child: const Icon(
-                                        Icons.chat,
-                                        color: AppColors.blue_246BFD,
-                                      ),
-                                    ),
+                                    // const Spacer(),
+                                    // Container(
+                                    //   height: 40,
+                                    //   width: 40,
+                                    //   padding: const EdgeInsets.all(5),
+                                    //   decoration: BoxDecoration(
+                                    //     borderRadius: BorderRadius.circular(40),
+                                    //     color: AppColors.h9497AD.withOpacity(0.2),
+                                    //   ),
+                                    //   child: const Icon(
+                                    //     Icons.phone,
+                                    //     color: AppColors.blue_246BFD,
+                                    //   ),
+                                    // ),
+                                    // const SizedBox(
+                                    //   width: 8,
+                                    // ),
+                                    // Container(
+                                    //   height: 40,
+                                    //   width: 40,
+                                    //   padding: const EdgeInsets.all(5),
+                                    //   decoration: BoxDecoration(
+                                    //     borderRadius: BorderRadius.circular(40),
+                                    //     color: AppColors.h9497AD.withOpacity(0.2),
+                                    //   ),
+                                    //   child: const Icon(
+                                    //     Icons.chat,
+                                    //     color: AppColors.blue_246BFD,
+                                    //   ),
+                                    // ),
                                   ],
                                 )
                               : loadingInfor(),

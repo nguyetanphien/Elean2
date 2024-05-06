@@ -168,7 +168,7 @@ class YourProfileVM extends BaseViewModel {
     titleCOntroller.text = '';
     descriptionCOntroller.text = '';
     list.add(dataExperience);
-    userModel.userExperience?.add(dataExperience);
+    // userModel.userExperience?.add(dataExperience);
     userModel.userExperience = list;
     notifyListeners();
   }

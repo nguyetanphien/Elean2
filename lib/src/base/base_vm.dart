@@ -13,6 +13,7 @@ abstract class BaseViewModel extends ChangeNotifier {
   late VoidCallback onShowLoading, onHideLoading;
   late void Function(String) onShowError;
   late void Function(String) onShowSusse;
+  late void Function(String) onShowImfomation;
 
   BaseViewModel() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -43,6 +44,9 @@ abstract class BaseViewModel extends ChangeNotifier {
   }
   void showSucces(String message) {
     onShowSusse.call(message);
+  }
+  void onShowImfo(String message) {
+    onShowImfomation.call(message);
   }
 
   void showErrorConnection() {

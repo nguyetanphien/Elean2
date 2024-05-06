@@ -4,11 +4,9 @@ import 'package:kltn/src/base/base_page.dart';
 import 'package:kltn/src/components/paginate.dart';
 import 'package:kltn/src/model/course_type_model.dart';
 import 'package:kltn/src/page/detail_course_type.dart/detail_course_type_vm.dart';
-import 'package:kltn/src/remote/service/respone/cart/cart_response.dart';
 import 'package:shimmer/shimmer.dart';
-
+import '../../components/imformation_popup.dart';
 import '../../utils/app_colors.dart';
-import '../book_mark/widget/bottom_remove.dart';
 import '../detail_course/detail_course_page.dart';
 
 class DetailCourseTypePage extends StatefulWidget {
@@ -116,24 +114,27 @@ class _DetailCourseTypePageState extends State<DetailCourseTypePage> with MixinB
                                       child: Stack(
                                         children: [
                                           Positioned(
-                                              right: 0,
-                                              top: 0,
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    showModalBottomSheet(
-                                                      context: context,
-                                                      backgroundColor: Colors.transparent,
-                                                      builder: (context) {
-                                                        return RemoveWidget(
-                                                          model: CartResponse(),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.bookmark,
-                                                    color: AppColors.blue_246BFD,
-                                                  ))),
+                                            right: 0,
+                                            top: 0,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                if (provider.listCourseType[index].isInCart == false) {
+                                                  setState(() {
+                                                    provider.addCart(provider.listCourseType[index].id ?? '');
+                                                    provider.listCourseType[index].isInCart = true;
+                                                  });
+                                                } else {
+                                                  ImformationPopup.show(context, "Khóa học đã được thêm vào giỏ hàng");
+                                                }
+                                              },
+                                              icon: Icon(
+                                                Icons.bookmark,
+                                                color: provider.listCourseType[index].isInCart ?? false
+                                                    ? AppColors.blue_246BFD
+                                                    : Colors.grey,
+                                              ),
+                                            ),
+                                          ),
                                           Row(
                                             children: [
                                               Container(

@@ -67,16 +67,23 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
               Center(
                 child: Stack(
                   children: [
-                    CircleAvatar(
-                      maxRadius: 45,
-                      // minRadius: 40,
-                      backgroundColor: Colors.white,
-                      backgroundImage: provider.image == null
-                          // ? provider.avatar.isNotEmpty
-                          //     ? NetworkImage(provider.avatar)
-                          //     :
-                          ? const AssetImage('assets/image/logo.png')
-                          : FileImage(provider.image!) as ImageProvider<Object>?,
+                    Container(
+                      width: 100,
+                      height: 100,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: AppColors.blue_246BFD, width: 2),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: provider.image == null
+                            ? Image.asset(
+                                'assets/image/logo.png',
+                                fit: BoxFit.contain,
+                              )
+                            : Image.file(provider.image!),
+                      ),
                     ),
                     Positioned(
                       right: 0,
@@ -111,16 +118,23 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                 lable: 'Họ và tên',
                 hintText: 'Nhập họ và tên',
                 validate: (p0) {
-                  // if (p0!.trim().isEmpty || provider.fullNameController.text.isEmpty) {
-                  //   setState(() {
-                  //     provider.checkvalidateName = 'Vui lòng nhập họ tên';
-                  //   });
-                  // } else {
-                  //   setState(() {
-                  //     provider.checkvalidateName = '';
-                  //   });
-                  // }
+                  if (p0!.trim().isEmpty || provider.fullNameController.text.isEmpty) {
+                    setState(() {
+                      provider.checkvalidateName = 'Vui lòng nhập họ tên';
+                    });
+                  } else {
+                    setState(() {
+                      provider.checkvalidateName = '';
+                    });
+                  }
                 },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                provider.checkvalidateName,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
               ),
               const SizedBox(
                 height: 5,
@@ -131,36 +145,50 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                 hintText: 'Nhập số điện thoại',
                 textInputType: TextInputType.phone,
                 validate: (p0) {
-                  // if (p0!.trim().isEmpty || provider.fullNameController.text.isEmpty) {
-                  //   setState(() {
-                  //     provider.checkvalidateName = 'Vui lòng nhập họ tên';
-                  //   });
-                  // } else {
-                  //   setState(() {
-                  //     provider.checkvalidateName = '';
-                  //   });
-                  // }
+                  if (p0!.trim().isEmpty || provider.phoneController.text.isEmpty) {
+                    setState(() {
+                      provider.checkvalidatePhone = 'Vui lòng nhập số điện thoại';
+                    });
+                  } else {
+                    setState(() {
+                      provider.checkvalidatePhone = '';
+                    });
+                  }
                 },
               ),
               const SizedBox(
                 height: 5,
               ),
+              Text(
+                provider.checkvalidatePhone,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               ItemYourProfileWidget(
-                controller: provider.phoneController,
+                controller: provider.emailController,
                 lable: 'Email',
                 hintText: 'Nhập địa chỉ email',
                 textInputType: TextInputType.emailAddress,
                 validate: (p0) {
-                  // if (p0!.trim().isEmpty || provider.fullNameController.text.isEmpty) {
-                  //   setState(() {
-                  //     provider.checkvalidateName = 'Vui lòng nhập họ tên';
-                  //   });
-                  // } else {
-                  //   setState(() {
-                  //     provider.checkvalidateName = '';
-                  //   });
-                  // }
+                  if (p0!.trim().isEmpty || provider.emailController.text.isEmpty) {
+                    setState(() {
+                      provider.checkvalidateEmail = 'Vui lòng địa chỉ email';
+                    });
+                  } else {
+                    setState(() {
+                      provider.checkvalidateEmail = '';
+                    });
+                  }
                 },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                provider.checkvalidateEmail,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
               ),
               const SizedBox(
                 height: 5,
@@ -213,6 +241,15 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                                 setState(() {
                                   var dateTime = DateFormat('dd/MM/yyyy').format(newDate);
                                   provider.dateController.text = dateTime;
+                                  if (provider.dateController.text.isEmpty) {
+                                    setState(() {
+                                      provider.checkvalidateDate = 'Vui lòng ngày sinh';
+                                    });
+                                  } else {
+                                    setState(() {
+                                      provider.checkvalidateDate = '';
+                                    });
+                                  }
                                 });
                               },
                             ),
@@ -220,46 +257,76 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                         );
                       },
                     );
+                    if (provider.dateController.text.isEmpty) {
+                      setState(() {
+                        provider.checkvalidateDate = 'Vui lòng ngày sinh';
+                      });
+                    } else {
+                      setState(() {
+                        provider.checkvalidateDate = '';
+                      });
+                    }
                   },
                 ),
               ),
               const SizedBox(
                 height: 5,
               ),
-              ItemYourProfileWidget(
-                controller: provider.phoneController,
-                lable: 'Trường Đại học/Cao đẳng',
-                hintText: 'Nhập tên trường Đại học/Cao đẳng',
-                validate: (p0) {
-                  // if (p0!.trim().isEmpty || provider.fullNameController.text.isEmpty) {
-                  //   setState(() {
-                  //     provider.checkvalidateName = 'Vui lòng nhập họ tên';
-                  //   });
-                  // } else {
-                  //   setState(() {
-                  //     provider.checkvalidateName = '';
-                  //   });
-                  // }
-                },
+              Text(
+                provider.checkvalidateDate,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
               ),
               const SizedBox(
                 height: 5,
               ),
               ItemYourProfileWidget(
-                controller: provider.phoneController,
+                controller: provider.universityController,
+                lable: 'Trường Đại học/Cao đẳng',
+                hintText: 'Nhập tên trường Đại học/Cao đẳng',
+                validate: (p0) {
+                  if (p0!.trim().isEmpty || provider.universityController.text.isEmpty) {
+                    setState(() {
+                      provider.checkvalidateUniversity = 'Vui lòng nhập tên trường Đại học/Cao đẳng';
+                    });
+                  } else {
+                    setState(() {
+                      provider.checkvalidateUniversity = '';
+                    });
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                provider.checkvalidateUniversity,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              ItemYourProfileWidget(
+                controller: provider.specializedController,
                 lable: 'Chuyên ngành',
                 hintText: 'Nhập tên chuyên ngành',
                 validate: (p0) {
-                  // if (p0!.trim().isEmpty || provider.fullNameController.text.isEmpty) {
-                  //   setState(() {
-                  //     provider.checkvalidateName = 'Vui lòng nhập họ tên';
-                  //   });
-                  // } else {
-                  //   setState(() {
-                  //     provider.checkvalidateName = '';
-                  //   });
-                  // }
+                  if (p0!.trim().isEmpty || provider.specializedController.text.isEmpty) {
+                    setState(() {
+                      provider.checkvalidateSpecialized = 'Vui lòng nhập tên chuyên ngành';
+                    });
+                  } else {
+                    setState(() {
+                      provider.checkvalidateSpecialized = '';
+                    });
+                  }
                 },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                provider.checkvalidateSpecialized,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
               ),
               const SizedBox(
                 height: 5,
@@ -277,6 +344,9 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 7,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -289,9 +359,20 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                     padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                     elevation: 0,
                     underline: Container(),
+                    onTap: () {
+                      if ((provider.select ?? '').isEmpty) {
+                        setState(() {
+                          provider.checkvalidateType = 'Vui lòng chọn danh mục giảng dạy';
+                        });
+                      } else {
+                        setState(() {
+                          provider.checkvalidateType = '';
+                        });
+                      }
+                    },
                     borderRadius: BorderRadius.zero,
                     hint: Text(
-                      'Vui lòng chọn giới tính',
+                      'Vui lòng chọn danh mục dạy',
                       style: TextStyle(
                           fontSize: 14, color: AppColors.black.withOpacity(0.5), decoration: TextDecoration.none),
                     ),
@@ -308,8 +389,24 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                     onChanged: (values) {
                       setState(() {
                         provider.select = values;
+                        if ((provider.select ?? '').isEmpty) {
+                          setState(() {
+                            provider.checkvalidateType = 'Vui lòng chọn danh mục giảng dạy';
+                          });
+                        } else {
+                          setState(() {
+                            provider.checkvalidateType = '';
+                          });
+                        }
                       });
                     }),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                provider.checkvalidateType,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
               ),
               const SizedBox(
                 height: 5,
@@ -345,14 +442,26 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                         child: Image.asset('assets/image/add_image.png'),
                       ),
                     )
-                  : SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: Image.file(
-                        provider.imageDiploma!,
+                  : GestureDetector(
+                      onTap: () {
+                        provider.getImageDiploma();
+                      },
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Image.file(
+                          provider.imageDiploma!,
+                        ),
                       ),
                     ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                provider.checkvalidateimageDiploma,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+              ),
+              const SizedBox(height: 5),
               Row(
                 children: [
                   SizedBox(
@@ -377,7 +486,7 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                     ),
                   ),
                   const Text(
-                    'Xác nhận thông trên là chính xác',
+                    'Xác nhận thông tin trên là chính xác',
                     style: TextStyle(
                       color: AppColors.black,
                       fontWeight: FontWeight.w400,
@@ -390,7 +499,11 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: provider.checkValidateImfomation
+                    ? () {}
+                    : () {
+                        provider.checkValidateImformation();
+                      },
                 child: Container(
                   height: 55,
                   decoration: BoxDecoration(

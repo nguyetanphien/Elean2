@@ -43,14 +43,15 @@ class Paginate extends StatelessWidget {
       enablePullDown: enablePullDown,
       scrollDirection: scrollDirection,
       reverse: reverse,
-      header: const ClassicHeader(
-        idleText: 'Vuốt xuống để làm mới',
-        releaseText: 'Vuốt xuống để làm mới dữ liệu',
-        completeText: 'Làm mới dữ liệu thành công',
-        refreshingText: 'Làm mới dữ liệu',
-        failedText: 'Làm mới dữ liệu lỗi',
-        canTwoLevelText: 'Vuốt xuống để làm mới',
-      ),
+      header: header ??
+          const ClassicHeader(
+            idleText: 'Vuốt xuống để làm mới',
+            releaseText: 'Vuốt xuống để làm mới dữ liệu',
+            completeText: 'Làm mới dữ liệu thành công',
+            refreshingText: 'Làm mới dữ liệu',
+            failedText: 'Làm mới dữ liệu lỗi',
+            canTwoLevelText: 'Vuốt xuống để làm mới',
+          ),
       footer: footer ??
           ClassicFooter(
             loadingText: 'Đang tải...',

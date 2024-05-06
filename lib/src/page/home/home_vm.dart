@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_vm.dart';
+import 'package:kltn/src/model/user_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../model/course_shema_model.dart';
@@ -15,6 +16,7 @@ class HomeVM extends BaseViewModel {
   List<CourseTypeModel> listTypeModel = [];
   List<CourseShemaModel> listPopularCourse = [];
   RefreshController refreshPopularController = RefreshController();
+  RefreshController refreshMentorController = RefreshController();
   RefreshController refreshALlController = RefreshController();
   bool isLoadingCatelory = true;
   bool isLoadingCourse = true;
@@ -24,8 +26,10 @@ class HomeVM extends BaseViewModel {
   String userName = '';
   bool isLogIn = true;
   int pagePopular = 1;
+  int pageMentor = 1;
   bool isEnablePullUpPopular = true;
-
+  bool isEnablePullUpMentor = true;
+  List<UserModel> listMentor = [];
   CourseProcessResponse modelProcess = CourseProcessResponse();
   List<ProcessModel> modelProcessOngoing = [];
   @override
@@ -34,6 +38,7 @@ class HomeVM extends BaseViewModel {
     fetchPopularCourse(isRefresh: true);
     checkUser();
     fetchCourse();
+    fetchAllMentor(isRefresh: true);
     if (prefs.token == null) {
       isLogIn = false;
       notifyListeners();
@@ -56,6 +61,7 @@ class HomeVM extends BaseViewModel {
     fetchTypeAll();
     fetchPopularCourse(isRefresh: true);
     fetchCourse();
+    fetchAllMentor(isRefresh: true);
     refreshALlController.resetNoData();
     refreshALlController.refreshCompleted();
   }
@@ -78,6 +84,7 @@ class HomeVM extends BaseViewModel {
 
   ///
   /// lấy khóa học phổ biến
+  /// 
   Future fetchPopularCourse({required bool isRefresh}) async {
     if (isRefresh) {
       pagePopular = 1;
@@ -86,7 +93,7 @@ class HomeVM extends BaseViewModel {
       pagePopular++;
     }
     try {
-      final response = await api.apiServices.getpopularCourse(10, pagePopular);
+      final response = await api.apiServices.getpopularCourse(10, pagePopular, {'userId': prefs.userID ?? ''});
       if (response.status == 200) {
         if (isRefresh) {
           listPopularCourse.clear();
@@ -104,8 +111,6 @@ class HomeVM extends BaseViewModel {
             refreshPopularController.loadNoData();
           }
         }
-        // listPopularCourse.clear();
-        // listPopularCourse.addAll(response.data ?? []);
         isLoadingCourse = false;
         notifyListeners();
       }
@@ -136,7 +141,7 @@ class HomeVM extends BaseViewModel {
         {'x-client-id': prefs.userID},
       );
       if (response.status! >= 200 || response.status! < 400) {
-        modelProcess = response.data?.first ?? CourseProcessResponse();
+        modelProcess = response.data ?? CourseProcessResponse();
         modelProcessOngoing.clear();
         for (var element in modelProcess.userCourse ?? []) {
           if (element.processCourse <= 1) {
@@ -150,6 +155,69 @@ class HomeVM extends BaseViewModel {
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());
+    }
+  }
+
+  ///
+  /// top mentor
+  ///
+  Future fetchAllMentor({required bool isRefresh}) async {
+    if (isRefresh) {
+      pageMentor = 1;
+      isEnablePullUpMentor = true;
+    } else {
+      pageMentor++;
+    }
+    try {
+      final response = await api.apiServices.getAllTearcher(10,pageMentor);
+      if (response.status == 200) {
+        if (isRefresh) {
+          listMentor.clear();
+          listMentor.addAll(response.data ?? []);
+          refreshMentorController.resetNoData();
+          refreshMentorController.refreshCompleted();
+        } else {
+          if (response.data!.isNotEmpty) {
+            listMentor.addAll(response.data ?? []);
+            refreshMentorController.loadNoData();
+            refreshMentorController.loadComplete();
+          } else {
+            isEnablePullUpMentor = false;
+            notifyListeners();
+            refreshMentorController.loadNoData();
+          }
+        }
+        isLoadingTopMentor = false;
+        notifyListeners();
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+    }
+  }
+
+  ///
+  /// theem gior hang
+  ///
+  Future addCart(String? idCourse) async {
+    showLoading();
+    try {
+      final response =
+          await api.apiServices.postCart(idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
+      if (response.status! >= 200 || response.status! < 400) {
+        showSucces('Thêm vào giỏ hàng thành công');
+        hideLoading();
+      } else {
+        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      }
+      notifyListeners();
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+      if (e.response?.statusCode == 400) {
+        showError('Khóa học đã tồn tại.');
+      }
+      hideLoading();
     }
   }
 }

@@ -46,7 +46,7 @@ class DetailCourseVM extends BaseViewModel {
       } else {
         await fetchCourse();
       }
-      // fetchTypeAll();
+
       fetchAllReview(isRefresh: true);
       fetchMentor();
     }

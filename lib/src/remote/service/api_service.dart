@@ -51,10 +51,7 @@ abstract class ApiService {
   //lấy khóa học theo loại
   @GET('/course/get-course-by-type/{id}')
   Future<BaseListResponse<CourseIntroModel>> getAllCourseToType(
-    @Path('id') String? id,
-    @Query('limit') int? limit,
-    @Query('page') int? page,
-  );
+      @Path('id') String? id, @Query('limit') int? limit, @Query('page') int? page, @Body() Map<String, dynamic> body);
 
   //search course
   @GET('/course/search')
@@ -175,8 +172,9 @@ abstract class ApiService {
   );
 
   // Get khóa học bán chạy
-  @GET('/course')
-  Future<BaseListResponse<CourseShemaModel>> getpopularCourse( @Query('limit') int? limit, @Query('page') int? page);
+  @GET('/course/get-all-course')
+  Future<BaseListResponse<CourseShemaModel>> getpopularCourse(
+      @Query('limit') int? limit, @Query('page') int? page, @Body() Map<String, dynamic> body);
 
   // get qua hoc giang vien
   @GET('/user/all-course-teacher/{id}')
@@ -212,9 +210,16 @@ abstract class ApiService {
       @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
       @Body() Map<String, String> body);
 
-        // get tiến trình
+  // get tiến trình
   @GET('/user/get-purchased-course')
-  Future<BaseListResponse<CourseProcessResponse>> getCourseProcess(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
-      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
-      );
+  Future<BaseResponse<CourseProcessResponse>> getCourseProcess(
+    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+  );
+
+  // get all giảng viên
+  @GET('/course/get-all-teacher')
+  Future<BaseListResponse<UserModel>> getAllTearcher(@Query('limit') int? limit, @Query('page') int? page);
+
+
 }

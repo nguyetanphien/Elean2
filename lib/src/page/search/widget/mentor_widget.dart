@@ -26,6 +26,7 @@ class _MentorWidgetState extends State<MentorWidget> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
                     onTap: () {
                       Navigator.push(
                         context,

@@ -5,7 +5,10 @@ import 'package:kltn/src/page/detail_course/detail_course_page.dart';
 import 'package:kltn/src/page/detail_popular_course/detail_popular_couse_page.dart';
 import 'package:kltn/src/page/home/home_vm.dart';
 import 'package:kltn/src/utils/app_colors.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../components/imformation_popup.dart';
 
 class PopularCourseWidget extends StatefulWidget {
   const PopularCourseWidget({super.key, required this.provider});
@@ -73,6 +76,22 @@ class _PopularCourseWidgetState extends State<PopularCourseWidget> {
             enablePullDown: true,
             enablePullUp: widget.provider.isEnablePullUpPopular,
             scrollDirection: Axis.horizontal,
+            header: const ClassicHeader(
+              idleText: '',
+              releaseText: '',
+              completeText: '',
+              refreshingText: '',
+              failedText: '',
+              canTwoLevelText: '',
+            ),
+            footer: const ClassicFooter(
+              loadingText: '.',
+              canLoadingText: '',
+              failedText: '',
+              idleText: '',
+              idleIcon: SizedBox(),
+              noDataText: '',
+            ),
             onLoading: () {
               widget.provider.fetchPopularCourse(isRefresh: false);
             },
@@ -144,16 +163,32 @@ class _PopularCourseWidgetState extends State<PopularCourseWidget> {
                                             Positioned(
                                               top: 8,
                                               right: 8,
-                                              child: Container(
-                                                padding: const EdgeInsets.all(3),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(5),
-                                                ),
-                                                child: const Icon(
-                                                  Icons.bookmark,
-                                                  color: AppColors.blue_246BFD,
-                                                  size: 20,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  if (widget.provider.listPopularCourse[index].isInCart == false) {
+                                                    setState(() {
+                                                      widget.provider
+                                                          .addCart(widget.provider.listPopularCourse[index].id ?? '');
+                                                      widget.provider.listPopularCourse[index].isInCart = true;
+                                                    });
+                                                  } else {
+                                                    ImformationPopup.show(
+                                                        context, "Khóa học đã được thêm vào giỏ hàng");
+                                                  }
+                                                },
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(3),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(5),
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.bookmark,
+                                                    color: widget.provider.listPopularCourse[index].isInCart ?? false
+                                                        ? AppColors.blue_246BFD
+                                                        : Colors.grey,
+                                                    size: 20,
+                                                  ),
                                                 ),
                                               ),
                                             )

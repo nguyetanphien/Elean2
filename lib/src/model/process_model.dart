@@ -9,8 +9,8 @@ class ProcessModel {
   @JsonKey(name: 'process_Course')
   double? processCourse;
 
-  @JsonKey(name: 'course_info')
-  List<CourseShemaModel>? courseInfo;
+  @JsonKey(name: '_id')
+  CourseShemaModel? courseInfo;
 
   ProcessModel();
 
