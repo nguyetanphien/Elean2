@@ -127,7 +127,7 @@ class DetailCourseVM extends BaseViewModel {
     // showLoading();
     notifyListeners();
     try {
-      final response = await api.apiServices.getInforMentor(model.userTeacher);
+      final response = await api.apiServices.getInforMentor(model.userTeacher?.id??'');
       if (response.status! >= 200 || response.status! < 400) {
         mentorModel = response.data ?? MentorResponse();
         notifyListeners();

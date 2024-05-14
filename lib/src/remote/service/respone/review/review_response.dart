@@ -22,7 +22,7 @@ class ReviewResponse {
   String? createdAt;
 
   @JsonKey(name: 'reply_comment')
-  List<ReplyCommentResponse>? replyComment;
+  ReplyCommentResponse? replyComment;
 
   ReviewResponse();
 

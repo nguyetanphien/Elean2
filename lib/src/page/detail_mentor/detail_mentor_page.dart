@@ -107,9 +107,11 @@ class _DetailMentorPageState extends State<DetailMentorPage> with MixinBasePage<
                                         const SizedBox(
                                           height: 4,
                                         ),
-                                        const Text(
-                                          'CNTT',
-                                          style: TextStyle(
+                                        Text(
+                                          provider.mentorModel.findTeacher?.courseType != null
+                                              ? provider.mentorModel.findTeacher?.courseType["type_name"] ?? ''
+                                              : '',
+                                          style: const TextStyle(
                                               fontSize: 12, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
                                         ),
                                         // const SizedBox(

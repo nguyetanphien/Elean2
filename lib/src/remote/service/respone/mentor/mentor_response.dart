@@ -11,7 +11,7 @@ class MentorResponse {
   @JsonKey(name: 'number_course')
   int? numberCourse;
 
-  @JsonKey(name: 'findTeacher')
+  @JsonKey(name: 'teacher_infor')
   UserModel? findTeacher;
 
   @JsonKey(name: 'createdAt')

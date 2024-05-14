@@ -17,6 +17,8 @@ class ProfileVM extends BaseViewModel {
     prefs.removeToken();
     prefs.removeUserName();
     prefs.removeUserID();
+    prefs.removerRole();
+    prefs.removeUpdate();
   }
 
   Future<void> getUser() async {

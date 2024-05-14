@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 import 'experience_model.dart';
 
 part 'user_model.g.dart';
@@ -23,9 +22,21 @@ class UserModel {
 
   @JsonKey(name: 'user_experience')
   List<ExperienceModel>? userExperience;
-  
+
   @JsonKey(name: 'user_avatar')
   String? userAvatar;
+
+  @JsonKey(name: 'user_phone')
+  String? userPhone;
+
+  @JsonKey(name: 'user_birthday')
+  String? userBirthday;
+
+  @JsonKey(name: 'user_university')
+  String? userUniversity;
+
+  @JsonKey(name: 'course_type')
+  dynamic courseType;
 
   UserModel();
 

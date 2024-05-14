@@ -13,6 +13,9 @@ class SignupBody {
   @JsonKey(name: 'user_password')
   String? userPassword;
 
+  @JsonKey(name: 'user_role')
+  String? userRole;
+
   SignupBody();
 
   factory SignupBody.fromJson(Map<String, dynamic> json) =>

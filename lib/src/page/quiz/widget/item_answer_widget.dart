@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kltn/src/page/quiz/quiz_vm.dart';
-import 'package:kltn/src/utils/app_colors.dart';
 
 class ItemAnswerWidget extends StatefulWidget {
   const ItemAnswerWidget({super.key, required this.provider});
@@ -58,34 +57,6 @@ class _ItemAnswerWidgetState extends State<ItemAnswerWidget> {
                 ),
               );
             },
-          ),
-        ),
-        Visibility(
-          visible: widget.provider.checkSubmit(),
-          child: GestureDetector(
-            onTap: widget.provider.listQuizQuestion.length == widget.provider.quizBody.length
-                ? () {
-                    widget.provider.postAnswer();
-                  }
-                : () {},
-            child: Container(
-              // width: 120,
-              margin: const EdgeInsets.only(bottom: 20),
-              padding: const EdgeInsetsDirectional.symmetric(vertical: 13),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: widget.provider.listQuizQuestion.length == widget.provider.quizBody.length
-                    ? AppColors.blue_246BFD
-                    : Colors.grey,
-              ),
-              child: const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Nộp ngay',
-                  style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
-                ),
-              ),
-            ),
           ),
         ),
       ],

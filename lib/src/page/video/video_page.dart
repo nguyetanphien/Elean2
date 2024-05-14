@@ -4,6 +4,7 @@ import 'package:kltn/src/base/base_page.dart';
 import 'package:kltn/src/model/quiz_title_model.dart';
 import 'package:kltn/src/page/video/video_vm.dart';
 import 'package:kltn/src/page/video/widget/answer_and_question_widget.dart';
+import 'package:kltn/src/page/video/widget/document_widget.dart';
 import 'package:kltn/src/page/video/widget/quiz_widget.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 import 'package:video_player/video_player.dart';
@@ -45,7 +46,7 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
         },
         child: widget.idCourse.isNotEmpty
             ? DefaultTabController(
-                length: 2,
+                length: 3,
                 child: SafeArea(
                   child: Scaffold(
                     backgroundColor: Colors.white,
@@ -121,6 +122,16 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
                                   ),
                                 ),
                               ),
+                              Tab(
+                                child: Text(
+                                  'Tài liệu',
+                                  style: TextStyle(
+                                    color: provider.index == 2 ? AppColors.blue_246BFD : AppColors.h434343,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -128,9 +139,11 @@ class _VideoWidgetState extends State<VideoPage> with MixinBasePage<VideoVM> {
                           padding: const EdgeInsets.all(15),
                           child: provider.index == 0
                               ? AnswerAndQuestionWidget(provider: provider)
-                              : QuizWidget(
-                                  provider: provider,
-                                ),
+                              : provider.index == 1
+                                  ? QuizWidget(
+                                      provider: provider,
+                                    )
+                                  : DocumentWidget(provider: provider),
                         ),
                       ],
                     ),

@@ -9,6 +9,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../components/imformation_popup.dart';
+import '../../main/widget/dialog_login.dart';
 
 class PopularCourseWidget extends StatefulWidget {
   const PopularCourseWidget({super.key, required this.provider});
@@ -164,18 +165,33 @@ class _PopularCourseWidgetState extends State<PopularCourseWidget> {
                                               top: 8,
                                               right: 8,
                                               child: GestureDetector(
-                                                onTap: () {
-                                                  if (widget.provider.listPopularCourse[index].isInCart == false) {
-                                                    setState(() {
-                                                      widget.provider
-                                                          .addCart(widget.provider.listPopularCourse[index].id ?? '');
-                                                      widget.provider.listPopularCourse[index].isInCart = true;
-                                                    });
-                                                  } else {
-                                                    ImformationPopup.show(
-                                                        context, "Khóa học đã được thêm vào giỏ hàng");
-                                                  }
-                                                },
+                                                onTap: widget.provider.isLogIn
+                                                    ? () {
+                                                        if (widget.provider.listPopularCourse[index].isInCart ==
+                                                            false) {
+                                                          setState(() {
+                                                            widget.provider.addCart(
+                                                                widget.provider.listPopularCourse[index].id ?? '');
+                                                            widget.provider.listPopularCourse[index].isInCart = true;
+                                                          });
+                                                        } else {
+                                                          ImformationPopup.show(
+                                                              context, "Khóa học đã được thêm vào giỏ hàng");
+                                                        }
+                                                      }
+                                                    : () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (ctx) => DialogLogin(
+                                                            login: {
+                                                              'id_course':
+                                                                  widget.provider.listPopularCourse[index].id ?? '',
+                                                              'cart': true,
+                                                              'home': true
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
                                                 child: Container(
                                                   padding: const EdgeInsets.all(3),
                                                   decoration: BoxDecoration(

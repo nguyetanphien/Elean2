@@ -32,6 +32,7 @@ class HomeVM extends BaseViewModel {
   List<UserModel> listMentor = [];
   CourseProcessResponse modelProcess = CourseProcessResponse();
   List<ProcessModel> modelProcessOngoing = [];
+  int countNews = 0;
   @override
   Future<void> onInit() async {
     await fetchTypeAll();
@@ -43,6 +44,7 @@ class HomeVM extends BaseViewModel {
       isLogIn = false;
       notifyListeners();
     }
+    newsNotification();
   }
 
   @override
@@ -62,6 +64,7 @@ class HomeVM extends BaseViewModel {
     fetchPopularCourse(isRefresh: true);
     fetchCourse();
     fetchAllMentor(isRefresh: true);
+    newsNotification();
     refreshALlController.resetNoData();
     refreshALlController.refreshCompleted();
   }
@@ -84,7 +87,7 @@ class HomeVM extends BaseViewModel {
 
   ///
   /// lấy khóa học phổ biến
-  /// 
+  ///
   Future fetchPopularCourse({required bool isRefresh}) async {
     if (isRefresh) {
       pagePopular = 1;
@@ -158,6 +161,23 @@ class HomeVM extends BaseViewModel {
     }
   }
 
+  Future newsNotification() async {
+    try {
+      final response = await api.apiServices.getNotification(
+        '?type=false&limit=1&page=1',
+        {'x-atoken-id': prefs.token},
+        {'x-client-id': prefs.userID},
+      );
+      if (response.status! >= 200 || response.status! < 400) {
+        countNews = response.data?.numberNotification ?? 0;
+        notifyListeners();
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+    }
+  }
+
   ///
   /// top mentor
   ///
@@ -169,7 +189,7 @@ class HomeVM extends BaseViewModel {
       pageMentor++;
     }
     try {
-      final response = await api.apiServices.getAllTearcher(10,pageMentor);
+      final response = await api.apiServices.getAllTearcher(10, pageMentor);
       if (response.status == 200) {
         if (isRefresh) {
           listMentor.clear();

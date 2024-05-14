@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
+
 import '../../base/base_vm.dart';
 import '../book_mark/book_mark_page.dart';
 import '../home/home.dart';
@@ -36,6 +38,30 @@ class MainBoardVM extends BaseViewModel {
     currentIndex = index;
 
     notifyListeners();
+  }
+    ///
+  /// theem gior hang
+  ///
+  Future addCart(String? idCourse) async {
+    showLoading();
+    try {
+      final response =
+          await api.apiServices.postCart(idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
+      if (response.status! >= 200 || response.status! < 400) {
+        showSucces('Thêm vào giỏ hàng thành công');
+        hideLoading();
+      } else {
+        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      }
+      notifyListeners();
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+      if (e.response?.statusCode == 400) {
+        showError('Khóa học đã tồn tại.');
+      }
+      hideLoading();
+    }
   }
 
   // void onPageChanged(int index) {

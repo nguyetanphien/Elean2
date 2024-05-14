@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_page.dart';
 import 'package:kltn/src/model/user_model.dart';
 import 'package:kltn/src/page/auth/sign_in/sign_in_page.dart';
-import 'package:kltn/src/page/auth/update_imformation_teacher/update_imformation_teacher_page.dart';
 import 'package:kltn/src/page/change_password.dart/change_password_page.dart';
 import 'package:kltn/src/page/profile/profile_vm.dart';
 import 'package:kltn/src/page/profile/widgets/item_profile.dart';
@@ -188,12 +187,6 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                 icon: Icons.lock_outlined,
                 title: 'Chính sách bảo mật',
                 ontap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const UpdateImformationTeacherpage(),
-                    ),
-                  );
                 },
               ),
               const SizedBox(

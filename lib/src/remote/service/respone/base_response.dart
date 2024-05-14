@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:kltn/src/model/course_model.dart';
 
 import '../../../model/course_type_model.dart';
+import '../../../model/user_model.dart';
 
 part 'base_response.g.dart';
 
@@ -47,7 +48,7 @@ class DeatilCouseRespone {
   String? courseDemoVideo;
 
   @JsonKey(name: 'user_teacher')
-  String? userTeacher;
+  UserModel? userTeacher;
 
   @JsonKey(name: 'course_price')
   int? coursePrice;

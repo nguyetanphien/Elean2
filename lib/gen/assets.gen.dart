@@ -25,6 +25,10 @@ class $AssetsIconGen {
 class $AssetsImageGen {
   const $AssetsImageGen();
 
+  /// File path: assets/image/add_image.png
+  AssetGenImage get addImage =>
+      const AssetGenImage('assets/image/add_image.png');
+
   /// File path: assets/image/background_signin.png
   AssetGenImage get backgroundSignin =>
       const AssetGenImage('assets/image/background_signin.png');
@@ -50,6 +54,7 @@ class $AssetsImageGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        addImage,
         backgroundSignin,
         intro1,
         intro2,

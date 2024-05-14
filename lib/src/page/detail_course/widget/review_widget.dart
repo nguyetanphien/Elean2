@@ -199,11 +199,13 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                               style:
                                   const TextStyle(color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
                             ),
-                            widget.provider.listComment[index].replyComment!.isEmpty
+                            widget.provider.listComment[index].replyComment == null
                                 ? Column(
                                     children: [
                                       Visibility(
-                                        visible: widget.provider.listComment[index].replyComment!.isEmpty,
+                                        visible: widget.provider.listComment[index].replyComment == null &&
+                                            (widget.provider.mentorModel.findTeacher?.id ?? '') ==
+                                                widget.provider.prefs.userID,
                                         child: GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -223,7 +225,9 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                       ),
                                       Visibility(
                                         visible: ((widget.provider.isListDetailVisible(index)) ?? false) &&
-                                            widget.provider.listComment[index].replyComment!.isEmpty,
+                                            widget.provider.listComment[index].replyComment == null &&
+                                            (widget.provider.mentorModel.findTeacher?.id ?? '') ==
+                                                widget.provider.prefs.userID,
                                         child: Row(
                                           children: [
                                             Expanded(
@@ -264,7 +268,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                 : Column(
                                     children: [
                                       Visibility(
-                                        visible: widget.provider.listComment[index].replyComment!.isNotEmpty,
+                                        visible: widget.provider.listComment[index].replyComment != null,
                                         child: GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -284,7 +288,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                       ),
                                       Visibility(
                                         visible: ((widget.provider.isListDetailVisible(index)) ?? false) &&
-                                            widget.provider.listComment[index].replyComment!.isNotEmpty,
+                                            widget.provider.listComment[index].replyComment != null,
                                         child: Padding(
                                           padding: const EdgeInsets.only(left: 20, top: 10),
                                           child: Column(
@@ -298,8 +302,8 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(30),
                                                       image: DecorationImage(
-                                                        image: widget.provider.listComment[index].replyComment?[0]
-                                                                    .userId?.userAvatar?.isNotEmpty ==
+                                                        image: widget.provider.listComment[index].replyComment?.userId
+                                                                    ?.userAvatar?.isNotEmpty ==
                                                                 true
                                                             ? NetworkImage(
                                                                 widget.provider.listComment[index].userId?.userAvatar ??
@@ -314,8 +318,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                                     width: 5,
                                                   ),
                                                   Text(
-                                                    widget.provider.listComment[index].replyComment?[0].userId
-                                                            ?.userName ??
+                                                    widget.provider.listComment[index].replyComment?.userId?.userName ??
                                                         '',
                                                     style: const TextStyle(
                                                         color: AppColors.h434343,
@@ -325,7 +328,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                                   const Spacer(),
                                                   Text(
                                                     Helper.formatRelativeDate(
-                                                        widget.provider.listComment[index].replyComment?[0].createdAt ??
+                                                        widget.provider.listComment[index].replyComment?.createdAt ??
                                                             ''),
                                                     style: const TextStyle(
                                                         color: AppColors.hC4C4C4,
@@ -337,8 +340,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 10, left: 5),
                                                 child: Text(
-                                                  widget.provider.listComment[index].replyComment?[0].replyComment ??
-                                                      '',
+                                                  widget.provider.listComment[index].replyComment?.replyComment ?? '',
                                                   style: const TextStyle(
                                                       color: AppColors.h8C8C8C,
                                                       fontSize: 12,

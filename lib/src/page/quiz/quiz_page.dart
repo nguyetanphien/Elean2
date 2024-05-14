@@ -217,6 +217,40 @@ class _QuizPageState extends State<QuizPage> with MixinBasePage<QuizVM> {
                           ),
                         ),
                       ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Visibility(
+                          visible: provider.checkSubmit(),
+                          child: GestureDetector(
+                            onTap: provider.listQuizQuestion.length == provider.quizBody.length
+                                ? () {
+                                    provider.postAnswer();
+                                  }
+                                : () {},
+                            child: Container(
+                              // width: 120,
+                              height: 50,
+                              margin: const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsetsDirectional.symmetric(vertical: 13),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: provider.listQuizQuestion.length == provider.quizBody.length
+                                    ? AppColors.blue_246BFD
+                                    : Colors.grey,
+                              ),
+                              child: const Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Nộp ngay',
+                                  style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

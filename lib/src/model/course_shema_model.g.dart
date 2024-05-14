@@ -6,23 +6,23 @@ part of 'course_shema_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CourseShemaModel _$CourseShemaModelFromJson(Map<String, dynamic> json) => CourseShemaModel()
-  ..id = json['_id'] as String?
-  ..courseName = json['course_name'] as String?
-  ..courseType = json['course_type'] != null
-      ? json['course_type'] is String
-          ? json['course_type'] as String
-          : CourseTypeModel.fromJson(json['course_type'] as Map<String, dynamic>)
-      : null
-  ..courseThumnail = json['course_thumnail'] as String?
-  ..coursePrice = json['course_price'] as int?
-  ..courseRatingsAverage = (json['course_ratingsAverage'] as num?)?.toDouble()
-  ..coursePurchased = json['course_purchased'] as int?
-  ..isInCart = json['is_in_cart'] as bool?
-  ..userTeacher =
-      json['user_teacher'] == null ? null : UserModel.fromJson(json['user_teacher'] as Map<String, dynamic>);
+CourseShemaModel _$CourseShemaModelFromJson(Map<String, dynamic> json) =>
+    CourseShemaModel()
+      ..id = json['_id'] as String?
+      ..courseName = json['course_name'] as String?
+      ..courseType = json['course_type']
+      ..courseThumnail = json['course_thumnail'] as String?
+      ..coursePrice = json['course_price'] as int?
+      ..courseRatingsAverage =
+          (json['course_ratingsAverage'] as num?)?.toDouble()
+      ..coursePurchased = json['course_purchased'] as int?
+      ..userTeacher = json['user_teacher'] == null
+          ? null
+          : UserModel.fromJson(json['user_teacher'] as Map<String, dynamic>)
+      ..isInCart = json['is_in_cart'] as bool?;
 
-Map<String, dynamic> _$CourseShemaModelToJson(CourseShemaModel instance) => <String, dynamic>{
+Map<String, dynamic> _$CourseShemaModelToJson(CourseShemaModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'course_name': instance.courseName,
       'course_type': instance.courseType,

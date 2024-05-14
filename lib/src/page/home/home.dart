@@ -6,11 +6,13 @@ import 'package:kltn/src/page/detail_course_type.dart/detail_course_type_page.da
 import 'package:kltn/src/page/home/widgets/continue_learning.dart';
 import 'package:kltn/src/page/home/widgets/popular_course.dart';
 import 'package:kltn/src/page/home/widgets/top_mentor.dart';
+import 'package:kltn/src/page/notification/notification_page.dart';
 import 'package:kltn/src/page/search/search_page.dart';
 import 'package:kltn/src/page/view_all_course_type/view_all_coure_type_page.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../main/widget/dialog_login.dart';
 import 'home_vm.dart';
 
 class HomePage extends StatefulWidget {
@@ -105,15 +107,56 @@ class _HomePageState extends State<HomePage> with MixinBasePage<HomeVM> {
                                     ],
                                   ),
                             const Spacer(),
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white.withOpacity(0.3),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: provider.isLogIn
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const NotificationPage(),
+                                        ),
+                                      ).then((value) {
+                                        if (value == true) {
+                                          provider.newsNotification();
+                                        }
+                                      });
+                                    }
+                                  : () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (ctx) => const DialogLogin(
+                                          login: {'notification': true},
+                                        ),
+                                      );
+                                      return;
+                                    },
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white.withOpacity(0.3),
+                                    ),
+                                    child: const Icon(Icons.notifications_active, color: Colors.white),
+                                  ),
+                                  Positioned(
+                                    right: 7,
+                                    top: 7,
+                                    child: Visibility(
+                                      visible: provider.countNews > 0,
+                                      child: Container(
+                                        height: 10,
+                                        width: 10,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              child: const Icon(Icons.notifications_active, color: Colors.white),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(

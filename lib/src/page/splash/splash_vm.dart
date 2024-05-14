@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:kltn/src/base/base_vm.dart';
+import 'package:kltn/src/page/auth/update_imformation_teacher/update_imformation_teacher_page.dart';
 import 'package:kltn/src/page/main/main_page.dart';
-
-import '../../base/di/locator.dart';
-import '../../remote/local/shared_prefs.dart';
 import '../../utils/app_colors.dart';
 import '../intro/intro1.dart';
 
@@ -27,6 +25,10 @@ class SplashVM extends BaseViewModel {
     //           (route) => false,
     //         );
     //       });
+    print("pppppppp${prefs.token != null && prefs.userRole == 'teacher' && prefs.userUpdate == false}");
+    print("pppppppp${prefs.token }");
+    print("pppppppp${prefs.userRole }");
+    print("pppppppp${prefs.userUpdate}");
     InternetConnectionChecker().onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:
@@ -34,10 +36,11 @@ class SplashVM extends BaseViewModel {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => (locator<SharedPrefs>().intro == false || locator<SharedPrefs>().intro == null)
+                builder: (context) => (prefs.intro == false || prefs.intro == null)
                     ? const Intro1()
-                    :MainPage(),
-
+                    : prefs.token != null && prefs.userRole == 'teacher' && prefs.userUpdate == null
+                        ? const UpdateImformationTeacherpage(checkLogin: {})
+                        : MainPage(),
               ),
               (route) => false,
             );

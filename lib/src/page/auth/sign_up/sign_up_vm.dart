@@ -20,6 +20,7 @@ class SignUpVM extends BaseViewModel {
   bool checkEmail = false;
   bool checkPassword = false;
   bool checkConfirmPassword = false;
+  bool checkUser = false;
   String token = '';
   Function(String)? callback;
 
@@ -38,6 +39,7 @@ class SignUpVM extends BaseViewModel {
     final body = SignupBody()
       ..userEmail = emailController.text.trim()
       ..userName = nameController.text
+      ..userRole = checkUser ? 'teacher' : 'student'
       ..userPassword = confirmPasswordController.text;
     BaseAuthResponse<SignupRespone> response = BaseAuthResponse();
     try {
@@ -62,6 +64,4 @@ class SignUpVM extends BaseViewModel {
       notifyListeners();
     }
   }
-
-
 }

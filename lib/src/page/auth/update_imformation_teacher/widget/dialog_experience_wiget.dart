@@ -51,6 +51,7 @@ class _DialogAddExperienceState extends State<DialogExperienceWidget> {
                 lable: 'Công ty',
                 hintText: 'Nhập tên công ty',
                 textInputType: TextInputType.text,
+                textInputAction: TextInputAction.next,
                 validate: (p0) {
                   if (p0!.trim().isEmpty || widget.provider.companyController.text.isEmpty) {
                     setState(() {
@@ -76,6 +77,7 @@ class _DialogAddExperienceState extends State<DialogExperienceWidget> {
                 controller: widget.provider.titleController,
                 lable: 'Vị trí công việc',
                 hintText: 'Nhập vị trí công việc',
+                textInputAction: TextInputAction.next,
                 textInputType: TextInputType.text,
                 validate: (p0) {
                   if (p0!.trim().isEmpty || widget.provider.titleController.text.isEmpty) {

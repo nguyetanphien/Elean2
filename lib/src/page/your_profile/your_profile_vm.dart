@@ -106,6 +106,7 @@ class YourProfileVM extends BaseViewModel {
         nameController.text = response.data?.userName ?? '';
         emailController.text = response.data?.userEmail ?? '';
         avatar = response.data?.userAvatar ?? '';
+        phoneController.text = response.data?.userPhone ?? '';
       }
       hideLoading();
       notifyListeners();
@@ -181,5 +182,4 @@ class YourProfileVM extends BaseViewModel {
     userModel.userExperience?[index] = dataExperience;
     notifyListeners();
   }
-
 }

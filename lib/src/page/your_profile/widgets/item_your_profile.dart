@@ -12,6 +12,7 @@ class ItemYourProfileWidget extends StatelessWidget {
       this.textInputType = TextInputType.text,
       this.maxLine = 1,
       this.readOnly=false,
+      this.textInputAction=TextInputAction.done,
       this.validate})
       : super(key: key);
   final String lable;
@@ -21,6 +22,7 @@ class ItemYourProfileWidget extends StatelessWidget {
   final TextInputType textInputType;
   final int maxLine;
   final bool readOnly;
+  final TextInputAction textInputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,7 @@ class ItemYourProfileWidget extends StatelessWidget {
             maxLines: maxLine,
             keyboardType: textInputType,
             readOnly: readOnly,
+            textInputAction: textInputAction,
             style: const TextStyle(color: AppColors.black, fontSize: 14, fontWeight: FontWeight.w400),
             decoration: InputDecoration(
               hintText: hintText,

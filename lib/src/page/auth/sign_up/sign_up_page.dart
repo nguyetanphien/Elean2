@@ -227,6 +227,42 @@ class _SignUpPageState extends State<SignUpPage> with MixinBasePage<SignUpVM> {
                 const SizedBox(
                   height: 5,
                 ),
+                Row(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: Checkbox(
+                        value: provider.checkUser,
+                        checkColor: AppColors.blue_246BFD,
+                        activeColor: AppColors.white,
+                        side: MaterialStateBorderSide.resolveWith(
+                          (states) => const BorderSide(
+                            color: AppColors.blue_246BFD,
+                            width: 1.5,
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
+                        onChanged: (value) {
+                          setState(() {
+                            provider.checkUser = value ?? false;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text(
+                      'Đăng ký với giảng viên',
+                      style: TextStyle(
+                        color: AppColors.grayA2,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(

@@ -91,14 +91,16 @@ class WebviewScreenState extends State<WebviewScreen> {
             controller.addJavaScriptHandler(
                 handlerName: 'postMessage',
                 callback: (args) {
-                  Navigator.pop(context);
                   final Map<String, dynamic> params = Map<String, dynamic>.from(args[0]);
                   if (params['vnp_ResponseCode'] == '00') {
                     if (widget.onPaymentSuccess != null) {
+                      Navigator.pop(context, true);
+
                       widget.onPaymentSuccess!(params);
                     }
                   } else {
                     if (widget.onPaymentError != null) {
+                      Navigator.pop(context);
                       widget.onPaymentError!(params);
                     }
                   }
@@ -110,7 +112,6 @@ class WebviewScreenState extends State<WebviewScreen> {
           },
           onLoadError: (controller, url, code, message) async {
             final Map<String, dynamic> params = url!.queryParameters;
-
             if (params['vnp_ResponseCode'] == '00') {
               if (widget.onPaymentSuccess != null) {
                 Navigator.pop(context, true);

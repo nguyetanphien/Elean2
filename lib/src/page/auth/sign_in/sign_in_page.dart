@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kltn/src/base/base_page.dart';
-import 'package:kltn/src/page/auth/forgot_password/forgot_password_page.dart';
 import 'package:kltn/src/page/auth/sign_in/sign_in_vm.dart';
 import 'package:kltn/src/page/auth/sign_up/sign_up_page.dart';
 import 'package:kltn/src/page/auth/widget/input.dart';
 import 'package:kltn/src/page/main/main_page.dart';
 import 'package:kltn/src/utils/app_colors.dart';
+
+import '../update_imformation_teacher/update_imformation_teacher_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key, this.checkLogin});
@@ -164,26 +165,26 @@ class _SignInPageState extends State<SignInPage> with MixinBasePage<SignInVM> {
                               fontSize: 14,
                             ),
                           ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ForgotPasswordPage(),
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              'Quên mật khẩu?',
-                              style: TextStyle(
-                                color: AppColors.blue_246BFD,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.underline,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
+                          // const Spacer(),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) => const ForgotPasswordPage(),
+                          //       ),
+                          //     );
+                          //   },
+                          //   child: const Text(
+                          //     'Quên mật khẩu?',
+                          //     style: TextStyle(
+                          //       color: AppColors.blue_246BFD,
+                          //       fontWeight: FontWeight.w600,
+                          //       decoration: TextDecoration.underline,
+                          //       fontSize: 14,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
 
@@ -306,30 +307,41 @@ class _SignInPageState extends State<SignInPage> with MixinBasePage<SignInVM> {
   void initialise(BuildContext context) {
     provider.login = widget.checkLogin ?? {};
     provider.callback = (p0) {
-      if (widget.checkLogin?['profile'] != null) {
+      if (provider.model.userRole == 'teacher' && (provider.model.userExperience ?? []).isEmpty) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => MainPage(initPage: widget.checkLogin?['profile']),
-          ),
-          (route) => false,
-        );
-      } else if (widget.checkLogin?['id_course'] != null) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(login: widget.checkLogin),
+            builder: (context) => UpdateImformationTeacherpage(checkLogin: widget.checkLogin ?? {}),
           ),
           (route) => false,
         );
       } else {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(),
-          ),
-          (route) => false,
-        );
+        provider.prefs.userUpdate = true;
+        if (widget.checkLogin?['profile'] != null) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(initPage: widget.checkLogin?['profile']),
+            ),
+            (route) => false,
+          );
+        } else if (widget.checkLogin?['id_course'] != null || widget.checkLogin?['notification'] != null) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(login: widget.checkLogin),
+            ),
+            (route) => false,
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(),
+            ),
+            (route) => false,
+          );
+        }
       }
     };
   }

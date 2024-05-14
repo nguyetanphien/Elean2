@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/di/locator.dart';
+import 'package:kltn/src/model/user_model.dart';
 import 'package:kltn/src/remote/local/shared_prefs.dart';
 import 'package:kltn/src/remote/service/body/sigin_body.dart';
 
@@ -16,6 +17,7 @@ class SignInVM extends BaseViewModel {
   bool checkSaveAccount = false;
   Function(String)? callback;
   Map<String, dynamic> login = {};
+  UserModel model = UserModel();
 
   @override
   void dispose() {
@@ -63,6 +65,8 @@ class SignInVM extends BaseViewModel {
         prefs.token = response.data?.accessToken ?? '';
         prefs.userID = response.data?.metaData?.id ?? '';
         prefs.userName = response.data?.metaData?.userName ?? '';
+        prefs.userRole=response.data?.metaData?.userRole ?? '';
+        model = response.data?.metaData??UserModel();
         hideLoading();
         notifyListeners();
         callback?.call('');

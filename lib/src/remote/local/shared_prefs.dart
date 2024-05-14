@@ -107,4 +107,31 @@ class SharedPrefs {
   void removeUserID() {
     _prefs.remove('userID');
   }
+
+  bool? get userUpdate {
+    if (!_prefs.containsKey('userEx')) return null;
+
+    return _prefs.getBool('userEx');
+  }
+
+  set userUpdate(bool? value) {
+    _prefs.setBool("userEx", value ??false);
+  }
+
+   void removeUpdate() {
+    _prefs.remove('userEx');
+  }
+   void removerRole() {
+    _prefs.remove('userRole');
+  }
+
+  String? get userRole {
+    if (!_prefs.containsKey('userRole')) return null;
+
+    return _prefs.getString('userRole');
+  }
+
+  set userRole(String? values) {
+    _prefs.setString("userRole", values ?? '');
+  }
 }

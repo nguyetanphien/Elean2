@@ -87,10 +87,10 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: provider.image == null
-                                ? provider.avatar.isNotEmpty
-                                    ? Image.network(provider.avatar)
-                                    : Image.asset('assets/image/logo.png') 
-                                : Image.file(provider.image!) ,
+                                  ? provider.avatar.isNotEmpty
+                                      ? Image.network(provider.avatar)
+                                      : Image.asset('assets/image/logo.png')
+                                  : Image.file(provider.image!),
                             ),
                           ),
                           Positioned(
@@ -126,9 +126,6 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                       lable: 'Họ và tên',
                       hintText: 'Họ và tên',
                       validate: (p0) {
-                        // setState(() {
-                        //   print('pppppppppp');
-                        // });
                         if (p0!.trim().isEmpty || provider.nameController.text.isEmpty) {
                           setState(() {
                             provider.checkvalidateName = 'Vui lòng nhập họ tên';
@@ -147,42 +144,42 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                       provider.checkvalidateName,
                       style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
                     ),
-                    // const SizedBox(
-                    //   height: 5,
-                    // ),
-                    // ItemYourProfileWidget(
-                    //   controller: provider.phoneController,
-                    //   lable: 'Số điện thoại',
-                    //   hintText: '0123456789',
-                    //   textInputType: TextInputType.phone,
-                    //   validate: (p0) {
-                    //     final phoneRegExp = RegExp(r'^[0-9]{10}$');
-                    //     if (p0!.trim().isEmpty || provider.phoneController.text.isEmpty) {
-                    //       setState(() {
-                    //         provider.checkvalidatePhone = 'Vui lòng nhập số điện thoại';
-                    //       });
-                    //     } else if (!phoneRegExp.hasMatch(p0)) {
-                    //       setState(() {
-                    //         provider.checkvalidatePhone = 'Số điện thoại không hợp lệ';
-                    //       });
-                    //     } else {
-                    //       setState(() {
-                    //         provider.checkvalidatePhone = '';
-                    //       });
-                    //     }
-                    //   },
-                    //   // validate: ,
-                    // ),
-                    // const SizedBox(
-                    //   height: 5,
-                    // ),
-                    // Text(
-                    //   provider.checkvalidatePhone,
-                    //   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
-                    // ),
-                    // const SizedBox(
-                    //   height: 5,
-                    // ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    ItemYourProfileWidget(
+                      controller: provider.phoneController,
+                      lable: 'Số điện thoại',
+                      hintText: '0123456789',
+                      textInputType: TextInputType.phone,
+                      validate: (p0) {
+                        final phoneRegExp = RegExp(r'^[0-9]{10}$');
+                        if (p0!.trim().isEmpty || provider.phoneController.text.isEmpty) {
+                          setState(() {
+                            provider.checkvalidatePhone = 'Vui lòng nhập số điện thoại';
+                          });
+                        } else if (!phoneRegExp.hasMatch(p0)) {
+                          setState(() {
+                            provider.checkvalidatePhone = 'Số điện thoại không hợp lệ';
+                          });
+                        } else {
+                          setState(() {
+                            provider.checkvalidatePhone = '';
+                          });
+                        }
+                      },
+                      // validate: ,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      provider.checkvalidatePhone,
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     ItemYourProfileWidget(
                       controller: provider.emailController,
                       lable: 'Email',
@@ -190,9 +187,6 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                       textInputType: TextInputType.emailAddress,
                       readOnly: true,
                       validate: (p0) {
-                        // setState(() {
-                        //   print('pppppppppp');
-                        // });
                         final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                         if (p0!.trim().isEmpty || provider.emailController.text.isEmpty) {
                           setState(() {

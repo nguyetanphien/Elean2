@@ -84,7 +84,7 @@ class _AboutWidgetState extends State<AboutWidget> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailMentorPage(
-                          idMentor: widget.provider.model.userTeacher ?? '',
+                          idMentor: widget.provider.model.userTeacher?.id ?? '',
                         ),
                       ),
                     );
@@ -124,7 +124,9 @@ class _AboutWidgetState extends State<AboutWidget> {
                             height: 2,
                           ),
                           Text(
-                            widget.provider.model.courseType?.typeName ?? '',
+                            widget.provider.mentorModel.findTeacher?.courseType != null
+                                ? widget.provider.mentorModel.findTeacher?.courseType['type_name'] ?? ''
+                                : '',
                             style: const TextStyle(fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
                           ),
                         ],

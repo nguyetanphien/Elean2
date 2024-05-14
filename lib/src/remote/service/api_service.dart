@@ -22,6 +22,7 @@ import 'body/update_password_body.dart';
 import 'respone/base_list_response.dart';
 import 'respone/cart/cart_response.dart';
 import 'respone/course_process/course_process_response.dart';
+import 'respone/notification/notification_response.dart';
 import 'respone/photo_response.dart';
 import 'respone/quiz/quiz_answer/quiz_answer_response.dart';
 import 'respone/quiz/quiz_response.dart';
@@ -221,5 +222,36 @@ abstract class ApiService {
   @GET('/course/get-all-teacher')
   Future<BaseListResponse<UserModel>> getAllTearcher(@Query('limit') int? limit, @Query('page') int? page);
 
+  // get tai lieu
+  @GET('/get-document/{id}')
+  Future<BaseListResponse<String>> getAllDocument(
+    @Path('id') String idVideo,
+    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+  );
 
+  // download tai lieu
+  @GET('/download-document/{id}')
+  Future<BaseListResponse<String>> downloadDocument(
+    @Path('id') String idVideo,
+    @Query('fileName') String? fileName,
+    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+  );
+
+  // thong bao
+  @GET('/notification/get-notifications')
+  Future<BaseResponse<NotificationResponse>> getNotification(
+    @Query('filter') String? filter,
+    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+  );
+  
+  // post thong bao da xem
+  @PATCH('/notification/update-notification/{id}')
+  Future<BaseResponse> readNotication(
+    @Path('id') String idNotification,
+    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+  );
 }

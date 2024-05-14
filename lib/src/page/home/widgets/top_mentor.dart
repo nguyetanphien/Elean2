@@ -104,6 +104,7 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
                         child: widget.provider.listMentor.isNotEmpty
                             ? ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: widget.provider.listMentor.length,
                                 itemBuilder: (context, index) {
@@ -149,10 +150,15 @@ class _TopMentorWidgetState extends State<TopMentorWidget> {
                                           const SizedBox(
                                             height: 7,
                                           ),
-                                          Text(
-                                            widget.provider.listMentor[index].userName ?? '',
-                                            style: const TextStyle(
-                                                color: Colors.black, fontSize: 12, fontWeight: FontWeight.w400),
+                                          SizedBox(
+                                            width: (MediaQuery.of(context).size.width - 90) / 4,
+                                            child: Text(
+                                              widget.provider.listMentor[index].userName ?? '',
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  color: Colors.black, fontSize: 12, fontWeight: FontWeight.w400),
+                                            ),
                                           )
                                         ],
                                       ),

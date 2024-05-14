@@ -1,16 +1,19 @@
 import 'dart:developer';
-
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_vm.dart';
 import 'package:kltn/src/model/quiz_title_model.dart';
+import 'package:kltn/src/page/video/widget/dialog_permission.dart';
 import 'package:kltn/src/remote/service/body/answer_body.dart';
 import 'package:kltn/src/remote/service/body/question_body.dart';
+import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../remote/service/respone/answer_and_question/answer_and_question_response.dart';
+import 'widget/dir.dart';
 
 class VideoVM extends BaseViewModel {
   late VideoPlayerController videoPlayerController;
@@ -28,9 +31,18 @@ class VideoVM extends BaseViewModel {
   int pageReview = 1;
   bool checkProcess = false;
   List<QuizTitleModel> quizTitleModel = [];
+  List<String> listDocument = [];
+  bool dowloading = false;
+  bool fileExists = false;
+  double progress = 0;
+  String fileName = "";
+  late String filePath;
+  late CancelToken cancelToken;
+  var getPathFile = DirectoryPath();
   @override
   void onInit() {
     fetchAllQuestionAndAnwser(isRefresh: true);
+    fetchDocument();
   }
 
   @override
@@ -177,4 +189,89 @@ class VideoVM extends BaseViewModel {
       hideLoading();
     }
   }
+
+  ///
+  /// lấy tài liệu
+  ///
+  Future fetchDocument() async {
+    try {
+      final response =
+          await api.apiServices.getAllDocument(idVideo, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
+      if (response.status! >= 200 || response.status! < 400) {
+        listDocument.clear();
+        listDocument.addAll(response.data ?? []);
+        notifyListeners();
+      } else {
+        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      log(e.message.toString());
+      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      isLoading = false;
+      hideLoading();
+    }
+  }
+
+  Future<void> downloadDocument(BuildContext context, String fileName) async {
+    var isStorage = await Permission.storage.status;
+    if (!isStorage.isGranted) {
+      await Permission.storage.request();
+      var isStorage2 = await Permission.storage.status;
+      if (!isStorage2.isGranted) {
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (context) => const DialogPermision(),
+        );
+      } else {
+        await startDownload(fileName);
+        hideLoading();
+        notifyListeners();
+        OpenFile.open(filePath);
+      }
+    } else {
+      await startDownload(fileName);
+      hideLoading();
+      notifyListeners();
+      OpenFile.open(filePath);
+    }
+  }
+
+  startDownload(String fileName) async {
+    cancelToken = CancelToken();
+    var storePath = await getPathFile.getPath();
+    filePath = '$storePath/$fileName';
+
+    dowloading = true;
+    progress = 0;
+    showLoading();
+    try {
+      await Dio().download('http://52.221.211.77:3000/v1/api/download-document/$idVideo?fileName=$fileName', filePath,
+          onReceiveProgress: (count, total) {
+        progress = (count / total);
+        print('pppp$progress');
+      }, cancelToken: cancelToken);
+      dowloading = false;
+      fileExists = true;
+    } catch (e) {
+      print(e);
+      {
+        dowloading = false;
+      }
+    }
+  }
+  // cancelDownload() {
+  //   cancelToken.cancel();
+  //   setState(() {
+  //     dowloading = false;
+  //   });
+  // }
+
+  // void checkFileExit() async {
+  //   var storePath = await getPathFile.getPath();
+  //   filePath = '$storePath/$fileName';
+  //   bool fileExistCheck = await File(filePath).exists();
+  //   fileExists = fileExistCheck;
+  // }
 }

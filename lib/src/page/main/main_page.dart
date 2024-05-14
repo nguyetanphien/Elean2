@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kltn/src/page/detail_course/detail_course_page.dart';
 import 'package:kltn/src/page/main/widget/dialog_login.dart';
+import 'package:kltn/src/page/notification/notification_page.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
 import '../../base/base_page.dart';
@@ -145,7 +146,7 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
   @override
   void initialise(BuildContext context) {
     provider.changePage(initPage);
-    if (login?['cart'] != null) {
+    if (login?['cart'] != null && login?['home'] == null) {
       Future.delayed(
         const Duration(seconds: 1),
         () {
@@ -157,6 +158,13 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
           );
         },
       );
+    } else if (login?['cart'] != null && login?['home'] != null) {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          provider.addCart(login?['id_course']);
+        },
+      );
     } else {
       if (login?['id_course'] != null) {
         Future.delayed(
@@ -166,6 +174,20 @@ class MainPage extends StatelessWidget with MixinBasePage<MainBoardVM> {
               context,
               MaterialPageRoute(
                 builder: (context) => DetailCoursePage(id: login?['id_course'], checkPay: true),
+              ),
+            );
+          },
+        );
+        return;
+      }
+      if (login?['notification'] != null) {
+        Future.delayed(
+          const Duration(seconds: 1),
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NotificationPage(),
               ),
             );
           },

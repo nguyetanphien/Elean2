@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'course_type_model.dart';
 import 'user_model.dart';
 
 part 'course_shema_model.g.dart';
