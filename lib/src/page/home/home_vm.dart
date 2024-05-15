@@ -128,7 +128,7 @@ class HomeVM extends BaseViewModel {
     if ((prefs.userName ?? '').isNotEmpty) {
       userName = prefs.userName ?? '';
     } else {
-      userName = 'E-Learn';
+      userName = 'K26-Demy';
     }
     isLoadingUser = false;
     notifyListeners();

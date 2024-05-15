@@ -38,7 +38,7 @@ class _SplashState extends State<Splash> with MixinBasePage<SplashVM> {
                       height: 10,
                     ),
                     const Text(
-                      'E-Learn',
+                      'K26-Demy',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,

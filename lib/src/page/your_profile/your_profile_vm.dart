@@ -107,6 +107,7 @@ class YourProfileVM extends BaseViewModel {
         emailController.text = response.data?.userEmail ?? '';
         avatar = response.data?.userAvatar ?? '';
         phoneController.text = response.data?.userPhone ?? '';
+        dateTimeController.text = response.data?.userBirthday ?? '';
       }
       hideLoading();
       notifyListeners();
@@ -125,6 +126,8 @@ class YourProfileVM extends BaseViewModel {
     final body = ProfileBody()
       ..userAvatar = avatar
       ..userName = nameController.text
+      ..userBirthday = dateTimeController.text
+      ..userPhone = phoneController.text
       ..userExperience = userModel.userExperience ?? [];
 
     try {

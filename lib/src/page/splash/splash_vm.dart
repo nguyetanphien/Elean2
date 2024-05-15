@@ -25,10 +25,6 @@ class SplashVM extends BaseViewModel {
     //           (route) => false,
     //         );
     //       });
-    print("pppppppp${prefs.token != null && prefs.userRole == 'teacher' && prefs.userUpdate == false}");
-    print("pppppppp${prefs.token }");
-    print("pppppppp${prefs.userRole }");
-    print("pppppppp${prefs.userUpdate}");
     InternetConnectionChecker().onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:

@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 class Helper {
   
   ///
@@ -56,5 +58,12 @@ class Helper {
     int minutes = int.parse(parts[1]);
     int seconds = int.parse(parts[2]);
     return ((hours * 60) + minutes) * 60 + seconds;
+  }
+    static Future<void> openBrowser(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      print('Could not open the url $url.');
+    }
   }
 }

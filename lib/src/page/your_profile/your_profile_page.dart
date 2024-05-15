@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:kltn/src/base/base_page.dart';
 import 'package:kltn/src/page/your_profile/widgets/item_your_profile.dart';
@@ -210,9 +212,9 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                       provider.checkvalidateEmail,
                       style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.red),
                     ),
-                    // const SizedBox(
-                    //   height: 5,
-                    // ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     // Text(
                     //   'Giới tính',
                     //   style:
@@ -258,59 +260,59 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                     // const SizedBox(
                     //   height: 20,
                     // ),
-                    // Text(
-                    //   'Ngày sinh',
-                    //   style:
-                    //       TextStyle(color: AppColors.black.withOpacity(0.8), fontSize: 14, fontWeight: FontWeight.w400),
-                    // ),
-                    // const SizedBox(
-                    //   height: 7,
-                    // ),
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadiusDirectional.circular(8), color: AppColors.grayE0.withOpacity(0.3)),
-                    //   child: TextField(
-                    //     controller: provider.dateTimeController,
-                    //     keyboardType: TextInputType.datetime,
-                    //     readOnly: true,
-                    //     style: const TextStyle(color: AppColors.black, fontSize: 14, fontWeight: FontWeight.w400),
-                    //     decoration: const InputDecoration(
-                    //         hintText: '13/02/2023',
-                    //         suffixIcon: Icon(Icons.date_range_outlined),
-                    //         contentPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-                    //         border: OutlineInputBorder(borderSide: BorderSide.none)),
-                    //     onTap: () {
-                    //       showCupertinoModalPopup(
-                    //         context: context,
-                    //         builder: (context) {
-                    //           return Container(
-                    //             height: 216,
-                    //             padding: const EdgeInsets.only(top: 6.0),
-                    //             margin: EdgeInsets.only(
-                    //               bottom: MediaQuery.of(context).viewInsets.bottom,
-                    //             ),
-                    //             color: CupertinoColors.systemBackground.resolveFrom(context),
-                    //             child: SafeArea(
-                    //               top: false,
-                    //               child: CupertinoDatePicker(
-                    //                 initialDateTime: DateTime.now(),
-                    //                 mode: CupertinoDatePickerMode.date,
-                    //                 maximumDate: DateTime.now(),
-                    //                 use24hFormat: true,
-                    //                 onDateTimeChanged: (DateTime newDate) {
-                    //                   setState(() {
-                    //                     var dateTime = DateFormat('dd/MM/yyyy').format(newDate);
-                    //                     provider.dateTimeController.text = dateTime;
-                    //                   });
-                    //                 },
-                    //               ),
-                    //             ),
-                    //           );
-                    //         },
-                    //       );
-                    //     },
-                    //   ),
-                    // )
+                    Text(
+                      'Ngày sinh',
+                      style:
+                          TextStyle(color: AppColors.black.withOpacity(0.8), fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(8), color: AppColors.grayE0.withOpacity(0.3)),
+                      child: TextField(
+                        controller: provider.dateTimeController,
+                        keyboardType: TextInputType.datetime,
+                        readOnly: true,
+                        style: const TextStyle(color: AppColors.black, fontSize: 14, fontWeight: FontWeight.w400),
+                        decoration: const InputDecoration(
+                            hintText: '13/02/2023',
+                            suffixIcon: Icon(Icons.date_range_outlined),
+                            contentPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                            border: OutlineInputBorder(borderSide: BorderSide.none)),
+                        onTap: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                height: 216,
+                                padding: const EdgeInsets.only(top: 6.0),
+                                margin: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                                ),
+                                color: CupertinoColors.systemBackground.resolveFrom(context),
+                                child: SafeArea(
+                                  top: false,
+                                  child: CupertinoDatePicker(
+                                    initialDateTime: DateTime.now(),
+                                    mode: CupertinoDatePickerMode.date,
+                                    maximumDate: DateTime.now(),
+                                    use24hFormat: true,
+                                    onDateTimeChanged: (DateTime newDate) {
+                                      setState(() {
+                                        var dateTime = DateFormat('dd/MM/yyyy').format(newDate);
+                                        provider.dateTimeController.text = dateTime;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
                     Visibility(
                       visible: provider.userModel.userRole == 'teacher',
                       child: Column(

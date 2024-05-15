@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kltn/src/base/base_page.dart';
+import 'package:kltn/src/base/helper/helper.dart';
 import 'package:kltn/src/model/user_model.dart';
 import 'package:kltn/src/page/auth/sign_in/sign_in_page.dart';
 import 'package:kltn/src/page/change_password.dart/change_password_page.dart';
@@ -69,6 +71,7 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                                 padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white,
                                   border: Border.all(color: Colors.amber, width: 2),
                                 ),
                                 child: ClipRRect(
@@ -187,6 +190,7 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
                 icon: Icons.lock_outlined,
                 title: 'Chính sách bảo mật',
                 ontap: () {
+                  Helper.openBrowser('https://s.pro.vn/QXOW');
                 },
               ),
               const SizedBox(
@@ -195,15 +199,89 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
               ItemProfileWidget(
                 icon: Icons.help_outline_rounded,
                 title: 'Trung tâm trợ giúp',
-                ontap: () {},
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              ItemProfileWidget(
-                icon: Icons.delete_outlined,
-                title: 'Xóa tài khoản',
-                ontap: () {},
+                ontap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const OutlineInputBorder(
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(30),
+                        right: Radius.circular(30),
+                      ),
+                    ),
+                    builder: (context) {
+                      return Container(
+                        height: 200,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.horizontal(
+                            left: Radius.circular(30),
+                            right: Radius.circular(30),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text(
+                              'Trung tâm trợ giúp',
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
+                            ),
+                            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                              GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  provider.launchUrlFace('https://www.facebook.com/dangson13.04.02');
+                                  Navigator.pop(context);
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icon/facebook.svg',
+                                      height: 70,
+                                      width: 70,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text(
+                                      'Facebook',
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  provider.launchURLEmail();
+                                  Navigator.pop(context);
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icon/gmail.svg',
+                                      height: 70,
+                                      width: 70,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text(
+                                      'Gmail',
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ]),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
               const SizedBox(
                 height: 5,

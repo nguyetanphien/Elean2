@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kltn/src/base/base_page.dart';
 import 'package:kltn/src/page/auth/sign_in/sign_in_vm.dart';
 import 'package:kltn/src/page/auth/sign_up/sign_up_page.dart';
@@ -50,7 +49,7 @@ class _SignInPageState extends State<SignInPage> with MixinBasePage<SignInVM> {
                         height: 10,
                       ),
                       const Text(
-                        'Chào mừng bạn đã trở lại với E-Learn',
+                        'Chào mừng bạn đã trở lại với K26-Demy',
                         style: TextStyle(
                           color: AppColors.grayA2,
                           fontWeight: FontWeight.w400,
@@ -209,55 +208,55 @@ class _SignInPageState extends State<SignInPage> with MixinBasePage<SignInVM> {
                         ),
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 150,
                       ),
-                      const Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Expanded(
-                            child: SizedBox(
-                              width: 100,
-                              child: Divider(
-                                color: AppColors.h9497AD,
-                                height: 0,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ' Đăng nhập bằng ',
-                            style: TextStyle(color: AppColors.grayA2, fontSize: 14, fontWeight: FontWeight.w400),
-                          ),
-                          Expanded(
-                            child: SizedBox(
-                              width: 100,
-                              child: Divider(
-                                color: AppColors.h9497AD,
-                                height: 0,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(color: AppColors.gray99, width: 0.5)),
-                        child: SvgPicture.asset('assets/icon/google.svg'),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // const Row(
+                      //   children: [
+                      //     SizedBox(
+                      //       width: 30,
+                      //     ),
+                      //     Expanded(
+                      //       child: SizedBox(
+                      //         width: 100,
+                      //         child: Divider(
+                      //           color: AppColors.h9497AD,
+                      //           height: 0,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       ' Đăng nhập bằng ',
+                      //       style: TextStyle(color: AppColors.grayA2, fontSize: 14, fontWeight: FontWeight.w400),
+                      //     ),
+                      //     Expanded(
+                      //       child: SizedBox(
+                      //         width: 100,
+                      //         child: Divider(
+                      //           color: AppColors.h9497AD,
+                      //           height: 0,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 30,
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Container(
+                      //   width: 50,
+                      //   height: 50,
+                      //   padding: const EdgeInsets.all(10),
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(40),
+                      //       border: Border.all(color: AppColors.gray99, width: 0.5)),
+                      //   child: SvgPicture.asset('assets/icon/google.svg'),
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
