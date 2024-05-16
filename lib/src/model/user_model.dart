@@ -35,6 +35,9 @@ class UserModel {
   @JsonKey(name: 'user_university')
   String? userUniversity;
 
+  @JsonKey(name: 'user_fcm_token')
+  String? userFcmToken;
+
   @JsonKey(name: 'course_type')
   dynamic courseType;
 

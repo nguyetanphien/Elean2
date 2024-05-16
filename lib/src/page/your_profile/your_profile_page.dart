@@ -301,6 +301,7 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                                     use24hFormat: true,
                                     onDateTimeChanged: (DateTime newDate) {
                                       setState(() {
+                                        provider.dateTime = DateFormat('MM/dd/yyyy').format(newDate);
                                         var dateTime = DateFormat('dd/MM/yyyy').format(newDate);
                                         provider.dateTimeController.text = dateTime;
                                       });

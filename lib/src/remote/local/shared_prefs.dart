@@ -16,6 +16,15 @@ class SharedPrefs {
   set product(String? token) {
     _prefs.setString("product", token ?? "");
   }
+  String? get fcmToken {
+    if (!_prefs.containsKey('fcmToken')) return null;
+
+    return _prefs.getString('fcmToken');
+  }
+
+  set fcmToken(String? token) {
+    _prefs.setString("fcmToken", token ?? "");
+  }
 
   void removeProduct() {
     _prefs.remove('product');

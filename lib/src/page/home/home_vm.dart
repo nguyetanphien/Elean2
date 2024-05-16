@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/base_vm.dart';
 import 'package:kltn/src/model/user_model.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../../model/course_shema_model.dart';
 import '../../model/course_type_model.dart';
 import '../../model/process_model.dart';
@@ -45,6 +45,7 @@ class HomeVM extends BaseViewModel {
       notifyListeners();
     }
     newsNotification();
+    permissionNotifi();
   }
 
   @override
@@ -225,7 +226,7 @@ class HomeVM extends BaseViewModel {
       final response =
           await api.apiServices.postCart(idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
       if (response.status! >= 200 || response.status! < 400) {
-        showSucces('Thêm vào giỏ hàng thành công');
+        showSucces('Thêm vào danh sách yêu thích thành công');
         hideLoading();
       } else {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
@@ -238,6 +239,14 @@ class HomeVM extends BaseViewModel {
         showError('Khóa học đã tồn tại.');
       }
       hideLoading();
+    }
+  }
+
+  Future<void> permissionNotifi() async {
+    final PermissionStatus status = await Permission.notification.status;
+    if (status != PermissionStatus.granted) {
+      // await FcmService().requestPermission();
+      await Permission.notification.request();
     }
   }
 }

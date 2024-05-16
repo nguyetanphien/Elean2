@@ -231,6 +231,7 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                                 maximumDate: DateTime.now(),
                                 use24hFormat: true,
                                 onDateTimeChanged: (DateTime newDate) {
+                                  provider.dateTime = DateFormat('MM/dd/yyyy').format(newDate);
                                   setState(() {
                                     var dateTime = DateFormat('dd/MM/yyyy').format(newDate);
                                     provider.dateController.text = dateTime;
@@ -382,7 +383,6 @@ class _UpdateImformationTeacherpageState extends State<UpdateImformationTeacherp
                           )
                           .toList(),
                       onChanged: (values) {
-                        print(values);
                         setState(() {
                           provider.select = values;
                           if ((provider.select ?? '').isEmpty) {

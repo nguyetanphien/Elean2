@@ -25,6 +25,7 @@ class SplashVM extends BaseViewModel {
     //           (route) => false,
     //         );
     //       });
+    print("pppppppppp${prefs.userUpdate}");
     InternetConnectionChecker().onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:

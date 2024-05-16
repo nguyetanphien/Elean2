@@ -28,20 +28,14 @@ class DetailMentorVM extends BaseViewModel {
   /// lấy thông tin giản viên
   ///
   Future fetchMentor() async {
-    showLoading();
-    notifyListeners();
     try {
       final response = await api.apiServices.getInforMentor(idMentor);
       if (response.status! >= 200 || response.status! < 400) {
         mentorModel = response.data ?? MentorResponse();
-        
-       
       } else {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }
       checkLoading = false;
-       hideLoading();
-        notifyListeners();
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());

@@ -1,10 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
+import 'firebase_options.dart';
 import 'src/base/di/locator.dart';
+import 'src/base/fcm/fcm_firebase.dart';
+import 'src/base/fcm/local_notification_service.dart';
 import 'src/page/splash/splash.dart';
 import 'src/remote/local/shared_prefs.dart';
 
@@ -12,7 +17,19 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool check = false;
   setUpInjector();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await locator<SharedPrefs>().initialise();
+  final FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  await FcmService().init();
+  await FcmService().initForegroundNotification();
+  await LocalNotificationService().init();
+  FcmService().backgroundHandler();
+  final tokenFcm = await messaging.getToken();
+  locator<SharedPrefs>().fcmToken = tokenFcm;
+  print("token_fcm:$tokenFcm");
 
   runApp(const MyApp());
   InternetConnectionChecker().onStatusChange.listen((status) {

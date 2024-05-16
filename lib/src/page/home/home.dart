@@ -150,7 +150,10 @@ class _HomePageState extends State<HomePage> with MixinBasePage<HomeVM> {
                                       child: Container(
                                         height: 10,
                                         width: 10,
-                                        color: Colors.red,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -15,7 +15,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel()
   ..userPhone = json['user_phone'] as String?
   ..userBirthday = json['user_birthday'] as String?
   ..userUniversity = json['user_university'] as String?
-    ..courseType = json['course_type'] 
+  ..userFcmToken = json['user_fcm_token'] as String?
+  ..courseType = json['course_type']
   ..userExperience = (json['user_experience'] as List<dynamic>?)
       ?.map((e) => ExperienceModel.fromJson(e as Map<String, dynamic>))
       .toList()
@@ -31,6 +32,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'user_phone': instance.userPhone,
       'user_birthday': instance.userBirthday,
       'user_university': instance.userUniversity,
-      // 'course_type': instance.courseType,
+      'course_type': instance.courseType,
+      'user_fcm_token': instance.userFcmToken,
       'user_avatar': instance.userAvatar,
     };

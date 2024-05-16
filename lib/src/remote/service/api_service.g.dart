@@ -934,6 +934,80 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<BaseResponse<UserModel>> updateImformation(
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    UpdateImfomationBody body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<UserModel>>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/user/update-profile',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<UserModel>> updateFcm(
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+    Map<String, dynamic> body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<UserModel>>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/user/update-profile',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseResponse<UserModel>> updatePassword(
     Map<String, dynamic> headers,
     Map<String, dynamic> headersIdUser,
@@ -1161,9 +1235,7 @@ class _ApiService implements ApiService {
     Map<String, dynamic> headersIdUser,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'filter': filter,
-    };
+    final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{
       'x-atoken-id': headers['x-atoken-id'],
@@ -1177,7 +1249,7 @@ class _ApiService implements ApiService {
     )
         .compose(
           _dio.options,
-          '/notification/get-notifications',
+          '/notification/get-notifications$filter',
           queryParameters: queryParameters,
           data: _data,
         )

@@ -124,7 +124,8 @@ class _DetailCourseTypePageState extends State<DetailCourseTypePage> with MixinB
                                                     provider.listCourseType[index].isInCart = true;
                                                   });
                                                 } else {
-                                                  ImformationPopup.show(context, "Khóa học đã được thêm vào giỏ hàng");
+                                                  ImformationPopup.show(
+                                                      context, "Khóa học đã được thêm vào danh sách yêu thích");
                                                 }
                                               },
                                               icon: Icon(

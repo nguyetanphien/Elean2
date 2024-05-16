@@ -264,15 +264,20 @@ class _PopularCourseWidgetState extends State<PopularCourseWidget> {
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            Container(
-                                              // width: 50,
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  color: Colors.amber.withOpacity(0.2)),
-                                              child: const Text('Bán chạy',
-                                                  style: TextStyle(
-                                                      fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
+                                            Visibility(
+                                              visible: index <= 10,
+                                              child: Container(
+                                                // width: 50,
+                                                padding: const EdgeInsets.all(4),
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    color: Colors.amber.withOpacity(0.2)),
+                                                child: const Text('Bán chạy',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.amber,
+                                                        fontWeight: FontWeight.w400)),
+                                              ),
                                             ),
                                           ],
                                         )

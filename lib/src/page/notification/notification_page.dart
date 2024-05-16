@@ -83,7 +83,9 @@ class _NotificationPageState extends State<NotificationPage> with MixinBasePage<
                           return GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () async {
-                              provider.readNotify(provider.listNotifation[index].id ?? '', index);
+                              if (provider.listNotifation[index].status == false) {
+                                provider.readNotify(provider.listNotifation[index].id ?? '', index);
+                              }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -176,7 +178,6 @@ class _NotificationPageState extends State<NotificationPage> with MixinBasePage<
 
   @override
   void initialise(BuildContext context) {
-    // TODO: implement initialise
   }
   Widget loading() {
     return ListView.separated(

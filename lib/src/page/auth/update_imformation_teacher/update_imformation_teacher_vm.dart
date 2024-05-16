@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kltn/src/model/user_model.dart';
+import 'package:kltn/src/remote/service/body/update_imformation_body.dart';
 import 'package:path/path.dart';
 
 import '../../../base/base_vm.dart';
 import '../../../model/course_type_model.dart';
 import '../../../model/experience_model.dart';
-import '../../../remote/service/body/profile_body.dart';
 
 class UpdateImformationTearcherVM extends BaseViewModel {
   TextEditingController fullNameController = TextEditingController();
@@ -42,6 +42,7 @@ class UpdateImformationTearcherVM extends BaseViewModel {
   String checkvalidateDescription = '';
   String checkvalidateimageDiploma = '';
   bool checkValidateImfomation = false;
+  String dateTime = '';
   List<CourseTypeModel> listTypeModel = [];
   String avatar = '';
   String diploma = '';
@@ -234,18 +235,19 @@ class UpdateImformationTearcherVM extends BaseViewModel {
       await uploadPhoto(image!, true);
       await uploadPhoto(imageDiploma!, false);
     }
-    final body = ProfileBody()
+    final body = UpdateImfomationBody()
       ..userAvatar = avatar
       ..userName = fullNameController.text
       ..userPhone = phoneController.text
       ..userUniversity = universityController.text
       ..userMajor = specializedController.text
       ..courseTtype = select
+      ..userBirthday = dateTime
       ..userExperience = userModel.userExperience ?? []
       ..userDiploma = diploma;
 
     try {
-      final response = await api.apiServices.updateProfile(
+      final response = await api.apiServices.updateImformation(
         {'x-atoken-id': prefs.token.toString()},
         {'x-client-id': prefs.userID.toString()},
         body,

@@ -19,6 +19,7 @@ class NotificationVM extends BaseViewModel {
   }
 
   Future fetchAllNotification({required bool isRefresh}) async {
+    notifyListeners();
     if (isRefresh) {
       page = 1;
     } else {

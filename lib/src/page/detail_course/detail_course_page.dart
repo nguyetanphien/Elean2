@@ -71,18 +71,18 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                       padding: const EdgeInsets.only(right: 15),
                       child: Row(
                         children: [
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: const Icon(
-                              Icons.share,
-                              color: Colors.black,
-                            ),
-                          ),
+                          // Container(
+                          //   height: 40,
+                          //   width: 40,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white,
+                          //     borderRadius: BorderRadius.circular(30),
+                          //   ),
+                          //   child: const Icon(
+                          //     Icons.share,
+                          //     color: Colors.black,
+                          //   ),
+                          // ),
                           const SizedBox(
                             width: 7,
                           ),
@@ -147,7 +147,8 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                     url: provider.model.courseDemoVideo ?? '',
                                     idCourse: '',
                                     idVideo: '',
-                                    idVideoSession: const [], isView: false,
+                                    idVideoSession: const [],
+                                    isView: false,
                                   ),
                                 ));
                           },

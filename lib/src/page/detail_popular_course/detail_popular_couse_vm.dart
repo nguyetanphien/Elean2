@@ -52,7 +52,8 @@ class DetailPopularCourseVM extends BaseViewModel {
       showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
     }
   }
-    ///
+
+  ///
   /// theem gior hang
   ///
   Future addCart(String? idCourse) async {
@@ -61,7 +62,7 @@ class DetailPopularCourseVM extends BaseViewModel {
       final response =
           await api.apiServices.postCart(idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
       if (response.status! >= 200 || response.status! < 400) {
-        showSucces('Thêm vào giỏ hàng thành công');
+        showSucces('Thêm vào danh sách yêu thích thành công');
         hideLoading();
       } else {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');

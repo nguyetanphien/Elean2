@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:kltn/src/base/base_vm.dart';
 import 'package:kltn/src/model/experience_model.dart';
 import 'package:kltn/src/model/user_model.dart';
@@ -39,6 +40,7 @@ class YourProfileVM extends BaseViewModel {
   bool checkCompany = false;
   bool checkTitle = false;
   bool checkDiscription = false;
+  String dateTime = '';
   UserModel userModel = UserModel();
   List<ExperienceModel> list = [];
 
@@ -107,7 +109,14 @@ class YourProfileVM extends BaseViewModel {
         emailController.text = response.data?.userEmail ?? '';
         avatar = response.data?.userAvatar ?? '';
         phoneController.text = response.data?.userPhone ?? '';
-        dateTimeController.text = response.data?.userBirthday ?? '';
+        try {
+          final date2 = DateTime.parse(response.data?.userBirthday ?? '');
+          dateTime = DateFormat('dd/MM/yyyy').format(date2);
+        } catch (e) {
+          log(e.toString());
+        }
+
+        dateTimeController.text = dateTime;
       }
       hideLoading();
       notifyListeners();
@@ -123,10 +132,11 @@ class YourProfileVM extends BaseViewModel {
     if (image != null) {
       await uploadPhoto();
     }
+
     final body = ProfileBody()
       ..userAvatar = avatar
       ..userName = nameController.text
-      ..userBirthday = dateTimeController.text
+      ..userBirthday = dateTime
       ..userPhone = phoneController.text
       ..userExperience = userModel.userExperience ?? [];
 
@@ -137,9 +147,9 @@ class YourProfileVM extends BaseViewModel {
         body,
       );
       if (response.status! >= 200 || response.status! < 400) {
+        showSucces("Cập nhật thông tin thành công");
         userModel = response.data ?? UserModel();
         prefs.userName = response.data?.userName ?? '';
-        showSucces("Cập nhật thông tin thành công");
 
         notifyListeners();
       }
@@ -172,7 +182,6 @@ class YourProfileVM extends BaseViewModel {
     titleCOntroller.text = '';
     descriptionCOntroller.text = '';
     list.add(dataExperience);
-    // userModel.userExperience?.add(dataExperience);
     userModel.userExperience = list;
     notifyListeners();
   }

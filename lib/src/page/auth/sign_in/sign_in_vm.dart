@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kltn/src/base/di/locator.dart';
@@ -65,8 +67,11 @@ class SignInVM extends BaseViewModel {
         prefs.token = response.data?.accessToken ?? '';
         prefs.userID = response.data?.metaData?.id ?? '';
         prefs.userName = response.data?.metaData?.userName ?? '';
-        prefs.userRole=response.data?.metaData?.userRole ?? '';
-        model = response.data?.metaData??UserModel();
+        prefs.userRole = response.data?.metaData?.userRole ?? '';
+        model = response.data?.metaData ?? UserModel();
+        if (response.data?.metaData?.userFcmToken == null) {
+          updateFcm();
+        }
         hideLoading();
         notifyListeners();
         callback?.call('');
@@ -83,6 +88,21 @@ class SignInVM extends BaseViewModel {
         showError('Tài khoản không tồn tại');
       }
       notifyListeners();
+    }
+  }
+
+  Future<void> updateFcm() async {
+    try {
+      final response = await api.apiServices.updateFcm(
+        {'x-atoken-id': prefs.token.toString()},
+        {'x-client-id': prefs.userID.toString()},
+        {'user_fcm_token': prefs.fcmToken},
+      );
+      if (response.status! >= 200 || response.status! < 400) {}
+      hideLoading();
+      notifyListeners();
+    } on DioException catch (e) {
+      log(e.message ?? "");
     }
   }
 }

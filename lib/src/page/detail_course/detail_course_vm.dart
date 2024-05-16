@@ -127,7 +127,7 @@ class DetailCourseVM extends BaseViewModel {
     // showLoading();
     notifyListeners();
     try {
-      final response = await api.apiServices.getInforMentor(model.userTeacher?.id??'');
+      final response = await api.apiServices.getInforMentor(model.userTeacher?.id ?? '');
       if (response.status! >= 200 || response.status! < 400) {
         mentorModel = response.data ?? MentorResponse();
         notifyListeners();
@@ -144,7 +144,7 @@ class DetailCourseVM extends BaseViewModel {
 
   ///
   /// thêm chữ "đã xem"
-  /// 
+  ///
   void setIsView(int index1, int index2) {
     listData[index1].courseDataVideo?.courseVideo?[index2].isSeen = true;
     notifyListeners();
@@ -202,7 +202,7 @@ class DetailCourseVM extends BaseViewModel {
       final response =
           await api.apiServices.postCart(idCourse, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
       if (response.status! >= 200 || response.status! < 400) {
-        showSucces('Thêm vào giỏ hàng thành công');
+        showSucces('Thêm vào danh sách yêu thích thành công');
         hideLoading();
       } else {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');

@@ -92,61 +92,64 @@ class _CourseMentorWidgetState extends State<CourseMentorWidget> {
                           const SizedBox(
                             width: 7,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.provider.listCourse[index].courseName ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black.withOpacity(0.7), fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.person,
-                                    color: AppColors.h8C8C8C,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    widget.provider.listCourse[index].userTeacher?.userName ?? '',
-                                    style: const TextStyle(
-                                        color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${NumberFormat.decimalPattern().format(widget.provider.listCourse[index].coursePrice)} VND',
-                                    style: const TextStyle(
-                                        color: AppColors.blue_246BFD, fontSize: 16, fontWeight: FontWeight.w500),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Container(
-                                    // width: 50,
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20), color: Colors.amber.withOpacity(0.2)),
-                                    child: const Text('Bán chạy',
-                                        style:
-                                            TextStyle(fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
-                                  ),
-                                ],
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.provider.listCourse[index].courseName ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black.withOpacity(0.7), fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.person,
+                                      color: AppColors.h8C8C8C,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      widget.provider.listCourse[index].userTeacher?.userName ?? '',
+                                      style: const TextStyle(
+                                          color: AppColors.h8C8C8C, fontSize: 12, fontWeight: FontWeight.w400),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${NumberFormat.decimalPattern().format(widget.provider.listCourse[index].coursePrice)} VND',
+                                      style: const TextStyle(
+                                          color: AppColors.blue_246BFD, fontSize: 16, fontWeight: FontWeight.w500),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      // width: 50,
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.amber.withOpacity(0.2)),
+                                      child: const Text('Bán chạy',
+                                          style: TextStyle(
+                                              fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

@@ -250,7 +250,6 @@ class VideoVM extends BaseViewModel {
       await Dio().download('http://52.221.211.77:3000/v1/api/download-document/$idVideo?fileName=$fileName', filePath,
           onReceiveProgress: (count, total) {
         progress = (count / total);
-        print('pppp$progress');
       }, cancelToken: cancelToken);
       dowloading = false;
       fileExists = true;

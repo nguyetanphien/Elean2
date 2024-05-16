@@ -4,6 +4,7 @@ import 'package:kltn/src/remote/service/body/profile_body.dart';
 import 'package:kltn/src/remote/service/body/question_body.dart';
 import 'package:kltn/src/remote/service/body/reply_body.dart';
 import 'package:kltn/src/remote/service/body/review_body.dart';
+import 'package:kltn/src/remote/service/body/update_imformation_body.dart';
 import 'package:kltn/src/remote/service/respone/answer_and_question/answer_and_question_response.dart';
 import 'package:kltn/src/remote/service/respone/mentor/mentor_response.dart';
 import 'package:kltn/src/remote/service/respone/review/review_response.dart';
@@ -198,6 +199,15 @@ abstract class ApiService {
   @PATCH('/user/update-profile')
   Future<BaseResponse<UserModel>> updateProfile(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
       @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() ProfileBody body);
+
+  // update profile
+  @PATCH('/user/update-profile')
+  Future<BaseResponse<UserModel>> updateImformation(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() UpdateImfomationBody body);
+  // update fcm
+  @PATCH('/user/update-profile')
+  Future<BaseResponse<UserModel>> updateFcm(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+      @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser, @Body() Map<String,dynamic> body);
   // update profile
   @PATCH('/user/update-password')
   Future<BaseResponse<UserModel>> updatePassword(@retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
@@ -240,9 +250,9 @@ abstract class ApiService {
   );
 
   // thong bao
-  @GET('/notification/get-notifications')
+  @GET('/notification/get-notifications?filter')
   Future<BaseResponse<NotificationResponse>> getNotification(
-    @Query('filter') String? filter,
+    @Path('filter') String? filter,
     @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
     @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
   );
