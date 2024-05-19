@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kltn/src/model/detail_notification_model.dart';
+import 'package:kltn/src/page/detail_course/detail_course_page.dart';
 
 import '../../../utils/app_colors.dart';
 
 class DetailNotificationPage extends StatefulWidget {
-  const DetailNotificationPage({super.key, required this.description, required this.title});
-  final String title;
-  final String description;
+  const DetailNotificationPage({super.key, required this.model});
+  final DetailNotificationModel model;
 
   @override
   State<DetailNotificationPage> createState() => _DetailNotificationPageState();
@@ -14,6 +15,7 @@ class DetailNotificationPage extends StatefulWidget {
 class _DetailNotificationPageState extends State<DetailNotificationPage> {
   @override
   Widget build(BuildContext context) {
+    print(widget.model.courseId);
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight: 80,
@@ -51,6 +53,42 @@ class _DetailNotificationPageState extends State<DetailNotificationPage> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          Visibility(
+            visible: widget.model.courseId != null,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  if (widget.model.courseId != null && widget.model.videoId != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailCoursePage(id: widget.model.courseId ?? '', idVideo: widget.model.videoId ?? ''),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailCoursePage(
+                          id: widget.model.courseId ?? '',
+                        ),
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Xem ngay',
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+        ],
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -68,7 +106,7 @@ class _DetailNotificationPageState extends State<DetailNotificationPage> {
             height: 50,
           ),
           Text(
-            widget.title,
+            widget.model.title ?? '',
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
           ),
@@ -76,7 +114,7 @@ class _DetailNotificationPageState extends State<DetailNotificationPage> {
             height: 20,
           ),
           Text(
-            widget.description,
+            widget.model.description ?? '',
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w500),
           )

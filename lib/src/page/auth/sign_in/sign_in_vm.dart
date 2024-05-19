@@ -69,7 +69,8 @@ class SignInVM extends BaseViewModel {
         prefs.userName = response.data?.metaData?.userName ?? '';
         prefs.userRole = response.data?.metaData?.userRole ?? '';
         model = response.data?.metaData ?? UserModel();
-        if (response.data?.metaData?.userFcmToken == null) {
+
+        if (response.data?.metaData?.userFcmToken == null || response.data?.metaData?.userFcmToken != prefs.fcmToken) {
           updateFcm();
         }
         hideLoading();

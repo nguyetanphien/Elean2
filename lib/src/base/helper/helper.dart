@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class Helper {
@@ -63,7 +65,7 @@ class Helper {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      print('Could not open the url $url.');
+      log('Could not open the url $url.');
     }
   }
 }

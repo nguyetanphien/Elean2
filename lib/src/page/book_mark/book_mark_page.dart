@@ -211,19 +211,21 @@ class _BookMarkPageState extends State<BookMarkPage> with MixinBasePage<BookMark
                                                               const SizedBox(
                                                                 height: 5,
                                                               ),
-                                                              const Row(
+                                                              Row(
                                                                 children: [
-                                                                  Icon(
+                                                                  const Icon(
                                                                     Icons.person,
                                                                     color: AppColors.h8C8C8C,
                                                                     size: 18,
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 5,
                                                                   ),
                                                                   Text(
-                                                                    'Nguyễn Tấn Phiên',
-                                                                    style: TextStyle(
+                                                                    provider.listCart[index].courseShema?.userTeacher
+                                                                            ?.userName ??
+                                                                        '',
+                                                                    style: const TextStyle(
                                                                         color: AppColors.h8C8C8C,
                                                                         fontSize: 12,
                                                                         fontWeight: FontWeight.w400),
@@ -252,8 +254,11 @@ class _BookMarkPageState extends State<BookMarkPage> with MixinBasePage<BookMark
                                                                     decoration: BoxDecoration(
                                                                         borderRadius: BorderRadius.circular(20),
                                                                         color: Colors.amber.withOpacity(0.2)),
-                                                                    child: const Text('Bán chạy',
-                                                                        style: TextStyle(
+                                                                    child: Text(
+                                                                        provider.typeCourse(provider.listCart[index]
+                                                                                .courseShema?.courseType ??
+                                                                            ''),
+                                                                        style: const TextStyle(
                                                                             fontSize: 12,
                                                                             color: Colors.amber,
                                                                             fontWeight: FontWeight.w400)),

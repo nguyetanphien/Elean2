@@ -45,7 +45,13 @@ class HomeVM extends BaseViewModel {
       notifyListeners();
     }
     newsNotification();
-    permissionNotifi();
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        permissionNotifi();
+      },
+    );
+    
   }
 
   @override
@@ -247,6 +253,13 @@ class HomeVM extends BaseViewModel {
     if (status != PermissionStatus.granted) {
       // await FcmService().requestPermission();
       await Permission.notification.request();
+      //    var isStorage2 = await Permission.storage.status;
+      //   if (!isStorage2.isGranted) {
+      //     // ignore: use_build_context_synchronously
+      //     showDialog(
+      //       context: context,
+      //       builder: (context) => const DialogPermision(title: 'Vui lòng cấp quyền thông báo'),
+      //     );
     }
   }
 }

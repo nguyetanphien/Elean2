@@ -333,75 +333,75 @@ class _YourProfilePageState extends State<YourProfilePage> with MixinBasePage<Yo
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                provider.userModel.userExperience?[index].company ?? '',
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
-                                              ),
-                                              const SizedBox(
-                                                height: 2,
-                                              ),
-                                              Text(
-                                                provider.userModel.userExperience?[index].title ?? '',
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    color: AppColors.h666666,
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400),
-                                              ),
-                                            ],
+                              return GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {
+                                  provider.companyController.text =
+                                      provider.userModel.userExperience?[index].company ?? '';
+                                  provider.titleCOntroller.text = provider.userModel.userExperience?[index].title ?? '';
+                                  provider.descriptionCOntroller.text =
+                                      provider.userModel.userExperience?[index].description ?? '';
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return DialogAddExperience(
+                                        provider: provider,
+                                        typeExperience: TypeExperience.EDIT,
+                                        index: index,
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  provider.userModel.userExperience?[index].company ?? '',
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+                                                ),
+                                                const SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Text(
+                                                  provider.userModel.userExperience?[index].title ?? '',
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      color: AppColors.h666666,
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w400),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            provider.companyController.text =
-                                                provider.userModel.userExperience?[index].company ?? '';
-                                            provider.titleCOntroller.text =
-                                                provider.userModel.userExperience?[index].title ?? '';
-                                            provider.descriptionCOntroller.text =
-                                                provider.userModel.userExperience?[index].description ?? '';
-                                            showDialog(
-                                              context: context,
-                                              barrierDismissible: false,
-                                              builder: (context) {
-                                                return DialogAddExperience(
-                                                  provider: provider,
-                                                  typeExperience: TypeExperience.EDIT,
-                                                  index: index,
-                                                );
-                                              },
-                                            );
-                                          },
-                                          child: const Icon(
+                                          const Icon(
                                             Icons.edit,
                                             color: AppColors.blue_246BFD,
                                             size: 15,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      provider.userModel.userExperience?[index].description ?? '',
-                                      style: const TextStyle(
-                                          color: AppColors.h9497AD, fontSize: 14, fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        provider.userModel.userExperience?[index].description ?? '',
+                                        style: const TextStyle(
+                                            color: AppColors.h9497AD, fontSize: 14, fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

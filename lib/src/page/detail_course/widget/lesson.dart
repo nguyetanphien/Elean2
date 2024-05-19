@@ -70,7 +70,7 @@ class _LessonWidgetState extends State<LessonWidget> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
-                                      widget.provider.listData[index].courseDataVideo?.courseVideo?.length ?? 10,
+                                      widget.provider.listData[index].courseDataVideo?.courseVideo?.length ?? 0,
                                       (index2) {
                                     final check = list.courseDataVideo?.courseVideo?[index2].videoUrl?.isEmpty;
                                     return GestureDetector(

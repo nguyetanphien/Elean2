@@ -133,19 +133,19 @@ class _CourseMentorWidgetState extends State<CourseMentorWidget> {
                                       style: const TextStyle(
                                           color: AppColors.blue_246BFD, fontSize: 16, fontWeight: FontWeight.w500),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Container(
-                                      // width: 50,
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: Colors.amber.withOpacity(0.2)),
-                                      child: const Text('Bán chạy',
-                                          style: TextStyle(
-                                              fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
-                                    ),
+                                    // const SizedBox(
+                                    //   width: 5,
+                                    // ),
+                                    // Container(
+                                    //   // width: 50,
+                                    //   padding: const EdgeInsets.all(4),
+                                    //   decoration: BoxDecoration(
+                                    //       borderRadius: BorderRadius.circular(20),
+                                    //       color: Colors.amber.withOpacity(0.2)),
+                                    //   child: const Text('Bán chạy',
+                                    //       style: TextStyle(
+                                    //           fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
+                                    // ),
                                   ],
                                 ),
                               ],

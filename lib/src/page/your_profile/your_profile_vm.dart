@@ -109,14 +109,15 @@ class YourProfileVM extends BaseViewModel {
         emailController.text = response.data?.userEmail ?? '';
         avatar = response.data?.userAvatar ?? '';
         phoneController.text = response.data?.userPhone ?? '';
+        list.addAll(response.data?.userExperience ?? []);
         try {
+          dateTime = response.data?.userBirthday ?? '';
           final date2 = DateTime.parse(response.data?.userBirthday ?? '');
-          dateTime = DateFormat('dd/MM/yyyy').format(date2);
+          var dateTime2 = DateFormat('dd/MM/yyyy').format(date2);
+          dateTimeController.text = dateTime2;
         } catch (e) {
           log(e.toString());
         }
-
-        dateTimeController.text = dateTime;
       }
       hideLoading();
       notifyListeners();

@@ -33,8 +33,26 @@ class ProfileVM extends BaseViewModel {
         userModel = response.data ?? UserModel();
         name = response.data?.userName ?? '';
         avatar = response.data?.userAvatar ?? '';
+        if (response.data?.userFcmToken == null || response.data?.userFcmToken != prefs.fcmToken) {
+          updateFcm();
+        }
       }
       // hideLoading();
+      notifyListeners();
+    } on DioException catch (e) {
+      log(e.message ?? "");
+    }
+  }
+
+  Future<void> updateFcm() async {
+    try {
+      final response = await api.apiServices.updateFcm(
+        {'x-atoken-id': prefs.token.toString()},
+        {'x-client-id': prefs.userID.toString()},
+        {'user_fcm_token': prefs.fcmToken},
+      );
+      if (response.status! >= 200 || response.status! < 400) {}
+      hideLoading();
       notifyListeners();
     } on DioException catch (e) {
       log(e.message ?? "");

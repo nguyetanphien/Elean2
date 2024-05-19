@@ -12,6 +12,8 @@ DetailNotificationModel _$DetailNotificationModelFromJson(
       ..id = json['_id'] as String?
       ..title = json['title'] as String?
       ..description = json['message'] as String?
+      ..videoId = json['videoId'] as String?
+      ..courseId = json['courseId'] as String?
       ..status = json['status'] as bool?
       ..createdAt = json['createdAt'] as String?;
 

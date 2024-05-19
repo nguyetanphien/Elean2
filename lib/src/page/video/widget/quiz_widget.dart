@@ -31,7 +31,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 height: 30,
               ),
               SizedBox(
-                height: 280,
+                height: 450,
                 child: ListView.separated(
                   itemCount: widget.provider.quizTitleModel.length,
                   itemBuilder: (context, index) {

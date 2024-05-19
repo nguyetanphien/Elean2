@@ -28,7 +28,7 @@ class DetailCourseVM extends BaseViewModel {
   bool isLoading = true;
   bool checkPay = false;
   bool checkBotomShow = true;
-  double numberStar = 0;
+  double numberStar = 5;
   Function(String)? callback;
   Map<int, bool> listCheckReply = {};
   Map<int, bool> listCheckViewReply = {};
@@ -254,6 +254,7 @@ class DetailCourseVM extends BaseViewModel {
       if (respone.status! >= 200) {
         hideLoading();
         fetchAllReview(isRefresh: true);
+        model.isUserReview = true;
         showSucces('Đánh giá thành công');
         notifyListeners();
       }
@@ -313,6 +314,9 @@ class DetailCourseVM extends BaseViewModel {
   }
 
   bool checkVisibleReview() {
+    if (prefs.userID == (mentorModel.findTeacher?.id ?? '')) {
+      return false;
+    }
     if ((model.getCourseData ?? []).isNotEmpty) {
       if (model.getCourseData?.first.courseDataVideo?.courseVideo?.first.videoUrl != null) {
         return !(model.isUserReview ?? false);

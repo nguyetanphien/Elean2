@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -23,15 +25,16 @@ Future<void> main() async {
   await locator<SharedPrefs>().initialise();
   final FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+  runApp(const MyApp());
   await FcmService().init();
   await FcmService().initForegroundNotification();
   await LocalNotificationService().init();
   FcmService().backgroundHandler();
+  // if (locator<SharedPrefs>().fcmToken == null) {
   final tokenFcm = await messaging.getToken();
   locator<SharedPrefs>().fcmToken = tokenFcm;
-  print("token_fcm:$tokenFcm");
-
-  runApp(const MyApp());
+  log("token_fcm:$tokenFcm");
+  // }
   InternetConnectionChecker().onStatusChange.listen((status) {
     switch (status) {
       case InternetConnectionStatus.connected:

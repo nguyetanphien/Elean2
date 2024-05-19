@@ -15,6 +15,7 @@ import 'package:retrofit/retrofit.dart' as retrofit;
 import 'package:kltn/src/model/course_type_model.dart';
 import 'package:kltn/src/remote/service/respone/base_response.dart';
 
+import '../../model/course_detail_model.dart';
 import '../../model/course_intro_model.dart';
 import '../../model/course_shema_model.dart';
 import '../../model/user_model.dart';
@@ -253,6 +254,14 @@ abstract class ApiService {
   @GET('/notification/get-notifications?filter')
   Future<BaseResponse<NotificationResponse>> getNotification(
     @Path('filter') String? filter,
+    @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
+    @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
+  );
+  
+  // thong bao
+  @GET('/course/get-one-video/{id}')
+  Future<BaseResponse<CourseDetailModel>> getVideo(
+    @Path('id') String? idVideo,
     @retrofit.Headers({'x-atoken-id': ''}) Map<String, dynamic> headers,
     @retrofit.Headers({'x-client-id': ''}) Map<String, dynamic> headersIdUser,
   );

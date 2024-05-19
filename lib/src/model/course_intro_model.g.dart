@@ -12,6 +12,7 @@ CourseIntroModel _$CourseIntroModelFromJson(Map<String, dynamic> json) =>
       ..courseName = json['course_name'] as String?
       ..courseThumnail = json['course_thumnail'] as String?
       ..coursePrice = json['course_price'] as int?
+      ..coursePurchased = json['course_purchased'] as int?
       ..courseRatingsAverage =
           (json['course_ratingsAverage'] as num?)?.toDouble()
       ..isInCart = json['is_in_cart'] as bool?
@@ -27,5 +28,6 @@ Map<String, dynamic> _$CourseIntroModelToJson(CourseIntroModel instance) =>
       'course_price': instance.coursePrice,
       'course_ratingsAverage': instance.courseRatingsAverage,
       'is_in_cart': instance.isInCart,
+      'course_purchased': instance.coursePurchased,
       'user_teacher': instance.userTeacher,
     };

@@ -124,11 +124,15 @@ class _DialogAddExperienceState extends State<DialogAddExperience> {
               height: 20,
             ),
             GestureDetector(
-              onTap: widget.provider.checkCompany && widget.provider.checkTitle && widget.provider.checkDiscription
+              onTap: widget.provider.titleCOntroller.text.isNotEmpty &&
+                      widget.provider.companyController.text.isNotEmpty &&
+                      widget.provider.descriptionCOntroller.text.isNotEmpty
                   ? () {
                       if (widget.typeExperience == TypeExperience.CREATE) {
                         widget.provider.addExperience();
+                        print("dddddd");
                       } else {
+                        print("dddddd");
                         widget.provider.editExperience(widget.index ?? 0);
                       }
                       Navigator.pop(context);
@@ -137,8 +141,7 @@ class _DialogAddExperienceState extends State<DialogAddExperience> {
                       setState(() {
                         if (widget.typeExperience == TypeExperience.CREATE) {
                           widget.provider.checkValidateExperience();
-                        }
-                        {
+                        } else {
                           Navigator.pop(context);
                         }
                       });

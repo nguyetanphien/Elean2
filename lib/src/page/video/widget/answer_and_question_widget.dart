@@ -59,7 +59,7 @@ class _AnswerAndQuestionWidgetState extends State<AnswerAndQuestionWidget> {
           height: 10,
         ),
         SizedBox(
-          height: 280,
+          height: 450,
           child: ScrollConfiguration(
             behavior: const ScrollBehavior().copyWith(overscroll: false),
             child: Paginate(

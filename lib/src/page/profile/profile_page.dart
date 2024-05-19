@@ -11,6 +11,7 @@ import 'package:kltn/src/page/profile/widgets/item_profile.dart';
 import 'package:kltn/src/page/your_profile/your_profile_page.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
+import '../dashboard_tearcher/dashboard_tearcher_page.dart';
 import 'widgets/dialog_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -170,6 +171,28 @@ class _ProfilePageState extends State<ProfilePage> with MixinBasePage<ProfileVM>
               ),
               const SizedBox(
                 height: 5,
+              ),
+              Visibility(
+                visible: provider.prefs.userRole == 'teacher',
+                child: Column(
+                  children: [
+                    ItemProfileWidget(
+                      icon: Icons.dashboard,
+                      title: 'Thông số khóa học ',
+                      ontap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DashBoardTearcherPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
               ),
               ItemProfileWidget(
                 icon: Icons.key,

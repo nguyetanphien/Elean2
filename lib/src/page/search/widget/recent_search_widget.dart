@@ -71,9 +71,8 @@ class _RecentSearchWidgetState extends State<RecentSearchWidget> {
                                       fontWeight: FontWeight.w400),
                                 ),
                                 const Spacer(),
-                                InkResponse(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     setState(() {
                                       widget.provider.listRecent.removeAt(index);
@@ -83,6 +82,7 @@ class _RecentSearchWidgetState extends State<RecentSearchWidget> {
                                   child: SvgPicture.asset(
                                     'assets/icon/cancel.svg',
                                     height: 14,
+                                    width: 30,
                                   ),
                                 ),
                                 const SizedBox(

@@ -16,8 +16,9 @@ import '../main/widget/dialog_login.dart';
 import 'widget/persisten_header.dart';
 
 class DetailCoursePage extends StatefulWidget {
-  const DetailCoursePage({super.key, required this.id, this.checkPay = false, this.login});
+  const DetailCoursePage({super.key, required this.id, this.checkPay = false, this.login, this.idVideo});
   final String id;
+  final String? idVideo;
   final bool checkPay;
   final Map<String, dynamic>? login;
 
@@ -390,8 +391,34 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 10),
               child: !provider.isLoading
-                  ? provider.checkPay == false
-                      ? Row(children: [
+                  ? provider.checkPay || provider.prefs.userID == provider.mentorModel.findTeacher?.id
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CoursePage(
+                                    // getCourseData: provider.model.getCourseData ?? [],
+                                    idCourse: provider.model.id ?? '',
+                                  ),
+                                ));
+                          },
+                          child: Container(
+                            height: MediaQuery.of(context).size.height,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: AppColors.blue_246BFD,
+                            ),
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                    provider.prefs.userID == provider.mentorModel.findTeacher?.id
+                                        ? 'Khóa học của bạn'
+                                        : 'Học ngay',
+                                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400))),
+                          ),
+                        )
+                      : Row(children: [
                           Column(
                             children: [
                               const Text(
@@ -443,29 +470,6 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                             ),
                           )
                         ])
-                      : GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CoursePage(
-                                    // getCourseData: provider.model.getCourseData ?? [],
-                                    idCourse: provider.model.id ?? '',
-                                  ),
-                                ));
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: AppColors.blue_246BFD,
-                            ),
-                            child: const Align(
-                                alignment: Alignment.center,
-                                child: Text('Học ngay',
-                                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400))),
-                          ),
-                        )
                   : Row(children: [
                       Column(
                         children: [
@@ -541,7 +545,24 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
         }
       },
     );
-
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (widget.idVideo != null) {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return VideoPage(
+                url: '',
+                idCourse: widget.id,
+                idVideo: widget.idVideo ?? '',
+                idVideoSession: const [],
+                isView: true,
+              );
+            },
+          ));
+        }
+      },
+    );
     provider.callback = (p0) async {
       await Navigator.push(
         context,

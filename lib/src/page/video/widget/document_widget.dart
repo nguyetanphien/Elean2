@@ -14,7 +14,7 @@ class _QuizWidgetState extends State<DocumentWidget> {
   Widget build(BuildContext context) {
     return widget.provider.listDocument.isNotEmpty
         ? SizedBox(
-            height: 280,
+            height: 450,
             child: ListView.separated(
               itemCount: widget.provider.listDocument.length,
               itemBuilder: (context, index) {

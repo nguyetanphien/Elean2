@@ -6,6 +6,8 @@ import 'package:kltn/src/page/detail_top_mentor/detail_top_mentor_vm.dart';
 import 'package:kltn/src/page/detail_top_mentor/widget/loading_widget.dart';
 import 'package:kltn/src/utils/app_colors.dart';
 
+import '../detail_mentor/detail_mentor_page.dart';
+
 class DetailTopMentorPage extends StatefulWidget {
   const DetailTopMentorPage({super.key});
 
@@ -82,57 +84,67 @@ class _DetailTopMentorPageState extends State<DetailTopMentorPage> with MixinBas
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 60,
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(color: AppColors.blue_246BFD, width: 2),
+                              return GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailMentorPage(
+                                        idMentor: provider.listMentor[index].id ?? '',
                                       ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: (provider.listMentor[index].userAvatar ?? '').isEmpty
-                                            ? Image.asset(
-                                                'assets/image/logo.png',
-                                                fit: BoxFit.contain,
-                                              )
-                                            : CachedNetworkImage(
-                                                imageUrl: provider.listMentor[index].userAvatar ?? '',
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) => const Center(
-                                                  child: CircularProgressIndicator(),
+                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 15, left: 15, bottom: 15),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 60,
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          border: Border.all(color: AppColors.blue_246BFD, width: 2),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(50),
+                                          child: (provider.listMentor[index].userAvatar ?? '').isEmpty
+                                              ? Image.asset(
+                                                  'assets/image/logo.png',
+                                                  fit: BoxFit.contain,
+                                                )
+                                              : CachedNetworkImage(
+                                                  imageUrl: provider.listMentor[index].userAvatar ?? '',
+                                                  fit: BoxFit.cover,
+                                                  placeholder: (context, url) => const Center(
+                                                    child: CircularProgressIndicator(),
+                                                  ),
+                                                  errorWidget: (context, url, error) => const Icon(Icons.error),
                                                 ),
-                                                errorWidget: (context, url, error) => const Icon(Icons.error),
-                                              ),
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          provider.listMentor[index].userName ?? "",
-                                          style: const TextStyle(
-                                              fontSize: 16, color: AppColors.h333333, fontWeight: FontWeight.w600),
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        const Text(
-                                          'CNTT',
-                                          style: TextStyle(
-                                              fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            provider.listMentor[index].userName ?? "",
+                                            style: const TextStyle(
+                                                fontSize: 16, color: AppColors.h333333, fontWeight: FontWeight.w600),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          const Text(
+                                            'CNTT',
+                                            style: TextStyle(
+                                                fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

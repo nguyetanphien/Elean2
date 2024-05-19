@@ -28,7 +28,7 @@ class BookMarkVM extends BaseViewModel {
     // showLoading();
     try {
       final response = await api.apiServices.getCourseType();
-      if (response.status! >= 200&&response.status!<400) {
+      if (response.status! >= 200 && response.status! < 400) {
         // listTypeModel.clear();
         listTypeModel.addAll(response.data ?? []);
         isLoadingCatelory = false;
@@ -58,7 +58,7 @@ class BookMarkVM extends BaseViewModel {
     try {
       final response =
           await api.apiServices.getCart(filtter(id ?? ''), {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
-      if (response.status! >= 200&&response.status!<400) {
+      if (response.status! >= 200 && response.status! < 400) {
         listCart.clear();
         listCart.addAll(response.data ?? []);
         isLoadingCourse = false;
@@ -83,7 +83,7 @@ class BookMarkVM extends BaseViewModel {
     try {
       final response =
           await api.apiServices.deleteCart(id, {'x-atoken-id': prefs.token}, {'x-client-id': prefs.userID});
-      if (response.status! >= 200&&response.status!<400) {
+      if (response.status! >= 200 && response.status! < 400) {
         hideLoading();
         showSucces('Xoá thành công.');
         listCart.removeAt(index);
@@ -99,5 +99,14 @@ class BookMarkVM extends BaseViewModel {
       log(e.message.toString());
       showError('Xóa không thành công');
     }
+  }
+
+  String typeCourse(String id) {
+    for (var element in listTypeModel) {
+      if (element.id == id) {
+        return element.typeName ?? '';
+      }
+    }
+    return '';
   }
 }

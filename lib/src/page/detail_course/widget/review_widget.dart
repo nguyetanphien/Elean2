@@ -70,7 +70,8 @@ class _ReviewWidgetState extends State<ReviewWidget> {
           height: 10,
         ),
         Visibility(
-          visible: widget.provider.checkVisibleReview(),
+          visible: widget.provider.checkVisibleReview()
+              ,
           child: GestureDetector(
             onTap: () {
               showModalBottomSheet(
@@ -175,7 +176,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                           width: 5,
                                         ),
                                         Text(
-                                          (widget.provider.listComment[index].reviewRating ?? 0).toString(),
+                                          "${(widget.provider.listComment[index].reviewRating ?? 0)}/5",
                                           style: const TextStyle(
                                               color: AppColors.h8C8C8C, fontSize: 10, fontWeight: FontWeight.w400),
                                         ),

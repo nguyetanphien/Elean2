@@ -25,7 +25,7 @@ class DetailMentorVM extends BaseViewModel {
   }
 
   ///
-  /// lấy thông tin giản viên
+  /// lấy thông tin giảng viên
   ///
   Future fetchMentor() async {
     try {
@@ -36,6 +36,7 @@ class DetailMentorVM extends BaseViewModel {
         showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }
       checkLoading = false;
+      notifyListeners();
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());
@@ -54,7 +55,7 @@ class DetailMentorVM extends BaseViewModel {
     }
     notifyListeners();
     try {
-      final response = await api.apiServices.getCourseMentor(idMentor, 2, page);
+      final response = await api.apiServices.getCourseMentor(idMentor, 10, page);
       if (response.status! >= 200 || response.status! < 400) {
         if (isRefresh) {
           listCourse.clear();

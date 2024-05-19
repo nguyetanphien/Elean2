@@ -144,7 +144,7 @@ class _BottomReviewState extends State<BottomReview> {
             height: 15,
           ),
           RatingBar.builder(
-            initialRating: 5,
+            initialRating: widget.provider.numberStar,
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: false,

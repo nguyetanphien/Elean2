@@ -13,6 +13,12 @@ class DetailNotificationModel {
   @JsonKey(name: 'message')
   String? description;
 
+  @JsonKey(name: 'courseId')
+  String? courseId;
+
+  @JsonKey(name: 'videoId')
+  String? videoId;
+
   @JsonKey(name: 'status')
   bool? status;
 

@@ -90,8 +90,7 @@ class _NotificationPageState extends State<NotificationPage> with MixinBasePage<
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => DetailNotificationPage(
-                                    description: provider.listNotifation[index].description ?? '',
-                                    title: provider.listNotifation[index].title ?? '',
+                                    model: provider.listNotifation[index],
                                   ),
                                 ),
                               );

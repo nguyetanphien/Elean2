@@ -1264,6 +1264,42 @@ class _ApiService implements ApiService {
     );
     return value;
   }
+  @override
+  Future<BaseResponse<CourseDetailModel>> getVideo(
+    String? id,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> headersIdUser,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      'x-atoken-id': headers['x-atoken-id'],
+      'x-client-id': headersIdUser['x-client-id']
+    };
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<CourseDetailModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/course/get-one-video/$id',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = BaseResponse<CourseDetailModel>.fromJson(
+      _result.data!,
+      (json) => CourseDetailModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
 
   @override
   Future<BaseResponse<dynamic>> readNotication(

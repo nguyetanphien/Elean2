@@ -5,7 +5,8 @@ import '../../../utils/app_colors.dart';
 import '../../profile/widgets/dialog_widget.dart';
 
 class DialogPermision extends StatelessWidget {
-  const DialogPermision({super.key});
+  const DialogPermision({super.key, this.title = ''});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class DialogPermision extends StatelessWidget {
         size: 80.0,
       ),
       title: 'Cảnh báo',
-      message: 'Vui lòng cấp quyền để xem tài liệu',
+      message: title.isNotEmpty ? title : 'Vui lòng cấp quyền để xem tài liệu',
       actions: [
         SizedBox(
           width: MediaQuery.of(context).size.width,

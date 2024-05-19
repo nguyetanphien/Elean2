@@ -18,6 +18,9 @@ class CourseIntroModel {
   @JsonKey(name: 'course_price')
   int? coursePrice;
 
+  @JsonKey(name: 'course_purchased')
+  int? coursePurchased;
+
   @JsonKey(name: 'course_ratingsAverage')
   double? courseRatingsAverage;
 
