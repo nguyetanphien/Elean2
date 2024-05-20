@@ -10,6 +10,9 @@ class CourseTypeModel {
   @JsonKey(name: 'type_name')
   String? typeName;
 
+  @JsonKey(name: 'type_thumnail')
+  String? typeThumnail;
+
   CourseTypeModel();
 
   factory CourseTypeModel.fromJson(Map<String, dynamic> json) =>

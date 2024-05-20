@@ -129,33 +129,37 @@ class _LessonWidgetState extends State<LessonWidget> {
                                                 const SizedBox(
                                                   width: 5,
                                                 ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      list.courseDataVideo?.courseVideo?[index2].videoTitle ?? '',
-                                                      style: const TextStyle(
-                                                          color: AppColors.h434343,
-                                                          fontSize: 13,
-                                                          fontWeight: FontWeight.w600),
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      (widget.provider.convertMillisecondsToSeconds(
-                                                              list.courseDataVideo?.courseVideo?[index2].videoLength ??
-                                                                  0))
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                          color: AppColors.h9497AD,
-                                                          fontSize: 13,
-                                                          fontWeight: FontWeight.w400),
-                                                    )
-                                                  ],
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        list.courseDataVideo?.courseVideo?[index2].videoTitle ?? '',
+                                                        style: const TextStyle(
+                                                            color: AppColors.h434343,
+                                                            fontSize: 13,
+                                                            fontWeight: FontWeight.w600),
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        (widget.provider.convertMillisecondsToSeconds(list
+                                                                    .courseDataVideo
+                                                                    ?.courseVideo?[index2]
+                                                                    .videoLength ??
+                                                                0))
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                            color: AppColors.h9497AD,
+                                                            fontSize: 13,
+                                                            fontWeight: FontWeight.w400),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                                const Spacer(),
+                                                // const Spacer(),
                                                 Visibility(
                                                   visible: !(check ?? true),
                                                   child: Container(

@@ -14,17 +14,18 @@ class SplashVM extends BaseViewModel {
   void onInit() {}
   void checkIntol(BuildContext context) {
     // Timer(const Duration(seconds: 2), () {
-    //         Navigator.pushAndRemoveUntil(
-    //           context,
-    //           MaterialPageRoute(
-    //             builder: (context) => (locator<SharedPrefs>().intro == false || locator<SharedPrefs>().intro == null)
-    //                 ? const Intro1()
-    //                 :MainPage(),
-
-    //           ),
-    //           (route) => false,
-    //         );
-    //       });
+    //   Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => (prefs.intro == false || prefs.intro == null)
+    //           ? const Intro1()
+    //           : prefs.token != null && prefs.userRole == 'teacher' && prefs.userUpdate == null
+    //               ? const UpdateImformationTeacherpage(checkLogin: {})
+    //               : MainPage(),
+    //     ),
+    //     (route) => false,
+    //   );
+    // });
     InternetConnectionChecker().onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:
@@ -58,12 +59,4 @@ class SplashVM extends BaseViewModel {
       }
     });
   }
-
-  // Widget showLoading1() {
-  //   return Container(
-  //     height: 30,
-  //     width: 30,
-  //     child: showLoading(),
-  //   );
-  // }
 }

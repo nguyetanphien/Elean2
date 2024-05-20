@@ -39,7 +39,7 @@ class MyCourseVM extends BaseViewModel {
         modelProcessOngoing.clear();
         modelProcessCompleted.clear();
         for (var element in modelProcess.userCourse ?? []) {
-          if (element.processCourse <= 1) {
+          if (element.processCourse < 1) {
             modelProcessOngoing.add(element);
           } else {
             modelProcessCompleted.add(element);

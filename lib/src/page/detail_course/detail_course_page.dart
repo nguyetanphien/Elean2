@@ -415,7 +415,8 @@ class _DetailCoursePageState extends State<DetailCoursePage> with MixinBasePage<
                                     provider.prefs.userID == provider.mentorModel.findTeacher?.id
                                         ? 'Khóa học của bạn'
                                         : 'Học ngay',
-                                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400))),
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400))),
                           ),
                         )
                       : Row(children: [

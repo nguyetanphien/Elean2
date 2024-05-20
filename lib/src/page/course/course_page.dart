@@ -166,27 +166,28 @@ class _CoursePageState extends State<CoursePage> with MixinBasePage<CourseVM> {
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            listTitle?.courseDataVideo?.courseVideo?[index].videoTitle ?? '',
-                                            style: const TextStyle(
-                                                color: AppColors.h434343, fontSize: 13, fontWeight: FontWeight.w600),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            provider.convertMillisecondsToSeconds(
-                                                listTitle?.courseDataVideo?.courseVideo?[index].videoLength ?? 0),
-                                            style: const TextStyle(
-                                                color: AppColors.h9497AD, fontSize: 13, fontWeight: FontWeight.w400),
-                                          )
-                                        ],
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              listTitle?.courseDataVideo?.courseVideo?[index].videoTitle ?? '',
+                                              style: const TextStyle(
+                                                  color: AppColors.h434343, fontSize: 13, fontWeight: FontWeight.w600),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              provider.convertMillisecondsToSeconds(
+                                                  listTitle?.courseDataVideo?.courseVideo?[index].videoLength ?? 0),
+                                              style: const TextStyle(
+                                                  color: AppColors.h9497AD, fontSize: 13, fontWeight: FontWeight.w400),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      const Spacer(),
                                       Container(
                                         width: 30,
                                         height: 30,

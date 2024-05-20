@@ -51,7 +51,6 @@ class HomeVM extends BaseViewModel {
         permissionNotifi();
       },
     );
-    
   }
 
   @override
@@ -154,7 +153,7 @@ class HomeVM extends BaseViewModel {
         modelProcess = response.data ?? CourseProcessResponse();
         modelProcessOngoing.clear();
         for (var element in modelProcess.userCourse ?? []) {
-          if (element.processCourse <= 1) {
+          if (element.processCourse < 1) {
             modelProcessOngoing.add(element);
           }
         }

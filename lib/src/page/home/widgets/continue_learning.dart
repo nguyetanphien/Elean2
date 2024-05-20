@@ -119,9 +119,12 @@ class _ContinueLearningWidgetState extends State<ContinueLearningWidget> {
                                                 borderRadius: BorderRadius.circular(20),
                                                 color: Colors.amber.withOpacity(0.2)),
                                             child: Text(
-                                                widget.provider.modelProcessOngoing[index].courseInfo
-                                                        ?.courseType['type_name'] ??
-                                                    '',
+                                                widget.provider.modelProcessOngoing[index].courseInfo?.courseType !=
+                                                        null
+                                                    ? widget.provider.modelProcessOngoing[index].courseInfo
+                                                            ?.courseType['type_name'] ??
+                                                        ''
+                                                    : 'Lập trình',
                                                 style: const TextStyle(
                                                     fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
                                           ),

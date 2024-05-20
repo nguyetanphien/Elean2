@@ -85,7 +85,7 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                                           child: Text(
                                               widget.provider.modelProcessCompleted[index].courseInfo?.courseType
                                                       ?.typeName ??
-                                                  '',
+                                                  'Lập Trình',
                                               style: const TextStyle(
                                                   fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
                                         ),
