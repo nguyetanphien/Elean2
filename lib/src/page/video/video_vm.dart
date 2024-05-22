@@ -195,12 +195,12 @@ class VideoVM extends BaseViewModel {
         isLoading = false;
         notifyListeners();
       } else {
-        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+        // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());
-      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       isLoading = false;
       hideLoading();
     }
@@ -221,12 +221,12 @@ class VideoVM extends BaseViewModel {
 
         notifyListeners();
       } else {
-        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+        // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());
-      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       isLoading = false;
       hideLoading();
     }
@@ -244,12 +244,12 @@ class VideoVM extends BaseViewModel {
         listDocument.addAll(response.data ?? []);
         notifyListeners();
       } else {
-        showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+        // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message.toString());
-      showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
+      // showError('Không thể kết nối đến máy chủ.\nVui lòng thử lại.');
       isLoading = false;
       hideLoading();
     }

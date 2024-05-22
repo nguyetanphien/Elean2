@@ -52,12 +52,11 @@ class UpdateImformationTearcherVM extends BaseViewModel {
   void onInit() {
     getUser();
     fetchTypeAll();
-    // TODO: implement onInit
   }
 
   Future<void> getImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       image = File(pickedFile.path);

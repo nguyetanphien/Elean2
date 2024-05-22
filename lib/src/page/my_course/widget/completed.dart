@@ -83,9 +83,12 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                                               borderRadius: BorderRadius.circular(20),
                                               color: Colors.amber.withOpacity(0.2)),
                                           child: Text(
-                                              widget.provider.modelProcessCompleted[index].courseInfo?.courseType
-                                                      ?.typeName ??
-                                                  'Lập Trình',
+                                              widget.provider.modelProcessCompleted[index].courseInfo?.courseType !=
+                                                      null
+                                                  ? widget.provider.modelProcessCompleted[index].courseInfo
+                                                          ?.courseType['type_name'] ??
+                                                      ""
+                                                  : 'Lập trình',
                                               style: const TextStyle(
                                                   fontSize: 12, color: Colors.amber, fontWeight: FontWeight.w400)),
                                         ),

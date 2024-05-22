@@ -304,7 +304,7 @@ class _HomePageState extends State<HomePage> with MixinBasePage<HomeVM> {
                                                               Container(
                                                                 height: (MediaQuery.of(context).size.width - 90) / 4,
                                                                 width: (MediaQuery.of(context).size.width - 90) / 4,
-                                                                padding: EdgeInsets.all(15),
+                                                                padding: const EdgeInsets.all(15),
                                                                 decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(60),
                                                                     color: AppColors.h595959.withOpacity(0.08)),

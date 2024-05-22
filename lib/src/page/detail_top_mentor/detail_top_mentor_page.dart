@@ -136,11 +136,11 @@ class _DetailTopMentorPageState extends State<DetailTopMentorPage> with MixinBas
                                           const SizedBox(
                                             height: 4,
                                           ),
-                                          const Text(
-                                            'CNTT',
-                                            style: TextStyle(
-                                                fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
-                                          ),
+                                          // const Text(
+                                          //   'CNTT',
+                                          //   style: TextStyle(
+                                          //       fontSize: 10, color: AppColors.h9497AD, fontWeight: FontWeight.w400),
+                                          // ),
                                         ],
                                       ),
                                     ],

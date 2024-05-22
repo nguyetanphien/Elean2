@@ -11,8 +11,7 @@ class ViewAllCourseTypePage extends StatefulWidget {
   State<ViewAllCourseTypePage> createState() => _ViewAllCourseTypePageState();
 }
 
-class _ViewAllCourseTypePageState extends State<ViewAllCourseTypePage>
-    with MixinBasePage<ViewAllCourseTypeVM> {
+class _ViewAllCourseTypePageState extends State<ViewAllCourseTypePage> with MixinBasePage<ViewAllCourseTypeVM> {
   @override
   Widget build(BuildContext context) {
     return builder(
@@ -48,8 +47,7 @@ class _ViewAllCourseTypePageState extends State<ViewAllCourseTypePage>
           ),
           title: Container(
             width: MediaQuery.of(context).size.width,
-            padding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.5),
+            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.5),
             child: const Text(
               'Danh mục',
               style: TextStyle(
@@ -78,8 +76,7 @@ class _ViewAllCourseTypePageState extends State<ViewAllCourseTypePage>
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseTypePage(
-                          nameType: provider.listTypeModel[index]),
+                      builder: (context) => DetailCourseTypePage(nameType: provider.listTypeModel[index]),
                     ),
                   ),
                   child: Column(
@@ -87,14 +84,12 @@ class _ViewAllCourseTypePageState extends State<ViewAllCourseTypePage>
                       Container(
                         height: 70,
                         width: 70,
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: AppColors.grayA2.withOpacity(0.4),
                         ),
-                        child: const Icon(
-                          Icons.question_mark_sharp,
-                          color: AppColors.blue_246BFD,
-                        ),
+                        child: Image.network(provider.listTypeModel[index].typeThumnail ?? ''),
                       ),
                       const SizedBox(
                         height: 10,
@@ -102,10 +97,7 @@ class _ViewAllCourseTypePageState extends State<ViewAllCourseTypePage>
                       Text(
                         provider.listTypeModel[index].typeName ?? "",
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
+                        style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
                       )
                     ],
                   ),
